@@ -6173,19 +6173,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\moaaz\\.nuget\\packages\\": {}
+    "C:\\Users\\AL-FAJR\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\.Net Projects\\Back-end\\Back-end\\Back-end.csproj",
+      "projectUniqueName": "C:\\Users\\AL-FAJR\\Desktop\\InsightfulLiving-Energy-Tracker\\Back-end\\Back-end\\Back-end.csproj",
       "projectName": "Back-end",
-      "projectPath": "D:\\.Net Projects\\Back-end\\Back-end\\Back-end.csproj",
-      "packagesPath": "C:\\Users\\moaaz\\.nuget\\packages\\",
-      "outputPath": "D:\\.Net Projects\\Back-end\\Back-end\\obj\\",
+      "projectPath": "C:\\Users\\AL-FAJR\\Desktop\\InsightfulLiving-Energy-Tracker\\Back-end\\Back-end\\Back-end.csproj",
+      "packagesPath": "C:\\Users\\AL-FAJR\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\AL-FAJR\\Desktop\\InsightfulLiving-Energy-Tracker\\Back-end\\Back-end\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\moaaz\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\AL-FAJR\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -6253,6 +6253,24 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
+        "downloadDependencies": [
+          {
+            "name": "Microsoft.AspNetCore.App.Ref",
+            "version": "[7.0.14, 7.0.14]"
+          },
+          {
+            "name": "Microsoft.NETCore.App.Host.win-x64",
+            "version": "[7.0.14, 7.0.14]"
+          },
+          {
+            "name": "Microsoft.NETCore.App.Ref",
+            "version": "[7.0.14, 7.0.14]"
+          },
+          {
+            "name": "Microsoft.WindowsDesktop.App.Ref",
+            "version": "[7.0.14, 7.0.14]"
+          }
+        ],
         "frameworkReferences": {
           "Microsoft.AspNetCore.App": {
             "privateAssets": "none"
