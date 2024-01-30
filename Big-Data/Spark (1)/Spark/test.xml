@@ -1,0 +1,10 @@
+<Breakfast>
+	<food>
+		<name>test</name>
+		<price>1</price>
+	</food>
+	<food>
+		<name>test2</name>
+		<price>2</price>
+	</food>
+</Breakfast>
