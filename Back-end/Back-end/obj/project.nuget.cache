@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "MYGXmt7xMBrt3FkSTWhvvBAvZslm7UxYDglRkk7wSQyKNfyfdFkhgH4I7L9M3rOEIZ0PLF3eoe0F0F1s7YNUIw==",
+  "dgSpecHash": "fRsJZ2J4ZvfALgQCzZXTVNi2Umgmicoy77X/I6Ggfpfn4fAaUx6xO52GtQEzyqFFknPFeehmNQoSwlu2NphN+g==",
   "success": true,
-  "projectFilePath": "D:\\.Net Projects\\Back-end\\Back-end\\Back-end.csproj",
+  "projectFilePath": "C:\\Users\\moaaz\\source\\repos\\InsightfulLiving-Energy-Tracker\\Back-end\\Back-end\\Back-end.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\moaaz\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",
     "C:\\Users\\moaaz\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",

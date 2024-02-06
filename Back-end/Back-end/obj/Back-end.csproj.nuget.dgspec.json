@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\.Net Projects\\Back-end\\Back-end\\Back-end.csproj": {}
+    "C:\\Users\\moaaz\\source\\repos\\InsightfulLiving-Energy-Tracker\\Back-end\\Back-end\\Back-end.csproj": {}
   },
   "projects": {
-    "D:\\.Net Projects\\Back-end\\Back-end\\Back-end.csproj": {
+    "C:\\Users\\moaaz\\source\\repos\\InsightfulLiving-Energy-Tracker\\Back-end\\Back-end\\Back-end.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\.Net Projects\\Back-end\\Back-end\\Back-end.csproj",
+        "projectUniqueName": "C:\\Users\\moaaz\\source\\repos\\InsightfulLiving-Energy-Tracker\\Back-end\\Back-end\\Back-end.csproj",
         "projectName": "Back-end",
-        "projectPath": "D:\\.Net Projects\\Back-end\\Back-end\\Back-end.csproj",
+        "projectPath": "C:\\Users\\moaaz\\source\\repos\\InsightfulLiving-Energy-Tracker\\Back-end\\Back-end\\Back-end.csproj",
         "packagesPath": "C:\\Users\\moaaz\\.nuget\\packages\\",
-        "outputPath": "D:\\.Net Projects\\Back-end\\Back-end\\obj\\",
+        "outputPath": "C:\\Users\\moaaz\\source\\repos\\InsightfulLiving-Energy-Tracker\\Back-end\\Back-end\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\moaaz\\AppData\\Roaming\\NuGet\\NuGet.Config",
