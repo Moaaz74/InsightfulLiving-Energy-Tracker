@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "fRsJZ2J4ZvfALgQCzZXTVNi2Umgmicoy77X/I6Ggfpfn4fAaUx6xO52GtQEzyqFFknPFeehmNQoSwlu2NphN+g==",
+  "dgSpecHash": "xvEBwVCHGJNCxBBk660vtXAbkjTTOJF6NFJ72Yhl+4wrE0kZwCWYmCWXau6kSzqn69tHYOKc5UV1AjMpvnQNrg==",
   "success": true,
   "projectFilePath": "C:\\Users\\moaaz\\source\\repos\\InsightfulLiving-Energy-Tracker\\Back-end\\Back-end\\Back-end.csproj",
   "expectedPackageFiles": [
@@ -25,6 +25,7 @@
     "C:\\Users\\moaaz\\.nuget\\packages\\microsoft.entityframeworkcore.design\\7.0.15\\microsoft.entityframeworkcore.design.7.0.15.nupkg.sha512",
     "C:\\Users\\moaaz\\.nuget\\packages\\microsoft.entityframeworkcore.relational\\7.0.15\\microsoft.entityframeworkcore.relational.7.0.15.nupkg.sha512",
     "C:\\Users\\moaaz\\.nuget\\packages\\microsoft.entityframeworkcore.sqlserver\\7.0.15\\microsoft.entityframeworkcore.sqlserver.7.0.15.nupkg.sha512",
+    "C:\\Users\\moaaz\\.nuget\\packages\\microsoft.entityframeworkcore.tools\\7.0.15\\microsoft.entityframeworkcore.tools.7.0.15.nupkg.sha512",
     "C:\\Users\\moaaz\\.nuget\\packages\\microsoft.extensions.caching.abstractions\\7.0.0\\microsoft.extensions.caching.abstractions.7.0.0.nupkg.sha512",
     "C:\\Users\\moaaz\\.nuget\\packages\\microsoft.extensions.caching.memory\\7.0.0\\microsoft.extensions.caching.memory.7.0.0.nupkg.sha512",
     "C:\\Users\\moaaz\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\7.0.0\\microsoft.extensions.configuration.abstractions.7.0.0.nupkg.sha512",
