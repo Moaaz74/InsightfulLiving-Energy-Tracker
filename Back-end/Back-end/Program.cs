@@ -1,3 +1,6 @@
+using Back_end.Kafka.EventProcessor.Implementations;
+using Back_end.Kafka.EventProcessor.Interfaces;
+using Back_end.Kafka.Services;
 using Back_end.Models;
 using Back_end.Repositories;
 using Microsoft.AspNetCore.Identity;
@@ -14,6 +17,9 @@ namespace Back_end
             // Add services to the container.
 
             builder.Services.AddControllers();
+            builder.Services.AddSignalR();
+            builder.Services.AddSingleton<IEventConsumer, KafkaConsumer>();
+            builder.Services.AddHostedService<KafkaConsumerService>();
             builder.Services.AddIdentityCore<ApplicationUser>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
