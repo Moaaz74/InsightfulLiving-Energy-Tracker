@@ -59,12 +59,14 @@ public class Simulator_Home268_Kitchen2471_Kettle {
 
     private static String convertToJSON(String line) {
         String[] sentAttributes = line.split(",");
+        int homeId = 268;
+        int roomId = 2471;
         int applianceId = 4098;
         Date currentDate = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String formattedDate = sdf.format(currentDate);
         String type = "Electricity";
-        return "{\"ApplianceId\" : \"" + applianceId + "\" , \"DateTime\": \"" + formattedDate + "\" , \"EnergyType\": \"" + type +  "\", \"Value\":\"" + sentAttributes[1] + "\"}";
+        return "{\"HomeId\" : \"" + homeId + "\" , \"RoomId\" : \""+ roomId + "\" , \"ApplianceId\" : \"" + applianceId + "\" , \"DateTime\": \"" + formattedDate + "\" , \"EnergyType\": \"" + type +  "\", \"Value\":\"" + sentAttributes[1] + "\"}";
     }
 
 }

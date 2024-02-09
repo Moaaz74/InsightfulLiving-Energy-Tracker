@@ -3,7 +3,9 @@ package Demo;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
-import org.apache.spark.sql.*;
+import org.apache.spark.sql.Dataset;
+import org.apache.spark.sql.Row;
+import org.apache.spark.sql.SparkSession;
 import org.apache.spark.sql.streaming.StreamingQueryException;
 import org.apache.spark.sql.types.DataTypes;
 
@@ -12,14 +14,14 @@ import java.util.concurrent.TimeoutException;
 
 import static org.apache.spark.sql.functions.*;
 
-public class WaterProcessing {
-    public static void main(String[] args){
+public class RoomProcessing {
+    public static void main(String[] args) {
         System.setProperty("hadoop.home.dir", "c:/hadoop");
         Logger.getLogger("org.apache").setLevel(Level.WARN);
         Logger.getLogger("org.apache.spark.storage").setLevel(Level.ERROR);
 
         SparkSession spark = SparkSession.builder()
-                .appName("EnergyConsumptionAnalysis")
+                .appName("EnergyTracker")
                 .master("local[*]")
                 .getOrCreate();
         Properties producerProps = new Properties();
@@ -30,54 +32,53 @@ public class WaterProcessing {
         Dataset<Row> jsonStream = spark.readStream()
                 .format("kafka")
                 .option("kafka.bootstrap.servers", "localhost:9092")
-                .option("subscribe", "simulatorTopic")
+                .option("subscribe", "nifi1")
                 .option("startingOffsets", "latest")
                 .option("failOnDataLoss", "false")
                 .load()
                 .selectExpr("CAST(value AS STRING)");
 
-        Dataset<Row> ResultStream = jsonStream.selectExpr("CAST(value AS STRING)")
+        Dataset<Row> resultStream = jsonStream.selectExpr("CAST(value AS STRING)")
                 .select(from_json(col("value"), getSchema()).as("data"))
                 .select("data.*")
-                .withColumn("SensorId", col("SensorId").cast(DataTypes.IntegerType))
-                .withColumn("HomeId", col("HomeId").cast(DataTypes.IntegerType))
+                .withColumn("RoomId", col("RoomId").cast(DataTypes.IntegerType))
                 .withColumn("DateTime", col("DateTime").cast(DataTypes.TimestampType))
-                .withColumn("Type", col("Type"))
-                .withColumn("DayOfWeek" ,functions.date_format(col("DateTime") /* functions.date_format(functions.current_timestamp()*/ , "y-M"))
-                .withColumn("Day", functions.date_format(col("DateTime") /* functions.date_format(functions.current_timestamp()*/ , "yyyy-MM-dd"))
-                .filter("Type == 'Water'")
-                .groupBy(functions.col("HomeId"), functions.col("SensorId") , col("Day") , functions.col("DayOfWeek").alias("Month"))
-                .agg(sum("Value").alias("NetConsumption"))
+                .withColumn("EnergyType", col("EnergyType"))
+                .withColumn("Value", col("Value").cast(DataTypes.DoubleType))
+                .withColumn("window" , window(col("DateTime") , "1 hour"))
+                .groupBy(col("RoomId") , col("window") , col("EnergyType"))
+                .agg(sum("Value").alias("RoomConsumption"))
+                .select("RoomId" , "window.start" , "window.end" , "RoomConsumption" , "EnergyType")
                 .selectExpr("to_json(struct(*)) as json_data");
-
 
         try {
             try {
-                ResultStream
+                resultStream
                         .selectExpr("CAST(json_data AS STRING) as value")
                         .writeStream()
                         .outputMode("update")
                         .format("kafka")
-                        .option("topic" , "ElectricityConsumption")
-                        //.option("truncate" , false)
-                        .option("checkpointLocation" , "C:\\tmp\\data2")
+//                        .option("truncate" , false)
+                        .option("topic", "ElectricityConsumption")
+                        .option("checkpointLocation", "C:\\tmp\\data1")
                         .option("kafka.bootstrap.servers", "localhost:9092")
-                        .start().awaitTermination();
+                        .start()
+                        .awaitTermination();
             } catch (StreamingQueryException e) {
                 throw new RuntimeException(e);
             }
         } catch (TimeoutException e) {
             throw new RuntimeException(e);
         }
-
-
     }
+
     private static org.apache.spark.sql.types.StructType getSchema() {
         return new org.apache.spark.sql.types.StructType()
-                .add("SensorId", DataTypes.StringType)
-                .add("HomeId", DataTypes.StringType)
+                .add("HomeId" , DataTypes.StringType)
+                .add("RoomId" , DataTypes.StringType)
+                .add("ApplianceId", DataTypes.StringType)
                 .add("DateTime", DataTypes.StringType)
-                .add("Type", DataTypes.StringType)
+                .add("EnergyType", DataTypes.StringType)
                 .add("Value", DataTypes.StringType);
     }
 }

@@ -1,11 +1,11 @@
 package Demo;
+
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.apache.spark.sql.streaming.StreamingQueryException;
-
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -16,7 +16,7 @@ import java.util.Date;
 import java.util.Properties;
 import java.util.concurrent.TimeoutException;
 
-public class Simulator_electricity {
+public class Simulator_Home268_Kitchen2471_GasOven {
 
     public static void main(String[] args) throws TimeoutException, StreamingQueryException {
         System.setProperty("hadoop.home.dir", "c:/hadoop");
@@ -30,7 +30,7 @@ public class Simulator_electricity {
 
         Producer<String, String> producer = new KafkaProducer<>(properties);
 
-        try (BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\Moataz Nasr\\OneDrive - Faculty of Computers and Information\\Desktop\\home 80\\home80_hall873_sensor3068c3079_electric-mains_electric-combined.csv\\home80_hall873_sensor3068c3079_electric-mains_electric-combined.csv"))) {
+        try (BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\moaaz\\OneDrive\\Desktop\\new datasets\\harvard data\\NaturalGas_furnace_Reading.csv"))) {
             String line;
             boolean f = true;
 
@@ -44,7 +44,7 @@ public class Simulator_electricity {
                 producer.send(new ProducerRecord<>(topic, jsonRecord));
                 System.out.println(jsonRecord);
 
-                Thread.sleep(30000);
+                Thread.sleep(5000);
             }
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
@@ -55,19 +55,17 @@ public class Simulator_electricity {
         } finally {
             producer.close();
         }
-
-
-
     }
 
     private static String convertToJSON(String line) {
         String[] sentAttributes = line.split(",");
-
+        int homeId = 268;
+        int roomId = 2471;
+        int applianceId = 4094;
         Date currentDate = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String formattedDate = sdf.format(currentDate);
-        int  sensorid = 3068;
-        String type = "Electricity";
-        return "{\"Sensorid\": \"" + sensorid + "\" , \"DateTime\": \"" + formattedDate + "\" , \"Type\": \"" + type +  "\", \"Value\":\"" + sentAttributes[1] + "\"}";
+        String type = "Gas";
+        return "{\"HomeId\" : \"" + homeId + "\" , \"RoomId\" : \""+ roomId + "\" , \"ApplianceId\" : \"" + applianceId + "\" , \"DateTime\": \"" + formattedDate + "\" , \"EnergyType\": \"" + type +  "\", \"Value\":\"" + sentAttributes[2] + "\"}";
     }
 }

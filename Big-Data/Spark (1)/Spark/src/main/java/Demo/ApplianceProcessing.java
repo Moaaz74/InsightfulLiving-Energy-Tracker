@@ -43,7 +43,7 @@ public class ApplianceProcessing {
                 .withColumn("DateTime", col("DateTime").cast(DataTypes.TimestampType))
                 .withColumn("EnergyType", col("EnergyType"))
                 .withColumn("Value", col("Value").cast(DataTypes.DoubleType))
-                .withColumn("window" , window(col("DateTime") , "1 minute"))
+                .withColumn("window" , window(col("DateTime") , "1 hour"))
                 .groupBy(col("ApplianceId") , col("window") , col("EnergyType"))
                 .agg(sum("Value").alias("ApplianceConsumption"))
                 .select("ApplianceId" , "window.start" , "window.end" , "ApplianceConsumption" , "EnergyType")
