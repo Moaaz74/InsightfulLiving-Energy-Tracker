@@ -59,7 +59,7 @@ public class RoomProcessing {
                         .outputMode("update")
                         .format("kafka")
 //                        .option("truncate" , false)
-                        .option("topic", "ElectricityConsumption")
+                        .option("topic", "RoomProcessing")
                         .option("checkpointLocation", "C:\\tmp\\data3")
                         .option("kafka.bootstrap.servers", "localhost:9092")
                         .start()

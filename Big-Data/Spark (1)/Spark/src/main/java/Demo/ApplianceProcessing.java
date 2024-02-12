@@ -57,7 +57,7 @@ public class ApplianceProcessing {
                         .outputMode("update")
                         .format("kafka")
 //                        .option("truncate" , false)
-                        .option("topic", "ElectricityConsumption")
+                        .option("topic", "ApplianceProcessing")
                         .option("checkpointLocation", "C:\\tmp\\data1")
                         .option("kafka.bootstrap.servers", "localhost:9092")
                         .start()
