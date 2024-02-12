@@ -30,7 +30,7 @@ public class Simulator_Home268_Kitchen2471_Kettle {
 
         Producer<String, String> producer = new KafkaProducer<>(properties);
 
-        try (BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\moaaz\\OneDrive\\Desktop\\Homes\\Home 268\\home268-elec\\home268_kitchen2471_sensor21532_electric-appliance_kettle.csv"))) {
+        try (BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\Moataz Nasr\\OneDrive - Faculty of Computers and Information\\Desktop\\home268_kitchen2471_sensor21532_electric-appliance_kettle.csv\\home268_kitchen2471_sensor21532_electric-appliance_kettle.csv"))) {
             String line;
             boolean f = true;
 
@@ -44,7 +44,7 @@ public class Simulator_Home268_Kitchen2471_Kettle {
                 producer.send(new ProducerRecord<>(topic, jsonRecord));
                 System.out.println(jsonRecord);
 
-               Thread.sleep(5000);
+               Thread.sleep(15000);
             }
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);

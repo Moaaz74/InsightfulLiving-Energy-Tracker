@@ -30,7 +30,7 @@ public class Simulator_Home268_Kitchen2471_GasOven {
 
         Producer<String, String> producer = new KafkaProducer<>(properties);
 
-        try (BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\moaaz\\OneDrive\\Desktop\\new datasets\\harvard data\\NaturalGas_furnace_Reading.csv"))) {
+        try (BufferedReader br = new BufferedReader(new FileReader("C:\\test\\NaturalGas_furnace Reading.csv"))) {
             String line;
             boolean f = true;
 
@@ -44,7 +44,7 @@ public class Simulator_Home268_Kitchen2471_GasOven {
                 producer.send(new ProducerRecord<>(topic, jsonRecord));
                 System.out.println(jsonRecord);
 
-                Thread.sleep(5000);
+                Thread.sleep(15000);
             }
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
