@@ -23,7 +23,7 @@ public class SimulatorImages {
         Producer<String, String> producer = new KafkaProducer<>(properties);
 
         // Directory to monitor
-        String directoryToMonitor = "C:\\Users\\moaaz\\source\\repos\\InsightfulLiving-Energy-Tracker\\images";
+        String directoryToMonitor = "C:\\Users\\Moataz Nasr\\Downloads\\images";
 
         try {
             // Create a WatchService
@@ -63,9 +63,12 @@ public class SimulatorImages {
 
     private static String convertToJSON(String path) {
         int roomId = 2471;
+        int homeId = 268;
+
         Date currentDate = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String formattedDate = sdf.format(currentDate);
-        return "{\"RoomId\" : \"" + roomId + "\" , \"DateTime\": \"" + formattedDate + "\" , \"ImagePath\" : \"" + path + "\"}";
+        path = path.replace("\\","\\\\");
+        return "{\"HomeId\" : \"" + homeId + "\" , \"RoomId\" : \"" + roomId + "\" , \"DateTime\": \"" + formattedDate + "\" , \"ImagePath\" : \"" + path + "\"}";
     }
 }
