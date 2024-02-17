@@ -2,7 +2,7 @@
 
 namespace Back_end.DAOs.Interfaces
 {
-    public interface ICassandraDAO
+    public interface ICassandraDAO : IDisposable
     {
         Cassandra.ISession GetSession();
 

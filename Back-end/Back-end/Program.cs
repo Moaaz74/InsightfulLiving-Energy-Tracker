@@ -1,3 +1,5 @@
+using Back_end.DAOs.Implementations;
+using Back_end.DAOs.Interfaces;
 using Back_end.Kafka.EventProcessor.Implementations;
 using Back_end.Kafka.EventProcessor.Interfaces;
 using Back_end.Kafka.Services;
@@ -17,6 +19,13 @@ namespace Back_end
             // Add services to the container.
 
             builder.Services.AddControllers();
+
+            builder.Services.AddSingleton<ICassandraDAO>(provider =>
+            {
+                var contactPoint = builder.Configuration["CassandraConfiguration:cassandraNodes"];
+                var keyspace = builder.Configuration["CassandraConfiguration:Keyspace"];
+                return new CassandraDAO(contactPoint , keyspace);
+            });
 
             builder.Services.AddCors(options =>
             {
