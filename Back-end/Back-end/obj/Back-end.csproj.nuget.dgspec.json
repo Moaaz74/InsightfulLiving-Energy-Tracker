@@ -1,20 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\moaaz\\source\\repos\\InsightfulLiving-Energy-Tracker\\Back-end\\Back-end\\Back-end.csproj": {}
+    "D:\\project\\My-Github\\InsightfulLiving-Energy-Tracker\\Back-end\\Back-end\\Back-end.csproj": {}
   },
   "projects": {
-    "C:\\Users\\moaaz\\source\\repos\\InsightfulLiving-Energy-Tracker\\Back-end\\Back-end\\Back-end.csproj": {
+    "D:\\project\\My-Github\\InsightfulLiving-Energy-Tracker\\Back-end\\Back-end\\Back-end.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\moaaz\\source\\repos\\InsightfulLiving-Energy-Tracker\\Back-end\\Back-end\\Back-end.csproj",
+        "projectUniqueName": "D:\\project\\My-Github\\InsightfulLiving-Energy-Tracker\\Back-end\\Back-end\\Back-end.csproj",
         "projectName": "Back-end",
-        "projectPath": "C:\\Users\\moaaz\\source\\repos\\InsightfulLiving-Energy-Tracker\\Back-end\\Back-end\\Back-end.csproj",
-        "packagesPath": "C:\\Users\\moaaz\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\moaaz\\source\\repos\\InsightfulLiving-Energy-Tracker\\Back-end\\Back-end\\obj\\",
+        "projectPath": "D:\\project\\My-Github\\InsightfulLiving-Energy-Tracker\\Back-end\\Back-end\\Back-end.csproj",
+        "packagesPath": "C:\\Users\\pc\\.nuget\\packages\\",
+        "outputPath": "D:\\project\\My-Github\\InsightfulLiving-Energy-Tracker\\Back-end\\Back-end\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "D:\\programs not in C\\visual studio\\sdk\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\moaaz\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\pc\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -22,6 +26,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -96,7 +101,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400-preview.23330.10\\RuntimeIdentifierGraph.json"
         }
       }
     }
