@@ -9,19 +9,15 @@
 
   <ItemGroup>
     <Compile Remove="Controllers\**" />
-    <Compile Remove="DTOs\**" />
     <Compile Remove="Hubs\**" />
     <Compile Remove="Services\**" />
     <Content Remove="Controllers\**" />
-    <Content Remove="DTOs\**" />
     <Content Remove="Hubs\**" />
     <Content Remove="Services\**" />
     <EmbeddedResource Remove="Controllers\**" />
-    <EmbeddedResource Remove="DTOs\**" />
     <EmbeddedResource Remove="Hubs\**" />
     <EmbeddedResource Remove="Services\**" />
     <None Remove="Controllers\**" />
-    <None Remove="DTOs\**" />
     <None Remove="Hubs\**" />
     <None Remove="Services\**" />
   </ItemGroup>
