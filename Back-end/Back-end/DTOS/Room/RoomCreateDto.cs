@@ -6,9 +6,9 @@ namespace Back_end.DTOS.Room
     {
         
 
-        public string HomeId { get; set; }
+        public string? HomeId { get; set; }
 
-        public string NumberOfDevices { get; set; } 
+        public string? NumberOfDevices { get; set; } 
 
        
     }
