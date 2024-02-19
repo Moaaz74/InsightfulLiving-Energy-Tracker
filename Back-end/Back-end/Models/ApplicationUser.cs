@@ -6,6 +6,8 @@ namespace Back_end.Models
 {
     public class ApplicationUser : IdentityUser
     {
-       
+        public List<Home> homes { get; set; } = new List<Home>();
+
+
     }
 }
