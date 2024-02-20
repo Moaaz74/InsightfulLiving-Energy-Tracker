@@ -15,9 +15,10 @@ namespace Back_end
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-
+            var configuration = builder.Configuration;
             // Add services to the container.
-
+            Console.WriteLine($"Kafka Broker: {configuration["KafkaConfig:Broker"]}");
+            Console.WriteLine($"Kafka Topic: {configuration["KafkaConfig:Topic"]}");
             builder.Services.AddControllers();
 
             builder.Services.AddSingleton<ICassandraDAO>(provider =>
@@ -42,6 +43,11 @@ namespace Back_end
 
             builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
             
+            builder.Services.AddScoped<IHome_OverallDAO, Home_OverallDAO>();
+            builder.Services.AddScoped<IRoom_OverallDAO, Room_OverallDAO>();
+            builder.Services.AddScoped<IApplianceDAO, ApplianceDAO>();
+            builder.Services.AddScoped<ITemp_HumidityDAO, Temp_HumidityDAO>();
+
             var app = builder.Build();
 
             app.UseCors("AllowAll");
