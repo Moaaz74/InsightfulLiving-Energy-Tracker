@@ -1,28 +1,28 @@
-﻿using Back_end.DTOS.Home;
+﻿using Back_end.DTOS.Device;
+using Back_end.DTOS.Home;
 using Back_end.Models;
 using FluentValidation;
 using Microsoft.AspNetCore.Identity;
 
-namespace Back_end.DTOS.Validation.HomeValidation
+namespace Back_end.DTOS.Validation.DeviceValidation
 {
-    public class HomeCreateValidation:AbstractValidator<HomeCreateDto>
+    public class DeviceCreateValidation : AbstractValidator<DeviceCreateDto>
     {
-        public readonly UserManager<ApplicationUser> _manager;
+        
 
-        public HomeCreateValidation(UserManager<ApplicationUser> manager)
+        public DeviceCreateValidation()
         {
-            _manager = manager;
+            
+            RuleFor(D => D.EnergyType)
+                  .NotEmpty().WithMessage("{PropertyName} is must not empty.")
+                  .NotNull().WithMessage("{PropertyName} is reqiured").MaximumLength(50).WithMessage("{PropertyName} Must Be With MaximumLength 50 "); 
 
-            RuleFor(h => h.UserId)
-                  .NotEmpty().WithMessage("{UserId} is required.")
-                  .NotNull().MustAsync(Cheack).WithMessage("{PropertyName} Id Is Not Exixt"); ;
-
-            RuleFor(h => h.NumberOfRooms)
+            RuleFor(D=> D.RoomId)
            .NotEmpty().WithMessage("{PropertyName} is must not empty.")
-           .NotNull().WithMessage("{PropertyName} is requred")
+           .NotNull().WithMessage("{PropertyName} is reqiured")
            .Must(BeAnInteger).WithMessage("{PropertyName} must be an integer.");
 
-            
+
         }
 
         private bool BeAnInteger(string arg)
@@ -32,19 +32,7 @@ namespace Back_end.DTOS.Validation.HomeValidation
 
             return int.TryParse(arg.ToString(), out _);
         }
-
-        private async Task<bool> Cheack(string arg1, CancellationToken token)
-        {
-            var result = await  _manager.FindByIdAsync(arg1);
-            if (result == null)
-            {
-                return false;
-            }
-            return true;
-        }
-
-
-        public Dictionary<string,List<string>> ListError(FluentValidation.Results.ValidationResult validationResult)
+        public Dictionary<string, List<string>> ListError(FluentValidation.Results.ValidationResult validationResult)
         {
 
             // Get the list of validation failures
