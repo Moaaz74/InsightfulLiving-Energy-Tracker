@@ -14,8 +14,8 @@ namespace Back_end.Services.DeviceService
         }
         #region Create 
         public async Task<DeviceViewDto> AddRoom(DeviceCreateDto deviceCreateDto)
-        { 
-            if (int.TryParse(deviceCreateDto.RoomId, out int roomid) )
+        {
+            if (int.TryParse(deviceCreateDto.RoomId, out int roomid))
             {
                 var result = _unitOfWork.Repository<Room>().GetById(roomid);
 
@@ -46,13 +46,13 @@ namespace Back_end.Services.DeviceService
 
         #region Update
         public async Task<DeviceViewDto> UpdateDevice(DeviceUpdateDto deviceUpdateDto, int Id)
-        { 
+        {
             var device = _unitOfWork.Repository<Device>().GetById(Id);
             if (device == null || (device.IsDeleted == true))
             {
                 return new DeviceViewDto { massage = "Device Is Not Exist" };
             }
-            if (int.TryParse(deviceUpdateDto.RoomId, out int roomid) )
+            if (int.TryParse(deviceUpdateDto.RoomId, out int roomid))
             {
                 var result = _unitOfWork.Repository<Room>().GetById(roomid);
 
@@ -60,7 +60,7 @@ namespace Back_end.Services.DeviceService
                 {
                     return new DeviceViewDto { massage = "Room IS Not Exist" };
                 }
-               
+
                 if (roomid != device.RoomId)
                 {
                     //  count of room in home ...
@@ -78,6 +78,21 @@ namespace Back_end.Services.DeviceService
                 return new DeviceViewDto { Id = device.Id, EnergyType = device.EnergyType };
             }
             return new DeviceViewDto { massageBadRequst = "Values is not correct" };
+        }
+        #endregion
+
+        #region delete
+
+        public async Task<string> RemoveDevice(int Id)
+        {
+            var device = _unitOfWork.Repository<Device>().GetById(Id);
+            if (device == null || (device.IsDeleted == true))
+            {
+                return "Devices Is Not Exist";
+            }
+            device.IsDeleted = true;
+            _unitOfWork.Save();
+            return "";
         }
         #endregion
     }

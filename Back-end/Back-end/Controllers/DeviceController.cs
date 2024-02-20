@@ -81,5 +81,21 @@ namespace Back_end.Controllers
         }
         #endregion
 
+        #region Delete
+
+        [HttpPut("remove/{id}")]
+        public async Task<ActionResult> RemoveDevice(int Id)
+        {
+            string result = await _deviceService.RemoveDevice(Id);
+            if (!result.IsNullOrEmpty())
+            {
+                List<string> error = new List<string>();
+                error.Add(result);
+                return NotFound(new { erroes = error });
+            }
+            return Ok("Room Is Deleted");
+        }
+        #endregion
+
     }
 }

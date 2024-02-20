@@ -6,5 +6,7 @@ namespace Back_end.Services.DeviceService
     {
         Task<DeviceViewDto> AddRoom(DeviceCreateDto deviceCreateDto);
         Task<DeviceViewDto> UpdateDevice(DeviceUpdateDto deviceUpdateDto, int Id);
+
+        Task<string> RemoveDevice(int Id);
     }
 }
