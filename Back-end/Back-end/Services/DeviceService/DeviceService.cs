@@ -1,4 +1,5 @@
 ﻿using Back_end.DTOS.Device;
+using Back_end.DTOS.Home;
 using Back_end.DTOS.Room;
 using Back_end.Models;
 using Back_end.Repositories.Interfaces;
@@ -93,6 +94,29 @@ namespace Back_end.Services.DeviceService
             device.IsDeleted = true;
             _unitOfWork.Save();
             return "";
+        }
+        #endregion
+
+
+        #region GetRoomswithDivice
+        public async Task<DevicesWithRoomDto?> GetDeviceWithRoom(int Id)
+        {
+            var device = await _unitOfWork.Repository<Device>().FindAsync(h => h.Id == Id, new[] { "Room" });
+            if (device == null || (device.IsDeleted == true))
+            {
+                return null;
+            }
+
+            return new DevicesWithRoomDto
+            {
+                Id = device.Id,
+                EnergyType = device.EnergyType,
+                room = new RoomViewDto { Id = device.Room.Id , HomeId = device.Room.Id , NumberOfDevices=device.Room.NumberOfDevices },
+                
+            };
+
+
+
         }
         #endregion
     }

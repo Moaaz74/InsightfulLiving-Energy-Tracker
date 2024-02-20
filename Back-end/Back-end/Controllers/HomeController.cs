@@ -128,7 +128,7 @@ namespace Back_end.Controllers
                
             }
 
-            return Ok("Home Is Deleted");
+            return Ok(new { massage = "Home Is Deleted" });
 
 
         }

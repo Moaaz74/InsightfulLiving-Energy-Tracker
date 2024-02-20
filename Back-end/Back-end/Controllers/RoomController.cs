@@ -95,7 +95,7 @@ namespace Back_end.Controllers
                 error.Add(result);
                 return NotFound(new { erroes = error });
             }
-            return Ok("Room Is Deleted");
+            return Ok(new { massage = "Room Is Deleted" });
         }
         #endregion
 

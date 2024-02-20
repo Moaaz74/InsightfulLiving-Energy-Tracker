@@ -3,6 +3,7 @@ using Back_end.DTOS.Room;
 using Back_end.DTOS.Validation.DeviceValidation;
 using Back_end.DTOS.Validation.RoomValidation;
 using Back_end.Services.DeviceService;
+using Confluent.Kafka;
 using FluentValidation;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -93,9 +94,26 @@ namespace Back_end.Controllers
                 error.Add(result);
                 return NotFound(new { erroes = error });
             }
-            return Ok("Room Is Deleted");
+            return Ok(new { massage= "Device Is Deleted" });
         }
         #endregion
 
+        #region GetDeviceWithRoom 
+
+        [HttpGet("DeviceDetalis/{id}")]
+        public async Task<IActionResult> GetHomeWithRooms(int id)
+        {
+            var device = await _deviceService.GetDeviceWithRoom(id);
+
+            if (device == null)
+            {
+                List<string> error = new List<string>();
+                error.Add("Device Is Not Exist");
+                return NotFound(new { erroes = error });
+            }
+
+            return Ok(device);
+        }
+        #endregion
     }
 }
