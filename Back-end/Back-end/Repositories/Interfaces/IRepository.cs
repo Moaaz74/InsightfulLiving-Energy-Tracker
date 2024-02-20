@@ -24,5 +24,9 @@ namespace Back_end.Repositories.Interfaces
         void Delete(T entity);
 
         Task<T> DeleteAsync(T entity);
+
+        Task<T> FindAsync(Expression<Func<T, bool>> criteria, string[] includes = null);
+
+        int Count(Expression<Func<T, bool>> criteria); 
     }
 }

@@ -7,6 +7,7 @@ namespace Back_end.DTOS.Home
     {
         public int Id { get; set; }
         public int NumberOfRooms { get; set; }
-        public List<DTOS.Room.RoomViewDto> Rooms { get; set; }  = new List<RoomViewDto> { new RoomViewDto() };
+        public HomeUserDto User { get; set; }
+        public List<DTOS.Room.RoomHomeViewDto> Rooms { get; set; }  //= new List<RoomViewDto> { new RoomViewDto() };
     }
 }

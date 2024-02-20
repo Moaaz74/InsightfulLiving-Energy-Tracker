@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "Ph22zybOKu21ibeB2hfJyS53y2nFDPBCT1phnrOD1pVUDtALKJK8q22pPSwmHqPqFZgFMwHTNPNYXNUzgF13hA==",
+  "dgSpecHash": "W+syNrDZAMoWkpBqNKDQudfIMj1hb5Bxb2nalIxmyQ8F5Parg0nNsNWaCZ7wftSiHEk586oRQsJeLzrIEWiVjA==",
   "success": true,
   "projectFilePath": "C:\\Users\\AL-FAJR\\Desktop\\New folder\\InsightfulLiving-Energy-Tracker\\Back-end\\Back-end\\Back-end.csproj",
   "expectedPackageFiles": [
@@ -8,6 +8,8 @@
     "C:\\Users\\AL-FAJR\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",
     "C:\\Users\\AL-FAJR\\.nuget\\packages\\cassandracsharpdriver\\3.19.5\\cassandracsharpdriver.3.19.5.nupkg.sha512",
     "C:\\Users\\AL-FAJR\\.nuget\\packages\\confluent.kafka\\2.3.0\\confluent.kafka.2.3.0.nupkg.sha512",
+    "C:\\Users\\AL-FAJR\\.nuget\\packages\\fluentvalidation\\11.0.0\\fluentvalidation.11.0.0.nupkg.sha512",
+    "C:\\Users\\AL-FAJR\\.nuget\\packages\\fluentvalidation.dependencyinjectionextensions\\11.0.0\\fluentvalidation.dependencyinjectionextensions.11.0.0.nupkg.sha512",
     "C:\\Users\\AL-FAJR\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\AL-FAJR\\.nuget\\packages\\k4os.compression.lz4\\1.1.11\\k4os.compression.lz4.1.1.11.nupkg.sha512",
     "C:\\Users\\AL-FAJR\\.nuget\\packages\\librdkafka.redist\\2.3.0\\librdkafka.redist.2.3.0.nupkg.sha512",

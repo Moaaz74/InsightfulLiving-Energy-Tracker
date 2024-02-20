@@ -215,3 +215,5 @@ C:\Users\AL-FAJR\Desktop\New folder\InsightfulLiving-Energy-Tracker\Back-end\Bac
 C:\Users\AL-FAJR\Desktop\New folder\InsightfulLiving-Energy-Tracker\Back-end\Back-end\obj\Debug\net7.0\Back-end.pdb
 C:\Users\AL-FAJR\Desktop\New folder\InsightfulLiving-Energy-Tracker\Back-end\Back-end\obj\Debug\net7.0\Back-end.genruntimeconfig.cache
 C:\Users\AL-FAJR\Desktop\New folder\InsightfulLiving-Energy-Tracker\Back-end\Back-end\obj\Debug\net7.0\ref\Back-end.dll
+C:\Users\AL-FAJR\Desktop\New folder\InsightfulLiving-Energy-Tracker\Back-end\Back-end\bin\Debug\net7.0\FluentValidation.dll
+C:\Users\AL-FAJR\Desktop\New folder\InsightfulLiving-Energy-Tracker\Back-end\Back-end\bin\Debug\net7.0\FluentValidation.DependencyInjectionExtensions.dll
