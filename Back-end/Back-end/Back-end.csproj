@@ -8,13 +8,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Controllers\**" />
     <Compile Remove="Hubs\**" />
-    <Content Remove="Controllers\**" />
     <Content Remove="Hubs\**" />
-    <EmbeddedResource Remove="Controllers\**" />
     <EmbeddedResource Remove="Hubs\**" />
-    <None Remove="Controllers\**" />
     <None Remove="Hubs\**" />
   </ItemGroup>
 
