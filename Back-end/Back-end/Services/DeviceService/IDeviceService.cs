@@ -4,6 +4,7 @@ namespace Back_end.Services.DeviceService
 {
     public interface IDeviceService
     {
-        Task<DeviceViewDto> AddRoom(DeviceCreateDto deviceCreateDto); 
+        Task<DeviceViewDto> AddRoom(DeviceCreateDto deviceCreateDto);
+        Task<DeviceViewDto> UpdateDevice(DeviceUpdateDto deviceUpdateDto, int Id);
     }
 }

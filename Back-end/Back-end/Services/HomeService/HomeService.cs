@@ -44,13 +44,25 @@ namespace Back_end.Services.HomeService
             }
             if (int.TryParse(homeUpdateDto.NumberOfRooms, out int numberOfRooms))
             {
-                home.NumberOfRooms = numberOfRooms;
-            }
-            home.UserId = homeUpdateDto.UserId;
+                if (numberOfRooms != home.NumberOfRooms)
+                {
+                    int count = _unitOfWork.Repository<Room>().Count(r => r.HomeId == home.Id && r.IsDeleted == false);
+                    if (count > home.NumberOfRooms)
+                    {
+                        return new HomeViewDto { Massage = $"home have aready {count} room" };
 
-            await _unitOfWork.Repository<Home>().UpdateAsync(home);
-            _unitOfWork.Save();
-            return new HomeViewDto { Id = home.Id, NumberOfRooms = home.NumberOfRooms, UserId = home.UserId };
+                    }
+                } 
+                home.NumberOfRooms = numberOfRooms;
+                home.UserId = homeUpdateDto.UserId;
+
+                await _unitOfWork.Repository<Home>().UpdateAsync(home);
+                _unitOfWork.Save();
+                return new HomeViewDto { Id = home.Id, NumberOfRooms = home.NumberOfRooms, UserId = home.UserId };
+            }
+
+            return new HomeViewDto { Massage = "Invalid data" };
+
 
 
         }

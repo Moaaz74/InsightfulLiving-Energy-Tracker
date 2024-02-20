@@ -12,9 +12,6 @@ namespace Back_end.Services.DeviceService
         {
             _unitOfWork = unitOfWork;
         }
-
-
-
         #region Create 
         public async Task<DeviceViewDto> AddRoom(DeviceCreateDto deviceCreateDto)
         { 
@@ -28,7 +25,7 @@ namespace Back_end.Services.DeviceService
                 }
                 int count = _unitOfWork.Repository<Device>().Count(r => r.RoomId == roomid && r.IsDeleted == false);
                 // compare 
-                if (count == result.NumberOfDevices)
+                if (count >= result.NumberOfDevices)
                 {
                     return new DeviceViewDto { massageBadRequst = $"Number of Device must not exceed {result.NumberOfDevices} in this room " };
                 }
@@ -44,6 +41,43 @@ namespace Back_end.Services.DeviceService
             }
             return new DeviceViewDto { massageBadRequst = "Values is not coorect" };
 
+        }
+        #endregion
+
+        #region Update
+        public async Task<DeviceViewDto> UpdateDevice(DeviceUpdateDto deviceUpdateDto, int Id)
+        { 
+            var device = _unitOfWork.Repository<Device>().GetById(Id);
+            if (device == null || (device.IsDeleted == true))
+            {
+                return new DeviceViewDto { massage = "Device Is Not Exist" };
+            }
+            if (int.TryParse(deviceUpdateDto.RoomId, out int roomid) )
+            {
+                var result = _unitOfWork.Repository<Room>().GetById(roomid);
+
+                if (result == null || (result.IsDeleted == true))
+                {
+                    return new DeviceViewDto { massage = "Room IS Not Exist" };
+                }
+               
+                if (roomid != device.RoomId)
+                {
+                    //  count of room in home ...
+                    int count = _unitOfWork.Repository<Device>().Count(r => r.RoomId == roomid && r.IsDeleted == false);
+                    // compare 
+                    if (count >= result.NumberOfDevices)
+                    {
+                        return new DeviceViewDto { massageBadRequst = $"Number of Device  must not exceed {result.NumberOfDevices} in this room" };
+
+                    }
+                }
+                device.RoomId = roomid;
+                device.EnergyType = deviceUpdateDto.EnergyType;
+                _unitOfWork.Save();
+                return new DeviceViewDto { Id = device.Id, EnergyType = device.EnergyType };
+            }
+            return new DeviceViewDto { massageBadRequst = "Values is not correct" };
         }
         #endregion
     }

@@ -29,7 +29,8 @@ namespace Back_end.Services.RoomService
                 //  count of room in home ...
                 int count = _unitOfWork.Repository<Room>().Count(r => r.HomeId == homeid && r.IsDeleted==false);
                 // compare 
-                if (count == result.NumberOfRooms)
+                
+                if (count >= result.NumberOfRooms)
                 {
                     return new RoomViewDto { massageBadRequst = $"Number of room must not exceed{result.NumberOfRooms}" };
 
@@ -69,12 +70,24 @@ namespace Back_end.Services.RoomService
                 {
                     return new RoomViewDto { massage = "Home IS Not Exist" };
                 }
-                //  count of room in home ...
-                int count = _unitOfWork.Repository<Room>().Count(r => r.HomeId == homeid && r.IsDeleted==false);
-                // compare 
-                if (count == result.NumberOfRooms)
+                if (homeid != room.HomeId)
                 {
-                    return new RoomViewDto { massageBadRequst = $"Number of room must not exceed{result.NumberOfRooms}" };
+                    //  count of room in home ...
+                    int count = _unitOfWork.Repository<Room>().Count(r => r.HomeId == homeid && r.IsDeleted == false);
+                    // compare 
+                    if (count == result.NumberOfRooms)
+                    {
+                        return new RoomViewDto { massageBadRequst = $"Number of room must not exceed in this home {result.NumberOfRooms}" };
+                    }
+                }
+                if (numberOfDevices!= room.NumberOfDevices)
+                {
+                    int countDevice = _unitOfWork.Repository<Device>().Count(r => r.RoomId == room.Id && r.IsDeleted == false);
+                    if (countDevice > numberOfDevices)
+                    {
+                        return new RoomViewDto { massageBadRequst = $"this room have  {countDevice} aready" };
+
+                    }
 
                 }
                 room.NumberOfDevices = numberOfDevices;
@@ -124,7 +137,7 @@ namespace Back_end.Services.RoomService
             {
                 Id = room.Id,
                 NumberOfDevices = room.NumberOfDevices,
-                devices = room.devices.Select(d => new DTOS.Device.DeviceViewDto { EnergyType = d.EnergyType, Id = d.Id }).ToList(),
+                devices = room.devices.Where(r => r.IsDeleted == false).Select(d => new DTOS.Device.DeviceViewDto { EnergyType = d.EnergyType, Id = d.Id }).ToList(),
                 home =  new HomeViewDto { Id = room.home.Id, NumberOfRooms = room.home.NumberOfRooms, UserId = room.home.UserId }
             };
 
