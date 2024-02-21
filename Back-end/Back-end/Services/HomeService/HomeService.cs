@@ -192,6 +192,18 @@ namespace Back_end.Services.HomeService
 
 
         }
+
+
+         
+        public async Task<List<int>> GetIdsOfHomes()
+        {
+            var homes = _unitOfWork.Repository<Home>().GetAll(h => h.IsDeleted == false);
+            if (homes == null)
+            {
+                return null;
+            }
+            return homes.Select(h => h.Id).ToList();
+        }
     }
 
 }

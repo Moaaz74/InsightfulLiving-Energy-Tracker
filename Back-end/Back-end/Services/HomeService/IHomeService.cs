@@ -15,6 +15,8 @@ namespace Back_end.Services.HomeService
 
         Task<List<HomeViewsDto>?> ViewsHomeNotDelete();
 
-        Task<List<HomeViewsDto>?> ViewsHomeDelete(); 
+        Task<List<HomeViewsDto>?> ViewsHomeDelete();
+
+        Task<List<int>> GetIdsOfHomes();
     }
 }
