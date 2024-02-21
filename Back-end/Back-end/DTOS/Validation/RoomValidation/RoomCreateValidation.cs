@@ -10,29 +10,34 @@ namespace Back_end.DTOS.Validation.RoomValidation
 
         public RoomCreateValidation()
         {
-        
-
+            // Rule for HomeId with proper null check and message
             RuleFor(r => r.HomeId)
-                  .NotEmpty().WithMessage("{HomeId} is required.")
-                  .NotNull().Must(BeAnInteger).WithMessage("{PropertyName} must be an integer."); ;
+                .Custom((homeId, context) =>
+                {
+                    if (homeId == null || homeId == "null")
+                    {
+                        context.AddFailure("HomeId", "HomeId cannot be null.");
+                    }
+                    else if (!int.TryParse(homeId.ToString(), out _))
+                    {
+                        context.AddFailure("HomeId", "HomeId must be a valid integer.");
+                    }
+                });
 
-            RuleFor(r=>r.NumberOfDevices)
-           .NotEmpty().WithMessage("{PropertyName} is required.")
-           .NotNull()
-           .Must(BeAnInteger).WithMessage("{PropertyName} must be an integer.");
-
-           
+            // Rule for NumberOfDevices with proper null check and message
+            RuleFor(r => r.NumberOfDevices)
+                .Custom((numberOfDevices, context) =>
+                {
+                    if (numberOfDevices == null || numberOfDevices == "null")
+                    {
+                        context.AddFailure("NumberOfDevices", "NumberOfDevices cannot be null.");
+                    }
+                    else if (!int.TryParse(numberOfDevices.ToString(), out _))
+                    {
+                        context.AddFailure("NumberOfDevices", "NumberOfDevices must be a valid integer.");
+                    }
+                });
         }
-
-        private bool BeAnInteger(string arg)
-        {
-            if (arg == null)
-                return true;
-
-            return int.TryParse(arg.ToString(), out _);
-        }
-
-
         public List<string> ListError(FluentValidation.Results.ValidationResult validationResult)
         {
             // Get the list of validation failures

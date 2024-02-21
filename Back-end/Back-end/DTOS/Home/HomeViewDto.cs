@@ -15,5 +15,9 @@ namespace Back_end.DTOS.Home
         public string? Massage { get; set; }
 
 
+        [JsonIgnore]
+        public string? NotFoundMassage { get; set; }
+
+
     }
 }

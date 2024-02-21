@@ -15,18 +15,18 @@ namespace Back_end.Controllers
     [ApiController]
     public class HomeController : ControllerBase
     {
-        public readonly UserManager<ApplicationUser> _manager;
+
         public readonly IHomeService _homeService;
         public HomeController(UserManager<ApplicationUser> manager, IHomeService homeService)
         {
-            _manager = manager;
+
             _homeService = homeService;
         }
         #region Create
         [HttpPost]
         public async Task<ActionResult> CreateHome([FromBody] HomeCreateDto homeCreateDto)
         {
-            HomeCreateValidation validationRules = new HomeCreateValidation(_manager);
+            HomeCreateValidation validationRules = new HomeCreateValidation();
             var validatorResults = await validationRules.ValidateAsync(homeCreateDto);
             if (!validatorResults.IsValid)
             {
@@ -34,6 +34,12 @@ namespace Back_end.Controllers
                 return BadRequest(new { errors = errorMessages });
             }
             var home = await _homeService.AddHome(homeCreateDto);
+            if (!home.NotFoundMassage.IsNullOrEmpty())
+            {
+                List<string> error = new List<string>();
+                error.Add(home.NotFoundMassage);
+                return NotFound(new { errors = error });
+            }
             return Ok(new { massage = "Home added ", home = home });
         }
         #endregion
@@ -43,7 +49,7 @@ namespace Back_end.Controllers
         [HttpPut("{Id}")]
         public async Task<ActionResult> UpdateHome(HomeUpdateDto homeUpdateDto, int Id)
         {
-            HomeUpdateValidation validationRules = new HomeUpdateValidation(_manager);
+            HomeUpdateValidation validationRules = new HomeUpdateValidation();
             var validatorResults = await validationRules.ValidateAsync(homeUpdateDto);
             if (!validatorResults.IsValid)
             {
@@ -51,11 +57,17 @@ namespace Back_end.Controllers
                 return BadRequest(new { errors = errorMessages });
             }
             var home = await _homeService.UpdateHome(homeUpdateDto, Id);
+            if (!home.NotFoundMassage.IsNullOrEmpty())
+            {
+                List<string> error = new List<string>();
+                error.Add(home.NotFoundMassage);
+                return NotFound(new { errors = error });
+            }
             if (!home.Massage.IsNullOrEmpty())
             {
                 List<string> error = new List<string>();
                 error.Add(home.Massage);
-                return NotFound(new { errors = error });
+                return BadRequest(new { errors = error });
             }
             return Ok(new { massage = "Home Is Updated ", home = home });
 
@@ -73,7 +85,7 @@ namespace Back_end.Controllers
             {
                 List<string> error = new List<string>();
                 error.Add("Home Is Not Exist");
-                return NotFound(new { erroes = error });
+                return NotFound(new { errors = error });
             }
 
             return Ok(homeWithRooms);
@@ -90,7 +102,7 @@ namespace Back_end.Controllers
             {
                 List<string> error = new List<string>();
                 error.Add("Home Is Not Exist");
-                return NotFound(new { erroes = error });
+                return NotFound(new { errors = error });
             }
 
             return Ok(home);
@@ -103,11 +115,11 @@ namespace Back_end.Controllers
         public async Task<ActionResult<List<HomeViewsDto>>> ViewAllHome()
         {
             var homes = await _homeService.ViewsHome();
-            if (homes == null)
+            if (homes == null || homes.Count() == 0)
             {
                 List<string> error = new List<string>();
                 error.Add("Not Found Homes");
-                return NotFound(new { erroes = error });
+                return NotFound(new { errors = error });
             }
             return Ok(homes);
         }
@@ -124,7 +136,7 @@ namespace Back_end.Controllers
             {
                 List<string> error = new List<string>();
                 error.Add(result);
-                return NotFound(new { erroes = error });
+                return NotFound(new { errors = error });
                
             }
 
@@ -140,11 +152,11 @@ namespace Back_end.Controllers
         public async Task<ActionResult<List<HomeViewsDto>>> ViewsHome()
         {
             var homes = await _homeService.ViewsHomeNotDelete();
-            if (homes == null)
+            if (homes == null ||homes.Count()==0)
             {
                 List<string> error = new List<string>();
                 error.Add("Not Found Homes");
-                return NotFound(new { erroes = error });
+                return NotFound(new { errors = error });
             }
             return Ok(homes);
         }
@@ -154,11 +166,11 @@ namespace Back_end.Controllers
         public async Task<ActionResult<List<HomeViewsDto>>> ViewsHomeDelete()
         {
             var homes = await _homeService.ViewsHomeDelete();
-            if (homes == null)
+            if (homes == null || homes.Count() == 0)
             {
                 List<string> error = new List<string>();
                 error.Add("Not Found Homes");
-                return NotFound(new { erroes = error });
+                return NotFound(new { errors = error });
             }
             return Ok(homes);
         }
@@ -172,7 +184,7 @@ namespace Back_end.Controllers
             {
                 List<string> error = new List<string>();
                 error.Add("Not Found Homes");
-                return NotFound(new { erroes = error });
+                return NotFound(new { errors = error });
             }
             return Ok(new  { Ids = homes});
 

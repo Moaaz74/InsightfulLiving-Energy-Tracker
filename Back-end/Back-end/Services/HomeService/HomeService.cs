@@ -1,6 +1,7 @@
 ﻿using Back_end.DTOS.Home;
 using Back_end.Models;
 using Back_end.Repositories.Interfaces;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Back_end.Services.HomeService
@@ -8,15 +9,23 @@ namespace Back_end.Services.HomeService
     public class HomeService : IHomeService
     {
         private readonly IUnitOfWork _unitOfWork;
-
-        public HomeService(IUnitOfWork unitOfWork)
+        public readonly UserManager<ApplicationUser> _manager;
+        public HomeService(IUnitOfWork unitOfWork, UserManager<ApplicationUser> manager )
         {
             _unitOfWork = unitOfWork;
+            _manager = manager;
         }
 
         #region Create 
         public async Task<HomeViewDto> AddHome(HomeCreateDto homeCreateDto)
         {
+            //user validation
+            var result = await _manager.FindByIdAsync(homeCreateDto.UserId);
+            if (result == null)
+            {
+                return new HomeViewDto { NotFoundMassage = "UserID Is Not Found" };
+            }
+
             // mapping 
             Home home = new Home()
             {
@@ -38,32 +47,34 @@ namespace Back_end.Services.HomeService
         public async Task<HomeViewDto> UpdateHome(HomeUpdateDto homeUpdateDto, int Id)
         {
             Home home = _unitOfWork.Repository<Home>().GetById(Id);
-            if (home == null || (home.IsDeleted==true))
+            if (home == null || (home.IsDeleted == true))
             {
-                return new HomeViewDto { Massage = "Home Is Not Exist" };
+                return new HomeViewDto { NotFoundMassage = "Home Is Not Exist" };
             }
+            //user validation
+            var result = await _manager.FindByIdAsync(homeUpdateDto.UserId);
+            if (result == null)
+            {
+                return new HomeViewDto { NotFoundMassage = "UserID Is Not Exist" };
+            }
+
             if (int.TryParse(homeUpdateDto.NumberOfRooms, out int numberOfRooms))
             {
                 if (numberOfRooms != home.NumberOfRooms)
                 {
-                    int count = _unitOfWork.Repository<Room>().Count(r => r.HomeId == home.Id && r.IsDeleted == false);
-                    if (count > home.NumberOfRooms)
+                    int count = _unitOfWork.Repository<Room>().Count(r => r.HomeId == home.Id && r.IsDeleted==false);
+                    if (count > numberOfRooms)
                     {
-                        return new HomeViewDto { Massage = $"home have aready {count} room" };
-
+                        return new HomeViewDto { Massage = $"Home have {count} Room aready " };
                     }
-                } 
+                }
                 home.NumberOfRooms = numberOfRooms;
                 home.UserId = homeUpdateDto.UserId;
-
                 await _unitOfWork.Repository<Home>().UpdateAsync(home);
                 _unitOfWork.Save();
                 return new HomeViewDto { Id = home.Id, NumberOfRooms = home.NumberOfRooms, UserId = home.UserId };
             }
-
-            return new HomeViewDto { Massage = "Invalid data" };
-
-
+            return new HomeViewDto { Massage = " Invalid Data " };
 
         }
         #endregion
@@ -129,7 +140,7 @@ namespace Back_end.Services.HomeService
         }
 
 
-        public async Task<string> RemoveHome(int Id)
+        public async Task<string?> RemoveHome(int Id)
         {
             var home = await _unitOfWork.Repository<Home>().FindAsync(h => h.Id == Id, new[] { "Rooms" });
             if (home == null || (home.IsDeleted == true))
@@ -138,11 +149,11 @@ namespace Back_end.Services.HomeService
             }
 
             home.IsDeleted= true;
-            foreach(var room in home?.Rooms)
+            foreach(var room in home.Rooms)
             {
                 room.IsDeleted= true;
                 var roomR = await _unitOfWork.Repository<Room>().FindAsync(r => r.Id == room.Id, new[] { "devices" });
-                foreach (var device in roomR?.devices)
+                foreach (var device in roomR.devices)
                 {
                     device.IsDeleted = true;
                 }

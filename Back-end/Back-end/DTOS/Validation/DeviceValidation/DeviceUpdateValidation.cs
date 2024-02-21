@@ -9,17 +9,37 @@ namespace Back_end.DTOS.Validation.DeviceValidation
 
         public DeviceUpdateValidation()
         {
+            // Rule for EnergyType with proper checks and message
+            RuleFor(d => d.EnergyType)
+                .Custom((energyType, context) =>
+                {
+                    if (energyType == null || energyType == "null")
+                    {
+                        context.AddFailure("EnergyType", "EnergyType cannot be null.");
+                    }
+                    else if (string.IsNullOrWhiteSpace(energyType))
+                    {
+                        context.AddFailure("EnergyType", "EnergyType cannot be empty or consist only of whitespace.");
+                    }
+                    else if (energyType.Length > 50)
+                    {
+                        context.AddFailure("EnergyType", "EnergyType cannot exceed 50 characters.");
+                    }
+                });
 
-            RuleFor(D => D.EnergyType)
-                  .NotEmpty().WithMessage("{PropertyName} is must not empty.")
-                  .NotNull().WithMessage("{PropertyName} is reqiured").MaximumLength(50).WithMessage("{PropertyName} Must Be With MaximumLength 50 ");
-
-            RuleFor(D => D.RoomId)
-           .NotEmpty().WithMessage("{PropertyName} is must not empty.")
-           .NotNull().WithMessage("{PropertyName} is reqiured")
-           .Must(BeAnInteger).WithMessage("{PropertyName} must be an integer.");
-
-
+            // Rule for RoomId with proper checks and message
+            RuleFor(d => d.RoomId)
+                .Custom((roomId, context) =>
+                {
+                    if (roomId == null || roomId == "null")
+                    {
+                        context.AddFailure("RoomId", "RoomId cannot be null.");
+                    }
+                    else if (!int.TryParse(roomId.ToString(), out _))
+                    {
+                        context.AddFailure("RoomId", "RoomId must be a valid integer.");
+                    }
+                });
         }
 
         private bool BeAnInteger(string arg)

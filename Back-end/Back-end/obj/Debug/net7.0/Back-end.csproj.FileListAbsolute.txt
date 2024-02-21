@@ -107,7 +107,6 @@ C:\Users\moaaz\source\repos\InsightfulLiving-Energy-Tracker\Back-end\Back-end\ob
 C:\Users\moaaz\source\repos\InsightfulLiving-Energy-Tracker\Back-end\Back-end\obj\Debug\net7.0\Back-end.pdb
 C:\Users\moaaz\source\repos\InsightfulLiving-Energy-Tracker\Back-end\Back-end\obj\Debug\net7.0\Back-end.genruntimeconfig.cache
 C:\Users\moaaz\source\repos\InsightfulLiving-Energy-Tracker\Back-end\Back-end\obj\Debug\net7.0\ref\Back-end.dll
-C:\Users\AL-FAJR\Desktop\New folder\InsightfulLiving-Energy-Tracker\Back-end\Back-end\bin\Debug\net7.0\appsettings.json
 C:\Users\AL-FAJR\Desktop\New folder\InsightfulLiving-Energy-Tracker\Back-end\Back-end\bin\Debug\net7.0\Back-end.exe
 C:\Users\AL-FAJR\Desktop\New folder\InsightfulLiving-Energy-Tracker\Back-end\Back-end\bin\Debug\net7.0\Back-end.deps.json
 C:\Users\AL-FAJR\Desktop\New folder\InsightfulLiving-Energy-Tracker\Back-end\Back-end\bin\Debug\net7.0\Back-end.runtimeconfig.json
@@ -217,3 +216,4 @@ C:\Users\AL-FAJR\Desktop\New folder\InsightfulLiving-Energy-Tracker\Back-end\Bac
 C:\Users\AL-FAJR\Desktop\New folder\InsightfulLiving-Energy-Tracker\Back-end\Back-end\obj\Debug\net7.0\ref\Back-end.dll
 C:\Users\AL-FAJR\Desktop\New folder\InsightfulLiving-Energy-Tracker\Back-end\Back-end\bin\Debug\net7.0\FluentValidation.dll
 C:\Users\AL-FAJR\Desktop\New folder\InsightfulLiving-Energy-Tracker\Back-end\Back-end\bin\Debug\net7.0\FluentValidation.DependencyInjectionExtensions.dll
+C:\Users\AL-FAJR\Desktop\New folder\InsightfulLiving-Energy-Tracker\Back-end\Back-end\bin\Debug\net7.0\appsettings.json

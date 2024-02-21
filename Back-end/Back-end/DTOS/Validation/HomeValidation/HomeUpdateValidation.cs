@@ -7,43 +7,48 @@ namespace Back_end.DTOS.Validation.HomeValidation
 {
     public class HomeUpdateValidation : AbstractValidator<HomeUpdateDto>
     {
-        public readonly UserManager<ApplicationUser> _manager;
+        
 
-        public HomeUpdateValidation(UserManager<ApplicationUser> manager)
+        public HomeUpdateValidation()
         {
-            _manager = manager;
-
+            // Rule for UserId with improved message
             RuleFor(h => h.UserId)
-                  .NotEmpty().WithMessage("{UserId} is required.")
-                  .NotNull();
+                .Custom((userId, context) =>
+                {
+                    if (userId == null || userId== "null")
+                    {
+                        context.AddFailure("UserId", "UserId cannot be null.");
+                    }
+                    else if (string.IsNullOrWhiteSpace(userId.ToString()))
+                    {
+                        context.AddFailure("UserId", "UserId cannot be empty or consist only of whitespace.");
+                    }
+                });
 
+            // Rule for NumberOfRooms with improved clarity
             RuleFor(h => h.NumberOfRooms)
-           .NotEmpty().WithMessage("{PropertyName} is required.")
-           .NotNull()
-           .Must(BeAnInteger).WithMessage("{PropertyName} must be an integer.");
-
-            RuleFor(p => p.UserId).MustAsync(Cheack).WithMessage("User Id Is Not Exixt");
+                .Custom((numberOfRooms, context) =>
+                {
+                    if (numberOfRooms == null)
+                    {
+                        context.AddFailure("NumberOfRooms", "NumberOfRooms cannot be null.");
+                    }
+                    else if (!int.TryParse(numberOfRooms.ToString(), out _))
+                    {
+                        context.AddFailure("NumberOfRooms", "NumberOfRooms must be a valid integer.");
+                    }
+                });
         }
 
-        private bool BeAnInteger(string arg)
-        {
-            if (arg == null)
-                return true;
+        //private bool BeAnInteger(string arg)
+        //{
+        //    if (arg == null)
+        //        return true;
 
-            return int.TryParse(arg.ToString(), out _);
-        }
+        //    return int.TryParse(arg.ToString(), out _);
+        //}
 
-        private async Task<bool> Cheack(string arg1, CancellationToken token)
-        {
-            var result = await _manager.FindByIdAsync(arg1);
-            if (result == null)
-            {
-                return false;
-            }
-            return true;
-        }
-
-
+       
         
        public List<string> ListError(FluentValidation.Results.ValidationResult validationResult)
         {
