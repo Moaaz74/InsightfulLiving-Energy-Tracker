@@ -1,7 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
+using Back_end.DTOs;
 using Back_end.Models;
 using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations;
+using Microsoft.EntityFrameworkCore;
 
 namespace Back_end.Controllers
 {
@@ -9,42 +12,115 @@ namespace Back_end.Controllers
     [Route("api/[controller]")]
     public class UserController : ControllerBase
     {
-        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public UserController(UserManager<ApplicationUser> userManager)
+        public UserController(UserManager<IdentityUser> userManager)
         {
             _userManager = userManager;
         }
 
-        [HttpPost("register")]
-        public async Task<IActionResult> Register(RegisterViewModel model)
+        #region AddUser
+        [HttpPost("addUser")]
+        public async Task<IActionResult> AddUser(AddUserDto model)
         {
-            if (!ModelState.IsValid)
+            var validationResult = AddUserValidation.Validator.Validate(model);
+            if (validationResult != ValidationResult.Success)
             {
-                return BadRequest(ModelState);
+                return BadRequest(validationResult);
             }
 
             var user = new ApplicationUser
             {
-                Password = model.Password,
+                UserName = model.UserName,
                 Email = model.Email,
-                Age = model.Age,
-                Name = model.Name,
-                Gender = model.Gender,
-                IsActive = true,
-                HomeId = model.HomeId
+                PhoneNumber = model.PhoneNumber,
+
             };
 
-            var result = await _userManager.CreateAsync(user, model.Password);
+            var result = await _userManager.CreateAsync(user, model.PasswordHash);
 
-            if (!result.Succeeded)
+            if (result.Succeeded)
             {
-                return BadRequest(result.Errors);
+                return Ok(new { Message = "User added successfully", UserId = user.Id });
+            }
+            else
+            {
+                return BadRequest(new { Message = "User addition failed", Errors = result.Errors });
+            }
+        }
+        #endregion
+
+        #region UpdateUser
+
+        [HttpPost("updateUser")]
+        public async Task<IActionResult> UpdateUser(UpdateUserDto model)
+        {
+            var validationResult = UpdateUserValidation.Validator.Validate(model);
+            if (validationResult != ValidationResult.Success)
+            {
+                return BadRequest(validationResult);
             }
 
-            return Ok(new { Message = "User registered successfully", UserId = user.Id });
+            var user = await _userManager.FindByIdAsync(model.UserId);
+            if (user == null)
+            {
+                return NotFound("User not found");
+            }
+
+            // Update user properties
+            user.UserName = model.UserName;
+            user.Email = model.Email;
+            user.PhoneNumber = model.PhoneNumber;
+            user.PasswordHash = model.PasswordHash;
+            
+
+            var result = await _userManager.UpdateAsync(user);
+
+            if (result.Succeeded)
+            {
+                return Ok(new { Message = "User updated successfully" });
+            }
+            else
+            {
+                return BadRequest(new { Message = "User update failed", Errors = result.Errors });
+            }
         }
 
-        // Other controller actions (login, get profile, etc.) can be added here
+        #endregion
+
+        #region GetUserById
+
+        [HttpGet("getUserById")]
+        public async Task<IActionResult> GetUserById(GetUserByIdDto model)
+        {
+            var validationResult = GetUserByIdValidation.Validator.Validate(model);
+            if (validationResult != ValidationResult.Success)
+            {
+                return BadRequest(validationResult);
+            }
+
+            var user = await _userManager.FindByIdAsync(model.UserId);
+            if (user == null)
+            {
+                return NotFound("User not found");
+            }
+
+            return Ok(user);
+        }
+
+        #endregion
+
+        #region GetAllUsers
+
+        [HttpGet("getAllUsers")]
+        public async Task<IActionResult> GetAllUsers()
+        {
+            var users = await _userManager.Users.ToListAsync(); 
+
+            return Ok(users);
+        }
+
+        #endregion
+
     }
 }

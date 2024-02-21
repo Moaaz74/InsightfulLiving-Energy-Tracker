@@ -48,9 +48,9 @@ namespace Back_end.Services
             _unitOfWork.Save();
         }
 
-        public void DeleteUser(int UsertId)
+        public void DeleteUser(int UserId)
         {
-            ApplicationUser user = _unitOfWork.Repository<ApplicationUser>().GetById(UsertId);
+            ApplicationUser user = _unitOfWork.Repository<ApplicationUser>().GetById(UserId);
             _unitOfWork.Repository<ApplicationUser>().Delete(user);
             _unitOfWork.Save();
         }
@@ -64,13 +64,12 @@ namespace Back_end.Services
         public void UpdateUser(ApplicationUser User)
         {
             ApplicationUser user = _unitOfWork.Repository<ApplicationUser>().GetById(User.Id);
-            user.Name = User.Name;
+            user.UserName = User.UserName;
             user.Email = User.Email;
-            user.Age = User.Age;
-            user.Password = User.Password;
+            user.PasswordHash = User.PasswordHash;
             user.HomeId = User.HomeId;
             _unitOfWork.Repository<ApplicationUser>().Update(user);
-            _unitOfWork.Save();
+            _unitOfWork.Save(); 
         }
     }
-}
+} 
