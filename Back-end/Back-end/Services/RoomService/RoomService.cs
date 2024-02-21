@@ -213,6 +213,16 @@ namespace Back_end.Services.RoomService
             }).ToList();
 
         }
+
+        public async Task<List<int>> GetIdsOfRooms()
+        {
+            var rooms = _unitOfWork.Repository<Room>().GetAll(h => h.IsDeleted == false);
+            if (rooms == null)
+            {
+                return null;
+            }
+            return rooms.Select(h => h.Id).ToList();
+        }
     }
 
 

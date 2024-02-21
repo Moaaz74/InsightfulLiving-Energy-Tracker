@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using static Azure.Core.HttpHeader;
 
 namespace Back_end.Controllers
 {
@@ -181,5 +182,21 @@ namespace Back_end.Controllers
             return Ok(rooms);
         }
         #endregion
+
+
+        [HttpGet("GetIds")]
+        public async Task<ActionResult<List<int>>> GetIds()
+        {
+            var rooms = await _roomService.GetIdsOfRooms();
+            if (rooms == null || (rooms.Count == 0))
+            {
+                List<string> error = new List<string>();
+                error.Add("Not Found rooms");
+                return NotFound(new { erroes = error });
+            }
+            return Ok(new { Ids = rooms });
+
+        }
+
     }
 } 

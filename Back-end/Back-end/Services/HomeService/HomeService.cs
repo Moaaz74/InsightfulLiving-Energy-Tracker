@@ -204,6 +204,12 @@ namespace Back_end.Services.HomeService
             }
             return homes.Select(h => h.Id).ToList();
         }
+
+        public async Task<MlDto> GetHomeEmailAndPhone(int Id)
+        {
+            var home = await _unitOfWork.Repository<Home>().FindAsync(h => h.Id == Id, new[] { "User" });
+            return new MlDto { Email = home.User.Email, PhoneNumber = home.User.PhoneNumber }; 
+        }
     }
 
 }

@@ -168,13 +168,13 @@ namespace Back_end.Controllers
         public async Task<ActionResult<List<int>>> GetIds()
         {
             var homes = await _homeService.GetIdsOfHomes();
-            if (homes == null)
+            if (homes == null || (homes.Count == 0))
             {
                 List<string> error = new List<string>();
                 error.Add("Not Found Homes");
                 return NotFound(new { erroes = error });
             }
-            return Ok(homes);
+            return Ok(new  { Ids = homes});
 
         }
 
