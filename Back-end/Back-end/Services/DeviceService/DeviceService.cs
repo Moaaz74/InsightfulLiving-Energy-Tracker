@@ -37,7 +37,7 @@ namespace Back_end.Services.DeviceService
                 // save to db 
                 _unitOfWork.Repository<Device>().Add(device);
                 _unitOfWork.Save();
-                return new DeviceViewDto { Id = device.Id, EnergyType = device.EnergyType };
+                return new DeviceViewDto { Id = device.Id, EnergyType = device.EnergyType , RoomId = device.RoomId };
 
             }
             return new DeviceViewDto { massageBadRequst = "Values is not coorect" };
@@ -76,7 +76,7 @@ namespace Back_end.Services.DeviceService
                 device.RoomId = roomid;
                 device.EnergyType = deviceUpdateDto.EnergyType;
                 _unitOfWork.Save();
-                return new DeviceViewDto { Id = device.Id, EnergyType = device.EnergyType };
+                return new DeviceViewDto { Id = device.Id, EnergyType = device.EnergyType , RoomId=device.RoomId };
             }
             return new DeviceViewDto { massageBadRequst = "Values is not correct" };
         }
@@ -97,7 +97,6 @@ namespace Back_end.Services.DeviceService
         }
         #endregion
 
-
         #region GetRoomswithDivice
         public async Task<DevicesWithRoomDto?> GetDeviceWithRoom(int Id)
         {
@@ -114,10 +113,83 @@ namespace Back_end.Services.DeviceService
                 room = new RoomViewDto { Id = device.Room.Id , HomeId = device.Room.Id , NumberOfDevices=device.Room.NumberOfDevices },
                 
             };
+        }
+        #endregion
+
+        #region GET Device 
+        public async Task<DeviceViewDto?> ViewDevice(int Id)
+        {
+            var device = _unitOfWork.Repository<Device>().GetById(Id);
+            if ((device == null || (device.IsDeleted == true)))
+            {
+                return null;
+            }
+            return new DeviceViewDto
+            {
+                Id = device.Id,
+                EnergyType = device.EnergyType ,
+                RoomId = device.RoomId,
 
 
+            };
 
         }
         #endregion
+
+        #region Get all Devices Deleted or not 
+        public async Task<List<DeviceViewDto>> ViewsDevice()
+        {
+            var devices = _unitOfWork.Repository<Device>().GetAll();
+            if (devices == null)
+            {
+                return null;
+            }
+            return devices.Select(h => new DeviceViewDto
+            {
+                Id = h.Id,
+                EnergyType= h.EnergyType,
+                RoomId = h.RoomId,
+
+
+            }).ToList();
+        }
+        #endregion
+
+        public async Task<List<DeviceViewDto>?> ViewsDeviceNotDelete()
+        {
+            var devices = _unitOfWork.Repository<Device>().GetAll(h => h.IsDeleted == false);
+            if (devices == null)
+            {
+                return null;
+            }
+            return devices.Select(h => new DeviceViewDto
+            {
+                Id = h.Id,
+                EnergyType=h.EnergyType,
+                RoomId = h.RoomId,
+
+            }).ToList();
+
+        }
+
+
+        public async Task<List<DeviceViewDto>?> ViewsDeviceDelete()
+        {
+            var devices = _unitOfWork.Repository<Device>().GetAll(h => h.IsDeleted == true);
+            if (devices == null)
+            {
+                return null;
+            }
+            return devices.Select(h => new DeviceViewDto
+            {
+                Id = h.Id,
+                EnergyType = h.EnergyType,
+                RoomId = h.RoomId,
+
+
+            }).ToList();
+
+
+        }
     }
 }

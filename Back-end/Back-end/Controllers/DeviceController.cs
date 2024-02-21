@@ -1,4 +1,5 @@
 ﻿using Back_end.DTOS.Device;
+using Back_end.DTOS.Home;
 using Back_end.DTOS.Room;
 using Back_end.DTOS.Validation.DeviceValidation;
 using Back_end.DTOS.Validation.RoomValidation;
@@ -113,6 +114,70 @@ namespace Back_end.Controllers
             }
 
             return Ok(device);
+        }
+        #endregion
+
+        #region ViewDevice
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<DeviceViewDto>> ViewDevice(int id)
+        {
+            var device = await _deviceService.ViewDevice(id);
+            if (device == null)
+            {
+                List<string> error = new List<string>();
+                error.Add("Room Is Not Exist");
+                return NotFound(new { erroes = error });
+            }
+
+            return Ok(device);
+        }
+        #endregion
+
+        #region All-Device deleted or not 
+
+        [HttpGet("All-Device")]
+        public async Task<ActionResult<List<DeviceViewDto>>> ViewAllDevice()
+        {
+            var devices = await _deviceService.ViewsDevice();
+            if (devices == null || (devices.Count()==0))
+            {
+                List<string> error = new List<string>();
+                error.Add("Not Found Devices");
+                return NotFound(new { erroes = error });
+            }
+            return Ok(devices);
+        }
+
+        #endregion
+
+        #region ViewsDevice
+        [HttpGet]
+        public async Task<ActionResult<List<DeviceViewDto>>> ViewsDevice()
+        {
+            var devices = await _deviceService.ViewsDeviceNotDelete();
+            if (devices == null || (devices.Count == 0))
+            {
+                List<string> error = new List<string>();
+                error.Add("Not Found Devices");
+                return NotFound(new { erroes = error });
+            }
+            return Ok(devices);
+        }
+        #endregion
+
+        #region Deleted-Devieces
+        [HttpGet("Deleted-Devieces")]
+        public async Task<ActionResult<List<HomeViewsDto>>> ViewsHomeDelete()
+        {
+            var devices = await _deviceService.ViewsDeviceDelete();
+            if (devices == null || (devices.Count == 0))
+            {
+                List<string> error = new List<string>();
+                error.Add("Not Found Rooms");
+                return NotFound(new { erroes = error });
+            }
+            return Ok(devices);
         }
         #endregion
     }

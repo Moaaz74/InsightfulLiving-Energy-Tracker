@@ -7,6 +7,10 @@ namespace Back_end.Services.DeviceService
         Task<DeviceViewDto> AddRoom(DeviceCreateDto deviceCreateDto);
         Task<DeviceViewDto> UpdateDevice(DeviceUpdateDto deviceUpdateDto, int Id);
         Task<string> RemoveDevice(int Id);
-        Task<DevicesWithRoomDto?> GetDeviceWithRoom(int Id); 
+        Task<DevicesWithRoomDto?> GetDeviceWithRoom(int Id);
+        Task<DeviceViewDto?> ViewDevice(int Id);
+        Task<List<DeviceViewDto>> ViewsDevice();
+        Task<List<DeviceViewDto>?> ViewsDeviceNotDelete();
+        Task<List<DeviceViewDto>?> ViewsDeviceDelete(); 
     }
 }

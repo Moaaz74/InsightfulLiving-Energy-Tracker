@@ -120,7 +120,7 @@ namespace Back_end.Controllers
         #region ViewRoom
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<RoomViewDto>> ViewHome(int id)
+        public async Task<ActionResult<RoomViewDto>> ViewRoom(int id)
         {
             var room = await _roomService.ViewRoom(id);
             if (room == null)
@@ -137,10 +137,10 @@ namespace Back_end.Controllers
         #region All-Room deleted or not 
 
         [HttpGet("All-Room")]
-        public async Task<ActionResult<List<HomeViewsDto>>> ViewAllHome()
+        public async Task<ActionResult<List<HomeViewsDto>>> ViewAllRoom()
         {
             var rooms = await _roomService.ViewsRoom();
-            if (rooms == null)
+            if (rooms == null || (rooms.Count == 0))
             {
                 List<string> error = new List<string>();
                 error.Add("Not Found Rooms");
@@ -151,8 +151,9 @@ namespace Back_end.Controllers
 
         #endregion
 
+        # region ViewsRoom
         [HttpGet]
-        public async Task<ActionResult<List<HomeViewsDto>>> ViewsHome()
+        public async Task<ActionResult<List<RoomViewDto>>> ViewsRoom()
         {
             var rooms = await _roomService.ViewsRoomNotDelete();
             if (rooms == null || (rooms.Count == 0))
@@ -164,13 +165,14 @@ namespace Back_end.Controllers
             
             return Ok(rooms);
         }
+        #endregion
 
-
-        [HttpGet("Deleted-Homes")]
-        public async Task<ActionResult<List<HomeViewsDto>>> ViewsHomeDelete()
+        #region Deleted-Rooms
+        [HttpGet("Deleted-Rooms")]
+        public async Task<ActionResult<List<RoomViewDto>>> ViewsRoomDelete()
         {
             var rooms = await _roomService.ViewsRoomDelete();
-            if (rooms == null)
+            if (rooms == null || (rooms.Count == 0))
             {
                 List<string> error = new List<string>();
                 error.Add("Not Found Rooms");
@@ -178,5 +180,6 @@ namespace Back_end.Controllers
             }
             return Ok(rooms);
         }
+        #endregion
     }
 } 

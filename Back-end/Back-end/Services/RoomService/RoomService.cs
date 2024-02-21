@@ -146,7 +146,7 @@ namespace Back_end.Services.RoomService
         }
         #endregion
 
-        #region GET home 
+        #region GET Room 
         public async Task<RoomViewDto?> ViewRoom(int Id)
         {
             var room = _unitOfWork.Repository<Room>().GetById(Id);
@@ -188,8 +188,6 @@ namespace Back_end.Services.RoomService
             {
                 return null;
             }
-
-
             return rooms.Select(h => new RoomViewDto
             {
                 Id = h.Id,
@@ -197,11 +195,7 @@ namespace Back_end.Services.RoomService
                 HomeId = h.HomeId,
                 
             }).ToList();
-
-
         }
-
-
         public async Task<List<RoomViewDto>?> ViewsRoomDelete()
         {
             var rooms = _unitOfWork.Repository<Room>().GetAll(h => h.IsDeleted == true);
@@ -210,7 +204,6 @@ namespace Back_end.Services.RoomService
                 return null;
             }
 
-
             return rooms.Select(h => new RoomViewDto
             {
                 Id = h.Id,
@@ -218,7 +211,6 @@ namespace Back_end.Services.RoomService
                 HomeId = h.HomeId,
                 
             }).ToList();
-
 
         }
     }
