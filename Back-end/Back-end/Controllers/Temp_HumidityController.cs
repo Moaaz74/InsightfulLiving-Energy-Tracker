@@ -1,6 +1,6 @@
 ﻿using Back_end.DAOs.Implementations;
 using Back_end.DAOs.Interfaces;
-using Back_end.DTOs.Cassandra_quries;
+using Back_end.DTOs.Cassandra_quries.Temp_HumidityDtos;
 using Back_end.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -28,7 +28,7 @@ namespace Back_end.Controllers
             {
                 List<string> error = new List<string>();
                 error.Add("There is no rooms consumption yet...");
-                return NotFound(new { erroes = error });
+                return NotFound(new { errors = error });
             }
 
             Temp_HumidityDto temp_humidityDto;
