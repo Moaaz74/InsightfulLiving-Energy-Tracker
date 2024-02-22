@@ -1,4 +1,6 @@
 ﻿using Back_end.DAOs.Interfaces;
+using Back_end.DTOs.Cassandra_quries.ApplianceDtos;
+using Back_end.DTOs.Cassandra_quries.Home_OverallDtos;
 using Back_end.Models;
 using Cassandra.Mapping;
 
@@ -36,6 +38,63 @@ namespace Back_end.DAOs.Implementations
                 // Handle any exceptions that occurred during query execution
                 Console.WriteLine($"Error executing query: {ex.Message}");
                 return null;
+            }
+        }
+
+        public async Task<IEnumerable<String>> getApplianceStartDates(string energytype, int applianceid)
+        {
+
+            string cql = $"select start from appliance where applianceid = {applianceid} and energytype = '{energytype}' ALLOW FILTERING ;";
+            try
+            {
+
+                return await mapper.FetchAsync<String>(cql);
+
+            }
+
+            catch (Exception ex)
+            {
+                // Handle any exceptions that occurred during query execution
+                Console.WriteLine($"Error executing query: {ex.Message}");
+                return null; // or throw the exception, depending on your requirements
+            }
+        }
+
+        public async Task<IEnumerable<String>> getApplianceEndDates(ApplianceS_DateDto s_DateDto, int applianceid)
+        {
+
+            string cql = $"select end from appliance where applianceid = {applianceid} and energytype = '{s_DateDto.energyType}' and end > '{s_DateDto.startDate}' ALLOW FILTERING ;";
+            try
+            {
+
+                return await mapper.FetchAsync<String>(cql);
+
+            }
+
+            catch (Exception ex)
+            {
+                // Handle any exceptions that occurred during query execution
+                Console.WriteLine($"Error executing query: {ex.Message}");
+                return null; // or throw the exception, depending on your requirements
+            }
+        }
+
+        public async Task<IEnumerable<Double>> getApplianceconsumption(ApplianceDatesDto datesDto, int applianceid)
+        {
+
+            string cql = $"select  applianceconsumption from appliance where applianceid = {applianceid} and energytype = '{datesDto.energyType}' and end > '{datesDto.startDate}'and end <= '{datesDto.endDate}' ALLOW FILTERING ;";
+            try
+            {
+
+                return await mapper.FetchAsync<Double>(cql);
+
+            }
+
+            catch (Exception ex)
+            {
+                // Handle any exceptions that occurred during query execution
+                Console.WriteLine($"Error executing query: {ex.Message}");
+                return null; // or throw the exception, depending on your requirements
             }
         }
     }
