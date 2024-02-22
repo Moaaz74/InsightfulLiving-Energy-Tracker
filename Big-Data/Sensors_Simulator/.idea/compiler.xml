@@ -6,11 +6,12 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="Spark" />
+        <module name="Sensors_Simulator1" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="Sensors_Simulator" target="20" />
+      <module name="Spark" target="11" />
     </bytecodeTargetLevel>
   </component>
 </project>
