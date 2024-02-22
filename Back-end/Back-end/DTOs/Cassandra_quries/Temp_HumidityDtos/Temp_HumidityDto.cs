@@ -1,4 +1,4 @@
-﻿namespace Back_end.DTOs.Cassandra_quries
+﻿namespace Back_end.DTOs.Cassandra_quries.Temp_HumidityDtos
 {
     public class Temp_HumidityDto
     {
