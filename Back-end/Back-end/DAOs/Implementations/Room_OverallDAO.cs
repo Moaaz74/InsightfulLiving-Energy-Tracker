@@ -1,4 +1,6 @@
 ﻿using Back_end.DAOs.Interfaces;
+using Back_end.DTOs.Cassandra_quries.Home_OverallDtos;
+using Back_end.DTOs.Cassandra_quries.Room_OverallDtos;
 using Back_end.Models;
 using Cassandra;
 using Cassandra.Mapping;
@@ -40,6 +42,63 @@ namespace Back_end.DAOs.Implementations
                 return null; 
             }
         }
-    
-}
+
+
+        public async Task<IEnumerable<String>> getRoomStartDates(string energytype, int roomid)
+        {
+
+            string cql = $"select start from room_overall where roomid = {roomid} and energytype = '{energytype}' ALLOW FILTERING ;";
+            try
+            {
+
+                return await mapper.FetchAsync<String>(cql);
+
+            }
+
+            catch (Exception ex)
+            {
+                // Handle any exceptions that occurred during query execution
+                Console.WriteLine($"Error executing query: {ex.Message}");
+                return null; // or throw the exception, depending on your requirements
+            }
+        }
+
+        public async Task<IEnumerable<String>> getRoomEndDates(Room_OverallS_DateDto s_DateDto, int roomid)
+        {
+
+            string cql = $"select end from room_overall where roomid = {roomid} and energytype = '{s_DateDto.energyType}' and end > '{s_DateDto.startDate}' ALLOW FILTERING ;";
+            try
+            {
+
+                return await mapper.FetchAsync<String>(cql);
+
+            }
+
+            catch (Exception ex)
+            {
+                // Handle any exceptions that occurred during query execution
+                Console.WriteLine($"Error executing query: {ex.Message}");
+                return null; // or throw the exception, depending on your requirements
+            }
+        }
+
+        public async Task<IEnumerable<Double>> getRoomconsumption(RoomDatesDto datesDto, int roomid)
+        {
+
+            string cql = $"select  roomconsumption from room_overall where roomid = {roomid} and energytype = '{datesDto.energyType}' and end > '{datesDto.startDate}'and end <= '{datesDto.endDate}' ALLOW FILTERING ;";
+            try
+            {
+
+                return await mapper.FetchAsync<Double>(cql);
+
+            }
+
+            catch (Exception ex)
+            {
+                // Handle any exceptions that occurred during query execution
+                Console.WriteLine($"Error executing query: {ex.Message}");
+                return null; // or throw the exception, depending on your requirements
+            }
+        }
+    }
 }
