@@ -40,14 +40,14 @@ namespace Back_end.Controllers
             {
                 List<string> error = new List<string>();
                 error.Add(device.massage);
-                return NotFound(new { erroes = error });
+                return NotFound(new { errors = error });
 
             }
             if (!device.massageBadRequst.IsNullOrEmpty())
             {
                 List<string> error = new List<string>();
                 error.Add(device.massageBadRequst);
-                return BadRequest(new { erroes = error });
+                return BadRequest(new { errors = error });
 
             }
             return Ok(new { massage = "Room added ", Device = device });
@@ -70,13 +70,13 @@ namespace Back_end.Controllers
             {
                 List<string> error = new List<string>();
                 error.Add(device.massage);
-                return NotFound(new { erroes = error });
+                return NotFound(new { errors = error });
             }
             if (!device.massageBadRequst.IsNullOrEmpty())
             {
                 List<string> error = new List<string>();
                 error.Add(device.massageBadRequst);
-                return BadRequest(new { erroes = error });
+                return BadRequest(new { errors = error });
 
             }
             return Ok(new { massage = "Device Is Updated ", Device = device });
@@ -93,7 +93,7 @@ namespace Back_end.Controllers
             {
                 List<string> error = new List<string>();
                 error.Add(result);
-                return NotFound(new { erroes = error });
+                return NotFound(new { errors = error });
             }
             return Ok(new { massage= "Device Is Deleted" });
         }
@@ -110,7 +110,7 @@ namespace Back_end.Controllers
             {
                 List<string> error = new List<string>();
                 error.Add("Device Is Not Exist");
-                return NotFound(new { erroes = error });
+                return NotFound(new { errors = error });
             }
 
             return Ok(device);
@@ -127,7 +127,7 @@ namespace Back_end.Controllers
             {
                 List<string> error = new List<string>();
                 error.Add("Room Is Not Exist");
-                return NotFound(new { erroes = error });
+                return NotFound(new { errors = error });
             }
 
             return Ok(device);
@@ -160,7 +160,7 @@ namespace Back_end.Controllers
             {
                 List<string> error = new List<string>();
                 error.Add("Not Found Devices");
-                return NotFound(new { erroes = error });
+                return NotFound(new { errors = error });
             }
             return Ok(devices);
         }
@@ -175,7 +175,7 @@ namespace Back_end.Controllers
             {
                 List<string> error = new List<string>();
                 error.Add("Not Found Rooms");
-                return NotFound(new { erroes = error });
+                return NotFound(new { errors = error });
             }
             return Ok(devices);
         }

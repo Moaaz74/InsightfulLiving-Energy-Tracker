@@ -41,14 +41,14 @@ namespace Back_end.Controllers
             {
                 List<string> error = new List<string>();
                 error.Add(room.massage);
-                return NotFound(new { erroes = error });
+                return NotFound(new { errors = error });
 
             }
             if (!room.massageBadRequst.IsNullOrEmpty())
             {
                 List<string> error = new List<string>();
                 error.Add(room.massageBadRequst);
-                return BadRequest(new { erroes = error });
+                return BadRequest(new { errors = error });
 
             }
             return Ok(new { massage = "Room added ", Room = room });
@@ -71,13 +71,13 @@ namespace Back_end.Controllers
             {
                 List<string> error = new List<string>();
                 error.Add(room.massage);
-                return NotFound(new { erroes = error });
+                return NotFound(new { errors = error });
             }
             if (!room.massageBadRequst.IsNullOrEmpty())
             {
                 List<string> error = new List<string>();
                 error.Add(room.massageBadRequst);
-                return BadRequest(new { erroes = error });
+                return BadRequest(new { errors = error });
 
             }
             return Ok(new { massage = "Room Is Updated ", Room = room });
@@ -94,7 +94,7 @@ namespace Back_end.Controllers
             {
                 List<string> error = new List<string>();
                 error.Add(result);
-                return NotFound(new { erroes = error });
+                return NotFound(new { errors = error });
             }
             return Ok(new { massage = "Room Is Deleted" });
         }
@@ -111,7 +111,7 @@ namespace Back_end.Controllers
             {
                 List<string> error = new List<string>();
                 error.Add("Room Is Not Exist");
-                return NotFound(new { erroes = error });
+                return NotFound(new { errors = error });
             }
 
             return Ok(homeWithRooms);
@@ -128,14 +128,13 @@ namespace Back_end.Controllers
             {
                 List<string> error = new List<string>();
                 error.Add("Room Is Not Exist");
-                return NotFound(new { erroes = error });
+                return NotFound(new { errors = error });
             }
 
             return Ok(room);
         }
-        #endregion
-
-        #region All-Room deleted or not 
+        #endregion  
+        #region region All-Room deleted or not 
 
         [HttpGet("All-Room")]
         public async Task<ActionResult<List<HomeViewsDto>>> ViewAllRoom()
@@ -161,7 +160,7 @@ namespace Back_end.Controllers
             {
                 List<string> error = new List<string>();
                 error.Add("Not Found Rooms");
-                return NotFound(new { erroes = error });
+                return NotFound(new { errors = error });
             }
             
             return Ok(rooms);
@@ -177,7 +176,7 @@ namespace Back_end.Controllers
             {
                 List<string> error = new List<string>();
                 error.Add("Not Found Rooms");
-                return NotFound(new { erroes = error });
+                return NotFound(new { errors = error });
             }
             return Ok(rooms);
         }
@@ -192,7 +191,7 @@ namespace Back_end.Controllers
             {
                 List<string> error = new List<string>();
                 error.Add("Not Found rooms");
-                return NotFound(new { erroes = error });
+                return NotFound(new { errors = error });
             }
             return Ok(new { Ids = rooms });
 
