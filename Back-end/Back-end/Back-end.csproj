@@ -8,9 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-<<<<<<< HEAD
     <Folder Include="Hubs\" />
-=======
     <Compile Remove="Hubs\**" />
     <Content Remove="Hubs\**" />
     <EmbeddedResource Remove="Hubs\**" />
@@ -18,7 +16,6 @@
   </ItemGroup>
 
   <ItemGroup>
->>>>>>> homemodule
     <Folder Include="Migrations\" />
   </ItemGroup>
 
