@@ -13,6 +13,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Properties;
 import java.util.concurrent.TimeoutException;
@@ -33,13 +34,25 @@ public class Simulator_Home268_Kitchen2471_Kettle {
         try (BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\Moataz Nasr\\OneDrive - Faculty of Computers and Information\\Desktop\\home268_kitchen2471_sensor21532_electric-appliance_kettle.csv\\home268_kitchen2471_sensor21532_electric-appliance_kettle.csv"))) {
             String line;
             boolean f = true;
-
+            int i =1;
+            Date time ;
+            Calendar calendar = Calendar.getInstance();
             while ((line = br.readLine()) != null) {
 
                 if(f){f=false;continue;}
 
                 String topic = "nifi1";
-                String jsonRecord = convertToJSON(line);
+                Calendar clonedCalendar = (Calendar) calendar.clone();
+                if(i==3) {
+                    clonedCalendar.add(Calendar.HOUR_OF_DAY, 1);
+                    i = 1;
+                }
+                else {
+                    i++;
+                }
+                time = clonedCalendar.getTime();
+                calendar = clonedCalendar;
+                String jsonRecord = convertToJSON(line,time);
 
                 producer.send(new ProducerRecord<>(topic, jsonRecord));
                 System.out.println(jsonRecord);
@@ -57,14 +70,14 @@ public class Simulator_Home268_Kitchen2471_Kettle {
         }
     }
 
-    private static String convertToJSON(String line) {
+    private static String convertToJSON(String line ,Date time) {
         String[] sentAttributes = line.split(",");
         int homeId = 268;
         int roomId = 2471;
         int applianceId = 4098;
         Date currentDate = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String formattedDate = sdf.format(currentDate);
+        String formattedDate = sdf.format(time);
         String type = "Electricity";
         return "{\"HomeId\" : \"" + homeId + "\" , \"RoomId\" : \""+ roomId + "\" , \"ApplianceId\" : \"" + applianceId + "\" , \"DateTime\": \"" + formattedDate + "\" , \"EnergyType\": \"" + type +  "\", \"Value\":\"" + sentAttributes[1] + "\"}";
     }

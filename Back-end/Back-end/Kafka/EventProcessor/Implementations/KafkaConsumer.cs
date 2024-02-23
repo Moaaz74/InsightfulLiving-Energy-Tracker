@@ -13,7 +13,8 @@ namespace Back_end.Kafka.EventProcessor.Implementations
         {
             _logger = logger;
             _configuration = configuration;
-            _consumer = KafkaUtils.CreateConsumer(_configuration["KafkaConfig:Broker"], new List<string> { _configuration["KafkaConfig:Topic"] });
+            _consumer = KafkaUtils.CreateConsumer(_configuration.GetValue<string>("KafkaConfig:Broker", "localhost:9092"), 
+                                      new List<string> { _configuration.GetValue<string>("KafkaConfig:Topic", "asp") });
         }
 
         public string ReadMessage()

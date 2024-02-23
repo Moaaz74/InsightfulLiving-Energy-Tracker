@@ -43,7 +43,7 @@ public class Simulator_temp_humidity {
                 producer.send(new ProducerRecord<>(topic, jsonRecord));
                 System.out.println(jsonRecord);
 
-                Thread.sleep(90000);
+                Thread.sleep(70000);
             }
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
@@ -66,7 +66,8 @@ public class Simulator_temp_humidity {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String formattedDate = sdf.format(currentDate);
         int  sensorid = 3105;
+        int homeid = 80;
 
-        return "{\"SensorId\": \"" + sensorid + "\" , \"DateTime\": \"" + formattedDate + "\" , \"Temperature\": \"" + sentAttributes[1] +  "\" , \"Humidity\":\"" + sentAttributes[2] + "\"}";
+        return "{\"SensorId\": \"" + sensorid + "\" , \"HomeId\": \"" + homeid + "\" , \"DateTime\": \"" + formattedDate + "\" , \"Temperature\": \"" + sentAttributes[1] +  "\" , \"Humidity\":\"" + sentAttributes[2] + "\"}";
     }
 }
