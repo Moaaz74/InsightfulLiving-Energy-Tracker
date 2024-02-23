@@ -6,6 +6,11 @@ namespace Back_end.Repositories
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
+        public DbSet<Home> Homes { get; set; }
+
+        public DbSet<Room> Rooms { get; set; }
+
+        public DbSet<Device> Devices { get; set; }
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {

@@ -1,5 +1,6 @@
 ﻿using Back_end.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace Back_end.Repositories.Implementations
 {
@@ -96,6 +97,24 @@ namespace Back_end.Repositories.Implementations
             dbSet.Attach(entity);
             _context.Entry(entity).State = EntityState.Modified;
             return entity;
+        }
+
+
+        public async Task<T> FindAsync(Expression<Func<T, bool>> criteria, string[] includes = null)
+        {
+            IQueryable<T> query = _context.Set<T>();
+
+            if (includes != null)
+                foreach (var incluse in includes)
+                    query = query.Include(incluse);
+
+            return await query.SingleOrDefaultAsync(criteria);
+        }
+
+
+        public int Count(Expression<Func<T, bool>> criteria)
+        {
+            return _context.Set<T>().Count(criteria);
         }
     }
 }
