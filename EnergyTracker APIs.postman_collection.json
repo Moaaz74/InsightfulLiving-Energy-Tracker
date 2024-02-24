@@ -1,0 +1,284 @@
+{
+	"info": {
+		"_postman_id": "d4f21368-2ffe-433f-8bab-dd9a0efc5fbb",
+		"name": "EnergyTracker APIs",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "33169408",
+		"_collection_link": "https://www.postman.com/material-observer-36903648/workspace/energytracker/collection/33169408-d4f21368-2ffe-433f-8bab-dd9a0efc5fbb?action=share&source=collection_link&creator=33169408"
+	},
+	"item": [
+		{
+			"name": "User APIs",
+			"item": [
+				{
+					"name": "Add User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"UserName\" : \"Moaaz_Mostafa\",\r\n    \"Email\" : \"moaazmostafa7474@gmail.com\",\r\n    \"PhoneNumber\" : \"+201092489917\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:62863/api/user/addUser"
+					},
+					"response": []
+				},
+				{
+					"name": "Update User",
+					"request": {
+						"method": "PUT",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Get User By Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:62863/api/user/?UserId=ebc3a8b8-971f-4327-b540-d3b21236c366",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "62863",
+							"path": [
+								"api",
+								"user",
+								""
+							],
+							"query": [
+								{
+									"key": "UserId",
+									"value": "ebc3a8b8-971f-4327-b540-d3b21236c366"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Users",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:62863/api/user/DeleteUser?UserId=ebc3a8b8-971f-4327-b540-d3b21236c366",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "62863",
+							"path": [
+								"api",
+								"user",
+								"DeleteUser"
+							],
+							"query": [
+								{
+									"key": "UserId",
+									"value": "ebc3a8b8-971f-4327-b540-d3b21236c366"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Home APIs",
+			"item": [
+				{
+					"name": "Rooms APIs",
+					"item": [
+						{
+							"name": "Devices APIs",
+							"item": [
+								{
+									"name": "Add Device",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"HomeId\" : \"1\",\r\n    \"NumberOfDevices\" : \"3\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "http://localhost:62863/api/Room/Create"
+									},
+									"response": []
+								},
+								{
+									"name": "Update Device",
+									"request": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"RoomId\" : \"1\", \r\n    \"EnergyType\" : \"Electricity\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "http://localhost:62863/api/Device/1"
+									},
+									"response": []
+								},
+								{
+									"name": "Delete Device",
+									"request": {
+										"method": "DELETE",
+										"header": []
+									},
+									"response": []
+								},
+								{
+									"name": "Get Device By Id",
+									"request": {
+										"method": "GET",
+										"header": []
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Add Room",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"HomeId\" : \"1\",\r\n    \"NumberOfDevices\" : \"3\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:62863/api/Room/Create"
+							},
+							"response": []
+						},
+						{
+							"name": "Update Room",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"HomeId\" : \"1\",\r\n    \"NumberOfDevices\" : \"1\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:62863/api/Room/2"
+							},
+							"response": []
+						},
+						{
+							"name": "Get Room By Id",
+							"request": {
+								"method": "GET",
+								"header": []
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Room",
+							"request": {
+								"method": "DELETE",
+								"header": []
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Add Home",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"UserId\" : \"1\",\r\n    \"NumberOfRooms\" : \"6\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:62863/api/Home"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Home",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"UserId\" : \"b1be05c9-26eb-4624-968a-b1e60f5cafcb\",\r\n    \"NumberOfRooms\" : \"5\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:62863/api/Home/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Home By Id",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Homes",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Delet Home",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "http://localhost:62863/api/Home/remove/1"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
