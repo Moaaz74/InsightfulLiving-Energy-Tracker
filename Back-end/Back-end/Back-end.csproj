@@ -9,13 +9,6 @@
 
   <ItemGroup>
     <Folder Include="Hubs\" />
-    <Compile Remove="Hubs\**" />
-    <Content Remove="Hubs\**" />
-    <EmbeddedResource Remove="Hubs\**" />
-    <None Remove="Hubs\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Folder Include="Migrations\" />
   </ItemGroup>
 
