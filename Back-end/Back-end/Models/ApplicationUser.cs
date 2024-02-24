@@ -6,18 +6,12 @@ namespace Back_end.Models
 {
     public class ApplicationUser : IdentityUser
     {
-       
-<<<<<<< HEAD
+        [Column]
+        public bool IsPasswordChanged { get; set; }
 
-        [ForeignKey("Home")]
-        public int HomeId { get; set; }
-
+        public bool IsDeleted { get; set; }
      
     }
 
    
 }
-=======
-    }
-}
->>>>>>> a57dcffa5b31df9eb1228059e201360bd3195f34

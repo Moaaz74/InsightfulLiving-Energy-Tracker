@@ -67,7 +67,6 @@ namespace Back_end.Services
             user.UserName = User.UserName;
             user.Email = User.Email;
             user.PasswordHash = User.PasswordHash;
-            user.HomeId = User.HomeId;
             _unitOfWork.Repository<ApplicationUser>().Update(user);
             _unitOfWork.Save(); 
         }

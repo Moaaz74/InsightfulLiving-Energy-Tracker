@@ -9,7 +9,6 @@
 
   <ItemGroup>
     <Folder Include="Hubs\" />
-    <Folder Include="DTOs\" />
     <Folder Include="Migrations\" />
   </ItemGroup>
 

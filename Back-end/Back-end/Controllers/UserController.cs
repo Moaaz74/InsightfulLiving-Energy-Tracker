@@ -12,9 +12,9 @@ namespace Back_end.Controllers
     [Route("api/[controller]")]
     public class UserController : ControllerBase
     {
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public UserController(UserManager<IdentityUser> userManager)
+        public UserController(UserManager<ApplicationUser> userManager)
         {
             _userManager = userManager;
         }
@@ -23,89 +23,86 @@ namespace Back_end.Controllers
         [HttpPost("addUser")]
         public async Task<IActionResult> AddUser(AddUserDto model)
         {
-            var validationResult = AddUserValidation.Validator.Validate(model);
-            if (validationResult != ValidationResult.Success)
+            if (!ModelState.IsValid)
             {
-                return BadRequest(validationResult);
+                return BadRequest(ModelState);
             }
 
-            var user = new ApplicationUser
+            ApplicationUser user = new ApplicationUser
             {
                 UserName = model.UserName,
                 Email = model.Email,
                 PhoneNumber = model.PhoneNumber,
-
             };
 
-            var result = await _userManager.CreateAsync(user, model.PasswordHash);
+            IdentityResult result = await _userManager.CreateAsync(user, model.PasswordHash);
 
             if (result.Succeeded)
             {
                 return Ok(new { Message = "User added successfully", UserId = user.Id });
             }
-            else
-            {
-                return BadRequest(new { Message = "User addition failed", Errors = result.Errors });
-            }
+            return BadRequest(new { Message = "User addition failed", Errors = result.Errors });
+            
         }
         #endregion
 
         #region UpdateUser
 
-        [HttpPost("updateUser")]
-        public async Task<IActionResult> UpdateUser(UpdateUserDto model)
+        [HttpPut("updateUser")]
+        public async Task<IActionResult> UpdateUser([FromQuery] string UserId, [FromBody]UpdateUserDto model)
         {
-            var validationResult = UpdateUserValidation.Validator.Validate(model);
-            if (validationResult != ValidationResult.Success)
+            if (!ModelState.IsValid)
             {
-                return BadRequest(validationResult);
+                return BadRequest(ModelState);
             }
 
-            var user = await _userManager.FindByIdAsync(model.UserId);
+            var user = await _userManager.FindByIdAsync(UserId);
+
             if (user == null)
-            {
                 return NotFound("User not found");
-            }
+            
 
+            if (!user.IsPasswordChanged && model.Password != "Moa@@z_1234")
+                model.isPasswordChanged = true;
+            
             // Update user properties
             user.UserName = model.UserName;
             user.Email = model.Email;
             user.PhoneNumber = model.PhoneNumber;
-            user.PasswordHash = model.PasswordHash;
+            user.PasswordHash = _userManager.PasswordHasher.HashPassword(user , model.Password);
             
 
-            var result = await _userManager.UpdateAsync(user);
+            IdentityResult result = await _userManager.UpdateAsync(user);
 
             if (result.Succeeded)
             {
                 return Ok(new { Message = "User updated successfully" });
             }
-            else
-            {
-                return BadRequest(new { Message = "User update failed", Errors = result.Errors });
-            }
+            return BadRequest(new { Message = "User update failed", Errors = result.Errors });
+            
         }
 
         #endregion
 
         #region GetUserById
 
-        [HttpGet("getUserById")]
-        public async Task<IActionResult> GetUserById(GetUserByIdDto model)
+        [HttpGet]
+        public async Task<IActionResult> GetUserById([FromQuery] string UserId)
         {
-            var validationResult = GetUserByIdValidation.Validator.Validate(model);
-            if (validationResult != ValidationResult.Success)
-            {
-                return BadRequest(validationResult);
-            }
-
-            var user = await _userManager.FindByIdAsync(model.UserId);
-            if (user == null)
+            ApplicationUser user = await _userManager.FindByIdAsync(UserId);
+            if (user == null || user.IsDeleted)
             {
                 return NotFound("User not found");
             }
 
-            return Ok(user);
+            GetUserDto userDto = new GetUserDto()
+            {
+                Username = user.UserName,
+                Email = user.Email,
+                PhoneNumber = user.PhoneNumber
+            };
+
+            return Ok(userDto);
         }
 
         #endregion
@@ -115,9 +112,34 @@ namespace Back_end.Controllers
         [HttpGet("getAllUsers")]
         public async Task<IActionResult> GetAllUsers()
         {
-            var users = await _userManager.Users.ToListAsync(); 
+            List<ApplicationUser> users = await _userManager.Users.ToListAsync();
+            List<GetUserDto> usersDto = new List<GetUserDto>();
 
-            return Ok(users);
+            foreach(ApplicationUser user in users)
+            {
+                usersDto.Add(new GetUserDto() { Username = user.UserName, Email = user.Email, PhoneNumber = user.PhoneNumber });
+            }
+
+            return Ok(usersDto);
+        }
+
+        #endregion
+
+        #region DeleteUser
+
+        [HttpDelete("DeleteUser")]
+        public async Task<IActionResult> DeleteUser([FromQuery] string UserId)
+        {
+            ApplicationUser user = await _userManager.FindByIdAsync(UserId);
+            if (user == null || user.IsDeleted)
+            {
+                return NotFound("User not found");
+            }
+            user.IsDeleted = true;
+            IdentityResult result = await _userManager.UpdateAsync(user);
+            if(result.Succeeded) 
+                return Ok("User Deleted Successfully");
+            return BadRequest(result);
         }
 
         #endregion

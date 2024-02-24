@@ -18,10 +18,6 @@ namespace Back_end.DTOs
                     return new ValidationResult("Invalid Email Address", new[] { nameof(AddUserDto.Email) });
                 }
 
-                if (string.IsNullOrEmpty(dto.PasswordHash) || dto.PasswordHash.Length < 8)
-                {
-                    return new ValidationResult("Password must be at least 8 characters long", new[] { nameof(AddUserDto.PasswordHash) });
-                }
 
                 if (!string.IsNullOrEmpty(dto.PhoneNumber) && !new PhoneAttribute().IsValid(dto.PhoneNumber))
                 {

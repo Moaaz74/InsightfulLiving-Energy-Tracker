@@ -46,6 +46,7 @@ namespace Back_end
 
             app.UseCors("AllowAll");
 
+
             // Configure the HTTP request pipeline.
             //app.UseAuthentication();
             app.UseAuthorization();

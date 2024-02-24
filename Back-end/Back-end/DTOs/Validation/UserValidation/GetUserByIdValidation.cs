@@ -6,12 +6,12 @@ namespace Back_end.DTOs
     {
         public static class Validator
         {
-            public static ValidationResult Validate(GetUserByIdDto dto)
+            public static ValidationResult Validate(GetUserDto dto)
             {
-                if (string.IsNullOrEmpty(dto.UserId))
-                {
-                    return new ValidationResult("UserId is required", new[] { nameof(GetUserByIdDto.UserId) });
-                }
+                //if (string.IsNullOrEmpty(dto.UserId))
+                //{
+                //    return new ValidationResult("UserId is required", new[] { nameof(GetUserDto.UserId) });
+                //}
 
                 return ValidationResult.Success; 
             }
