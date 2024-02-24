@@ -40,7 +40,7 @@ namespace Back_end.Controllers
                 error.Add(home.NotFoundMassage);
                 return NotFound(new { errors = error });
             }
-            return Ok(new { massage = "Home added ", home = home });
+            return Ok(home);
         }
         #endregion
 
@@ -69,7 +69,7 @@ namespace Back_end.Controllers
                 error.Add(home.Massage);
                 return BadRequest(new { errors = error });
             }
-            return Ok(new { massage = "Home Is Updated ", home = home });
+            return Ok(home);
 
         }
         #endregion
@@ -127,7 +127,7 @@ namespace Back_end.Controllers
         #endregion
 
         #region delete
-        [HttpPut("remove/{id}")]
+        [HttpDelete("remove/{id:int}")]
         public async Task<ActionResult> RemoveHome(int Id)
         {
             string result = await _homeService.RemoveHome(Id);

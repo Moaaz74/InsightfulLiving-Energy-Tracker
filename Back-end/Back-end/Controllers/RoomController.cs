@@ -26,7 +26,7 @@ namespace Back_end.Controllers
         }
 
         #region Create
-        [HttpPost]
+        [HttpPost("Create")]
         public async Task<ActionResult> CreateHome([FromBody] RoomCreateDto roomCreateDto)
         {
             RoomCreateValidation validationRules = new RoomCreateValidation();
@@ -51,7 +51,7 @@ namespace Back_end.Controllers
                 return BadRequest(new { errors = error });
 
             }
-            return Ok(new { massage = "Room added ", Room = room });
+            return Ok(room);
         }
         #endregion
 
@@ -80,13 +80,13 @@ namespace Back_end.Controllers
                 return BadRequest(new { errors = error });
 
             }
-            return Ok(new { massage = "Room Is Updated ", Room = room });
+            return Ok(room);
         }
         #endregion
 
         #region Delete
 
-        [HttpPut("remove/{id}")]
+        [HttpDelete("remove/{id:int}")]
         public async Task<ActionResult> RemoveRoom(int Id)
         {
             string result = await _roomService.RemoveRoom(Id);
@@ -120,7 +120,7 @@ namespace Back_end.Controllers
 
         #region ViewRoom
 
-        [HttpGet("{id}")]
+        [HttpGet("{id:int}")]
         public async Task<ActionResult<RoomViewDto>> ViewRoom(int id)
         {
             var room = await _roomService.ViewRoom(id);

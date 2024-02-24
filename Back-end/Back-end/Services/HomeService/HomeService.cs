@@ -60,6 +60,7 @@ namespace Back_end.Services.HomeService
 
             if (int.TryParse(homeUpdateDto.NumberOfRooms, out int numberOfRooms))
             {
+                // Will be Reviewed
                 if (numberOfRooms != home.NumberOfRooms)
                 {
                     int count = _unitOfWork.Repository<Room>().Count(r => r.HomeId == home.Id && r.IsDeleted==false);

@@ -25,7 +25,7 @@ namespace Back_end.Controllers
 
 
         #region Create
-        [HttpPost]
+        [HttpPost("Create")]
         public async Task<ActionResult> CreateDevice([FromBody] DeviceCreateDto deviceCreateDto)
         {
             DeviceCreateValidation validationRules = new DeviceCreateValidation();
@@ -50,7 +50,7 @@ namespace Back_end.Controllers
                 return BadRequest(new { errors = error });
 
             }
-            return Ok(new { massage = "Room added ", Device = device });
+            return Ok(device);
         }
         #endregion
 
@@ -79,13 +79,13 @@ namespace Back_end.Controllers
                 return BadRequest(new { errors = error });
 
             }
-            return Ok(new { massage = "Device Is Updated ", Device = device });
+            return Ok(device);
         }
         #endregion
 
         #region Delete
 
-        [HttpPut("remove/{id}")]
+        [HttpDelete("remove/{id:int}")]
         public async Task<ActionResult> RemoveDevice(int Id)
         {
             string result = await _deviceService.RemoveDevice(Id);
@@ -119,7 +119,7 @@ namespace Back_end.Controllers
 
         #region ViewDevice
 
-        [HttpGet("{id}")]
+        [HttpGet("{id:int}")]
         public async Task<ActionResult<DeviceViewDto>> ViewDevice(int id)
         {
             var device = await _deviceService.ViewDevice(id);
