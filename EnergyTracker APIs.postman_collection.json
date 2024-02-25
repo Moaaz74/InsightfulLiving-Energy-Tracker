@@ -97,6 +97,24 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Username\" : \"Mohamed_Saber123\",\r\n    \"Password\" : \"MoS@ber_123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:62863/api/user/Login"
+					},
+					"response": []
 				}
 			]
 		},
