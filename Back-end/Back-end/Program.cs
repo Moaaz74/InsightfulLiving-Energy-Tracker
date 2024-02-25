@@ -53,6 +53,8 @@ namespace Back_end
             builder.Services.AddScoped<IApplianceDAO, ApplianceDAO>();
             builder.Services.AddScoped<ITemp_HumidityDAO, Temp_HumidityDAO>();
 
+            builder.Services.AddScoped<Services.IJwtService , Services.JwtService>();
+
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
             builder.Services.AddScoped<IHomeService, HomeService>();
             builder.Services.AddScoped<IRoomService, RoomService>();
