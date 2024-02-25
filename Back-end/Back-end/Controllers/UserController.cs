@@ -5,6 +5,8 @@ using Back_end.Models;
 using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.EntityFrameworkCore;
+using Back_end.DTOS.User;
+using Back_end.Services;
 
 namespace Back_end.Controllers
 {
@@ -14,9 +16,12 @@ namespace Back_end.Controllers
     {
         private readonly UserManager<ApplicationUser> _userManager;
 
-        public UserController(UserManager<ApplicationUser> userManager)
+        private readonly IJwtService _jwtService;
+
+        public UserController(UserManager<ApplicationUser> userManager , IJwtService jwtService)
         {
             _userManager = userManager;
+            _jwtService = jwtService;
         }
 
         #region AddUser
@@ -143,6 +148,22 @@ namespace Back_end.Controllers
         }
 
         #endregion
+
+        [HttpPost("Login")]
+        public async Task<IActionResult> Login(LoginDTO loginDTO)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            ApplicationUser user = await _userManager.FindByNameAsync(loginDTO.Username);
+            if (user is null)
+                return Unauthorized();
+            if (!await _userManager.CheckPasswordAsync(user, loginDTO.Password))
+                return Unauthorized();
+
+            AuthenticationResponseDTO token = _jwtService.CreateToken(user);
+            return Ok(token);
+        }
 
     }
 }

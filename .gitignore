@@ -1,3 +1,6 @@
 "/Kafka/*" 
-Back-end/.vs
+/Back-end/.vs
 .vs
+/Back-end/Back-end/bin/
+/Back-end/Back-end/obj/
+/Back-end/Back-end/appsettings*.json
