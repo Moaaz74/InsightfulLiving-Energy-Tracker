@@ -1,0 +1,420 @@
+{
+	"info": {
+		"_postman_id": "0a18a16c-7a14-446c-a280-1f5103e2dbf3",
+		"name": "Cassandra_Reading",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26180575"
+	},
+	"item": [
+		{
+			"name": "home_overall",
+			"item": [
+				{
+					"name": "home_overall",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:62863/api/home_overall",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "62863",
+							"path": [
+								"api",
+								"home_overall"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "StartDates",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"energyType\" : \"Electricity\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:62863/api/home_overall/268",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "62863",
+							"path": [
+								"api",
+								"home_overall",
+								"268"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "EndDates",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"energyType\" : \"Electricity\",\r\n\"startDate\"  : \"2024-02-22T14:00:00.000+02:00\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:62863/api/home_overall/EndDates/268",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "62863",
+							"path": [
+								"api",
+								"home_overall",
+								"EndDates",
+								"268"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "homeconsumption",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"energyType\" : \"Electricity\",\r\n\"startDate\"  : \"2024-02-22T14:00:00.000+02:00\",\r\n\"endDate\"  : \"2024-02-22T15:00:00.000+02:00\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:62863/api/home_overall/data/268",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "62863",
+							"path": [
+								"api",
+								"home_overall",
+								"data",
+								"268"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "room_overall",
+			"item": [
+				{
+					"name": "room_overall",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:62863/api/room_overall",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "62863",
+							"path": [
+								"api",
+								"room_overall"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "StartDates",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"energyType\" : \"Electricity\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:62863/api/room_overall/2471",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "62863",
+							"path": [
+								"api",
+								"room_overall",
+								"2471"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "EndDates",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"energyType\" : \"Electricity\",\r\n\"startDate\"  : \"2024-02-20T15:00:00.000+02:00\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:62863/api/room_overall/EndDates/2471",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "62863",
+							"path": [
+								"api",
+								"room_overall",
+								"EndDates",
+								"2471"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "roomconsumption",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"energyType\" : \"Electricity\",\r\n\"startDate\"  : \"2024-02-22T14:00:00.000+02:00\",\r\n\"endDate\"  : \"2024-02-22T18:00:00.000+02:00\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:62863/api/room_overall/data/2471",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "62863",
+							"path": [
+								"api",
+								"room_overall",
+								"data",
+								"2471"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "appliance",
+			"item": [
+				{
+					"name": "appliance",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:62863/api/appliance",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "62863",
+							"path": [
+								"api",
+								"appliance"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "StartDates",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"energyType\" : \"Electricity\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:62863/api/appliance/4098",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "62863",
+							"path": [
+								"api",
+								"appliance",
+								"4098"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "EndDates",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"energyType\" : \"Electricity\",\r\n\"startDate\"  : \"2024-02-20T17:00:00.000+02:00\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:62863/api/appliance/EndDates/4098",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "62863",
+							"path": [
+								"api",
+								"appliance",
+								"EndDates",
+								"4098"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "applianceconsumption",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"energyType\" : \"Electricity\",\r\n\"startDate\"  : \"2024-02-22T14:00:00.000+02:00\",\r\n\"endDate\"  : \"2024-02-23T15:00:00.000+02:00\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:62863/api/appliance/data/4094",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "62863",
+							"path": [
+								"api",
+								"appliance",
+								"data",
+								"4094"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "temp_humidity",
+			"item": [
+				{
+					"name": "temp_humidity",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:62863/api/temp_humidity",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "62863",
+							"path": [
+								"api",
+								"temp_humidity"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
