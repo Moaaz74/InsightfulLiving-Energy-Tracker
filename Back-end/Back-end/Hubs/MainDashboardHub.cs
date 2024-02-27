@@ -48,7 +48,7 @@ namespace Back_end.Hubs
             foreach (var connection in userConnections)
                 connections.Add(connection.ConnectionId);
 
-            //Clients.Clients(connections).SendMessage(UserId, JsonSerializer.Serialize(data)); //data will be retrieved by cassandra 
+            //Clients.Clients(connections).SendMessage(JsonSerializer.Serialize(data)); //data will be retrieved by cassandra 
 
             return base.OnConnectedAsync();
         }
