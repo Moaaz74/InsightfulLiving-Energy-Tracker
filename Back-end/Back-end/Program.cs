@@ -44,22 +44,25 @@ namespace Back_end
             builder.Services.AddSignalR();
             builder.Services.AddSingleton<IEventConsumer, KafkaConsumer>();
             builder.Services.AddHostedService<KafkaConsumerService>();
-            builder.Services.AddIdentityCore<ApplicationUser>()
-                .AddEntityFrameworkStores<ApplicationDbContext>();
 
-            builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-            
+            builder.Services.AddSingleton<IEventConsumer, KafkaConsumer>();
+            builder.Services.AddHostedService<KafkaConsumerService>();
             builder.Services.AddScoped<IHome_OverallDAO, Home_OverallDAO>();
             builder.Services.AddScoped<IRoom_OverallDAO, Room_OverallDAO>();
             builder.Services.AddScoped<IApplianceDAO, ApplianceDAO>();
             builder.Services.AddScoped<ITemp_HumidityDAO, Temp_HumidityDAO>();
             builder.Services.AddScoped<IUserConnectionService , UserConnectionService>();
-            builder.Services.AddScoped<Services.IJwtService , Services.JwtService>();
+            builder.Services.AddScoped<IJwtService , JwtService>();
             builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
             builder.Services.AddScoped<IHomeService, HomeService>();
             builder.Services.AddScoped<IRoomService, RoomService>();
             builder.Services.AddScoped<IDeviceService,DeviceService>();
+
+            builder.Services.AddIdentityCore<ApplicationUser>()
+                .AddEntityFrameworkStores<ApplicationDbContext>();
+            builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
             var app = builder.Build();
 
             app.UseCors("AllowAll");

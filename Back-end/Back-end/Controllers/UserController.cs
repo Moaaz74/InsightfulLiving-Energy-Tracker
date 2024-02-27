@@ -113,14 +113,6 @@ namespace Back_end.Controllers
             return Ok(userDto);
         }
 
-        [HttpGet("homes")]
-        public IActionResult GetUserHomes([FromQuery] string UserId)
-        {
-            List<Home> homes = _userService.GetUserHomesById(UserId);
-            return Ok(homes);
-
-        }
-
         #endregion
 
         #region GetAllUsers
