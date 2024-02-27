@@ -16,12 +16,15 @@ namespace Back_end.Controllers
     {
         private readonly UserManager<ApplicationUser> _userManager;
 
+        private readonly IUserService _userService;
+
         private readonly IJwtService _jwtService;
 
-        public UserController(UserManager<ApplicationUser> userManager , IJwtService jwtService)
+        public UserController(UserManager<ApplicationUser> userManager , IJwtService jwtService , IUserService userService)
         {
             _userManager = userManager;
             _jwtService = jwtService;
+            _userService = userService;
         }
 
         #region AddUser
@@ -108,6 +111,14 @@ namespace Back_end.Controllers
             };
 
             return Ok(userDto);
+        }
+
+        [HttpGet("homes")]
+        public IActionResult GetUserHomes([FromQuery] string UserId)
+        {
+            List<Home> homes = _userService.GetUserHomesById(UserId);
+            return Ok(homes);
+
         }
 
         #endregion

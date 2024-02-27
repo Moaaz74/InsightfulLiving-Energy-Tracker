@@ -222,6 +222,11 @@ namespace Back_end.Services.HomeService
             var home = await _unitOfWork.Repository<Home>().FindAsync(h => h.Id == Id, new[] { "User" });
             return new MlDto { Email = home.User.Email, PhoneNumber = home.User.PhoneNumber }; 
         }
+
+        public List<Home> GetHomesByUserId(string UserId)
+        {
+             return _unitOfWork.Repository<Home>().GetAll(filter: h => h.UserId == UserId).ToList();
+        }
     }
 
 }

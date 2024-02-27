@@ -223,8 +223,12 @@ namespace Back_end.Services.RoomService
             }
             return rooms.Select(h => h.Id).ToList();
         }
+
+        public List<Room> GetRoomsByHomeId(int homeId)
+        {
+            return _unitOfWork.Repository<Room>().GetAll(r => r.HomeId == homeId && r.IsDeleted == false).ToList();
+        }
+
     }
-
-
 }
 

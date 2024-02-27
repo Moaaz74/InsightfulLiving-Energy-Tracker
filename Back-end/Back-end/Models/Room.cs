@@ -10,6 +10,8 @@
 
         public int NumberOfDevices { get; set; }
 
+        public string Type { get; set; } = String.Empty;
+
         public List<Device> devices { get; set; } = new List<Device>();
 
         public bool IsDeleted { get; set; }

@@ -27,6 +27,6 @@ namespace Back_end.Repositories.Interfaces
 
         Task<T> FindAsync(Expression<Func<T, bool>> criteria, string[] includes = null);
 
-        int Count(Expression<Func<T, bool>> criteria); 
+        int Count(Expression<Func<T, bool>> criteria);
     }
 }

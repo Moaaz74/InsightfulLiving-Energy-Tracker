@@ -1,4 +1,5 @@
 ﻿using Back_end.DTOS.Home;
+using Back_end.Models;
 
 namespace Back_end.Services.HomeService
 {
@@ -18,5 +19,8 @@ namespace Back_end.Services.HomeService
         Task<List<HomeViewsDto>?> ViewsHomeDelete();
 
         Task<List<int>> GetIdsOfHomes();
+
+        List<Home> GetHomesByUserId(string UserId);
+
     }
 }

@@ -120,7 +120,7 @@ namespace Back_end.Migrations
 
                     b.HasIndex("RoomId");
 
-                    b.ToTable("Devices");
+                    b.ToTable("Devices", (string)null);
                 });
 
             modelBuilder.Entity("Back_end.Models.Home", b =>
@@ -145,7 +145,7 @@ namespace Back_end.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Homes");
+                    b.ToTable("Homes", (string)null);
                 });
 
             modelBuilder.Entity("Back_end.Models.Room", b =>
@@ -169,7 +169,7 @@ namespace Back_end.Migrations
 
                     b.HasIndex("HomeId");
 
-                    b.ToTable("Rooms");
+                    b.ToTable("Rooms", (string)null);
                 });
 
             modelBuilder.Entity("Back_end.Models.UserConnection", b =>
@@ -182,7 +182,7 @@ namespace Back_end.Migrations
 
                     b.HasKey("UserId", "ConnectionId");
 
-                    b.ToTable("UserConnection");
+                    b.ToTable("UserConnection", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

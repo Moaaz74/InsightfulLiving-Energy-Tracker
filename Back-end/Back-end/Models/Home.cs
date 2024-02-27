@@ -1,4 +1,6 @@
-﻿namespace Back_end.Models
+﻿using System.Text.Json.Serialization;
+
+namespace Back_end.Models
 {
     public class Home
     {
@@ -8,7 +10,7 @@
 
         public  ApplicationUser User { get; set; } = default!;
 
-        public int NumberOfRooms { get; set; } 
+        public int NumberOfRooms { get; set; }
 
         public List<Room> Rooms { get; set; }  = new List<Room>();
         public bool IsDeleted { get; set; }

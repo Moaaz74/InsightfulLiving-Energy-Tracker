@@ -1,6 +1,7 @@
 ﻿using Back_end.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace Back_end.Repositories.Implementations
 {
@@ -59,7 +60,10 @@ namespace Back_end.Repositories.Implementations
             this.disposed = true;
         }
 
-        public IEnumerable<T> GetAll(System.Linq.Expressions.Expression<Func<T, bool>> filter = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, string IncludeProperties = "")
+        public IEnumerable<T> GetAll(
+           Expression<Func<T, bool>> filter = null,
+           Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
+           string IncludeProperties = "")
         {
             IQueryable<T> query = dbSet;
 
@@ -116,5 +120,6 @@ namespace Back_end.Repositories.Implementations
         {
             return _context.Set<T>().Count(criteria);
         }
+
     }
 }

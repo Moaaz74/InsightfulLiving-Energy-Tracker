@@ -1,4 +1,5 @@
 ﻿using Back_end.DTOS.Room;
+using Back_end.Models;
 
 namespace Back_end.Services.RoomService
 {
@@ -12,6 +13,7 @@ namespace Back_end.Services.RoomService
         Task<List<RoomViewDto>> ViewsRoom();
         Task<List<RoomViewDto>?> ViewsRoomDelete();
         Task<List<RoomViewDto>?> ViewsRoomNotDelete();
-        Task<List<int>> GetIdsOfRooms(); 
+        Task<List<int>> GetIdsOfRooms();
+        public List<Room> GetRoomsByHomeId(int homeId);
     }
 }

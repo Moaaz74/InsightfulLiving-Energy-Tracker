@@ -7,6 +7,7 @@ using Back_end.Models;
 using Back_end.Repositories;
 using Back_end.Repositories.Implementations;
 using Back_end.Repositories.Interfaces;
+using Back_end.Services;
 using Back_end.Services.DeviceService;
 using Back_end.Services.HomeService;
 using Back_end.Services.RoomService;
@@ -52,9 +53,9 @@ namespace Back_end
             builder.Services.AddScoped<IRoom_OverallDAO, Room_OverallDAO>();
             builder.Services.AddScoped<IApplianceDAO, ApplianceDAO>();
             builder.Services.AddScoped<ITemp_HumidityDAO, Temp_HumidityDAO>();
-
+            builder.Services.AddScoped<IUserConnectionService , UserConnectionService>();
             builder.Services.AddScoped<Services.IJwtService , Services.JwtService>();
-
+            builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
             builder.Services.AddScoped<IHomeService, HomeService>();
             builder.Services.AddScoped<IRoomService, RoomService>();

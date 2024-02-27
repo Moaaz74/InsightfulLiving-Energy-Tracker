@@ -56,7 +56,7 @@ namespace Back_end.Services
         }
 
 
-        public ApplicationUser GetUserById(int UserId)
+        public ApplicationUser GetUserById(string UserId)
         {
             return _unitOfWork.Repository<ApplicationUser>().GetById(UserId);
         }
