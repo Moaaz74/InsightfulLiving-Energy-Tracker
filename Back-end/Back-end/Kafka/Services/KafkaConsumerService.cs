@@ -13,16 +13,15 @@ namespace Back_end.Kafka.Services
         private readonly IEventConsumer _consumer;
         private readonly ILogger<KafkaConsumerService> _logger;
         private readonly IHubContext<MainDashboardHub, IHub> _hubContext;
-        //private IUserConnectionService _userConnectionService;
+        private IUserConnectionService _userConnectionService;
         private readonly IServiceScopeFactory _serviceScopeFactory;
 
-        public KafkaConsumerService(IEventConsumer consumer, ILogger<KafkaConsumerService> logger, IHubContext<MainDashboardHub, IHub> hubContext, /*IUserConnectionService userConnectionsService,*/ IServiceScopeFactory serviceScopeFactory)
+        public KafkaConsumerService(IEventConsumer consumer, ILogger<KafkaConsumerService> logger, IHubContext<MainDashboardHub, IHub> hubContext , IServiceScopeFactory serviceScopeFactory)
         {
             _logger = logger;
             _consumer = consumer;
             _hubContext = hubContext;
             _serviceScopeFactory = serviceScopeFactory;
-            //_userConnectionService = userConnectionsService;
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
@@ -53,7 +52,7 @@ namespace Back_end.Kafka.Services
             using (var scope = _serviceScopeFactory.CreateScope())
             {
                 var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-                //_userConnectionService = scope.ServiceProvider.GetRequiredService<IUserConnectionService>();
+                _userConnectionService = scope.ServiceProvider.GetRequiredService<IUserConnectionService>();
                 //List<UserConnection> userConnections = (List<UserConnection>)_userConnectionService.GetAll();
 
                 //if (userConnections is not null && userConnections.Count > 0)
@@ -62,7 +61,7 @@ namespace Back_end.Kafka.Services
                 //    foreach (UserConnection userConnection in userConnections)
                 //        connections.Add(userConnection.ConnectionId);
 
-                //    await _hubContext.Clients.Clients(connections).SendMessage(Use, orderRequest);
+                //    await _hubContext.Clients.Clients(connections).SendMessage(message);
                 //}
                 return;
                 

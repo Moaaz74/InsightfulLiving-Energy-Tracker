@@ -7,8 +7,7 @@ namespace Back_end.Models
 {
     public class ApplicationUser : IdentityUser
     {
-        [JsonIgnore]
-        public virtual List<Home> homes { get; set; } = new List<Home>();
+        public Home Home { get; set; }
 
         [Column]
         public bool IsPasswordChanged { get; set; }

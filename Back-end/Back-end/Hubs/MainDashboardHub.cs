@@ -26,23 +26,18 @@ namespace Back_end.Hubs
         {
             string UserId = Context.User?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             _userConnectionsService.Add(new UserConnection() { UserId = UserId, ConnectionId = Context.ConnectionId });
-            List<int> HomeIDs = new List<int>();
             List<int> RoomIDs = new List<int>();
+            int HomeId = _homeService.GetHomeByUserId(UserId).Id;
             
-            foreach (Home home in  _homeService.GetHomesByUserId(UserId))
-                HomeIDs.Add(home.Id);
-            
-            foreach(int homeId in HomeIDs)
+            foreach(Room room in _roomService.GetRoomsByHomeId(HomeId))
             {
-              foreach(Room room in _roomService.GetRoomsByHomeId(homeId))
-                {
-                    if (room.Type == "LivingRoom")
-                        RoomIDs.Add(room.Id);
-                }
+                if (room.Type == "LivingRoom")
+                    RoomIDs.Add(room.Id);
             }
 
-            // Call the method which retrieves the last raw added in the table (Homes , Rooms) Energy & Temp&Humidity
-            
+
+            // Call the method which retrieves the last raw added in the table (Homes , Rooms) Energy & (Temp&Humidity of Living Room)
+
             List<UserConnection> userConnections = (List<UserConnection>)_userConnectionsService.GetAll(Context.User?.FindFirst(ClaimTypes.NameIdentifier)?.Value);
             List<string> connections = new List<string>();
             foreach (var connection in userConnections)

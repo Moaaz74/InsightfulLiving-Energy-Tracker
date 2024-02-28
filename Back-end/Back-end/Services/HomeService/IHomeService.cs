@@ -20,7 +20,7 @@ namespace Back_end.Services.HomeService
 
         Task<List<int>> GetIdsOfHomes();
 
-        List<Home> GetHomesByUserId(string UserId);
+        Home GetHomeByUserId(string UserId);
 
     }
 }

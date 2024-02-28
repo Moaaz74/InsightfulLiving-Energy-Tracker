@@ -223,9 +223,9 @@ namespace Back_end.Services.HomeService
             return new MlDto { Email = home.User.Email, PhoneNumber = home.User.PhoneNumber }; 
         }
 
-        public List<Home> GetHomesByUserId(string UserId)
+        public Home GetHomeByUserId(string UserId)
         {
-             return _unitOfWork.Repository<Home>().GetAll(filter: h => h.UserId == UserId).ToList();
+             return _unitOfWork.Repository<Home>().GetAll(filter: h => h.UserId == UserId).ToList().FirstOrDefault<Home>();
         }
     }
 
