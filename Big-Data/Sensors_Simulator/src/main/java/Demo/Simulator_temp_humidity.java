@@ -65,9 +65,9 @@ public class Simulator_temp_humidity {
         Date currentDate = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String formattedDate = sdf.format(currentDate);
-        int  sensorid = 3105;
+        int  roomId = 2463;
         int homeid = 80;
 
-        return "{\"SensorId\": \"" + sensorid + "\" , \"HomeId\": \"" + homeid + "\" , \"DateTime\": \"" + formattedDate + "\" , \"Temperature\": \"" + sentAttributes[1] +  "\" , \"Humidity\":\"" + sentAttributes[2] + "\"}";
+        return "{\"HomeId\": \"" + homeid + "\" , \"RoomId\": \"" + roomId + "\" , \"DateTime\": \"" + formattedDate + "\" , \"Temperature\": \"" + sentAttributes[1] +  "\" , \"Humidity\":\"" + sentAttributes[2] + "\"}";
     }
 }
