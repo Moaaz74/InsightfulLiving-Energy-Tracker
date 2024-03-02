@@ -6,7 +6,7 @@ namespace Back_end.DAOs.Interfaces
 {
     public interface IRoom_OverallDAO
     {
-        Task<IEnumerable<Room_Overall>> getRoom();
+        Task<Room_Overall> getLastRoom(int roomid);
         Task<IEnumerable<String>> getRoomStartDates(string energytype, int roomid);
         Task<IEnumerable<String>> getRoomEndDates(Room_OverallS_DateDto s_DateDto, int roomid);
         Task<IEnumerable<Double>> getRoomconsumption(RoomDatesDto datesDto, int roomid);
