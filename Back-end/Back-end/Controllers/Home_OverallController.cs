@@ -19,31 +19,25 @@ namespace Back_end.Controllers
             _home_overallDAO = home_OverallDAO;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetHome_Overall()
+        [HttpGet("last/{homeid}")]
+        public async Task<IActionResult> GetLastHome_Overall(int homeid)
         {
-            var home_OverallDtos = new List<Home_OverallDto>();
-            var allHomes = await _home_overallDAO.getHome();
-            if (allHomes.IsNullOrEmpty())
+            var Home = await _home_overallDAO.getLastHome(homeid);
+            if (Home==null)
             {
                 List<string> error = new List<string>();
-                error.Add("There is no homes consumption yet...");
+                error.Add("There is no home consumption yet...");
                 return NotFound(new { errors = error });
             }
 
-            Home_OverallDto homeDto;
-
-
-            foreach (var home in allHomes) {
-                homeDto = new Home_OverallDto();
-                homeDto.Start = home.start;
-                homeDto.End = home.end;
-                homeDto.HomeConsumption = home.homeconsumption;
-                homeDto.HomeId = home.homeid;
-                homeDto.EnergyType = home.energytype;
-                home_OverallDtos.Add(homeDto);
-            }
-            return Ok(home_OverallDtos);
+                Home_OverallDto homeDto = new Home_OverallDto();
+                homeDto.Start = Home.start;
+                homeDto.End = Home.end;
+                homeDto.HomeConsumption = Home.homeconsumption;
+                homeDto.HomeId = Home.homeid;
+                homeDto.EnergyType = Home.energytype;
+            
+            return Ok(homeDto);
         }
 
         [HttpGet("{homeid}")]
