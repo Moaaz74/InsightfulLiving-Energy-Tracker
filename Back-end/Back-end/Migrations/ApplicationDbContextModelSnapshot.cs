@@ -41,9 +41,6 @@ namespace Back_end.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
 
-                    b.Property<int>("HomeId")
-                        .HasColumnType("int");
-
                     b.Property<bool>("IsDeleted")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
@@ -89,9 +86,6 @@ namespace Back_end.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("HomeId")
-                        .IsUnique();
-
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
 
@@ -126,7 +120,7 @@ namespace Back_end.Migrations
 
                     b.HasIndex("RoomId");
 
-                    b.ToTable("Devices");
+                    b.ToTable("Devices", (string)null);
                 });
 
             modelBuilder.Entity("Back_end.Models.Home", b =>
@@ -145,11 +139,14 @@ namespace Back_end.Migrations
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Homes");
+                    b.HasIndex("UserId")
+                        .IsUnique();
+
+                    b.ToTable("Homes", (string)null);
                 });
 
             modelBuilder.Entity("Back_end.Models.Room", b =>
@@ -177,7 +174,7 @@ namespace Back_end.Migrations
 
                     b.HasIndex("HomeId");
 
-                    b.ToTable("Rooms");
+                    b.ToTable("Rooms", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -313,17 +310,6 @@ namespace Back_end.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("Back_end.Models.ApplicationUser", b =>
-                {
-                    b.HasOne("Back_end.Models.Home", "Home")
-                        .WithOne("User")
-                        .HasForeignKey("Back_end.Models.ApplicationUser", "HomeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Home");
-                });
-
             modelBuilder.Entity("Back_end.Models.Device", b =>
                 {
                     b.HasOne("Back_end.Models.Room", "Room")
@@ -333,6 +319,17 @@ namespace Back_end.Migrations
                         .IsRequired();
 
                     b.Navigation("Room");
+                });
+
+            modelBuilder.Entity("Back_end.Models.Home", b =>
+                {
+                    b.HasOne("Back_end.Models.ApplicationUser", "User")
+                        .WithOne("Home")
+                        .HasForeignKey("Back_end.Models.Home", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Back_end.Models.Room", b =>
@@ -397,12 +394,15 @@ namespace Back_end.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Back_end.Models.ApplicationUser", b =>
+                {
+                    b.Navigation("Home")
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Back_end.Models.Home", b =>
                 {
                     b.Navigation("Rooms");
-
-                    b.Navigation("User")
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("Back_end.Models.Room", b =>

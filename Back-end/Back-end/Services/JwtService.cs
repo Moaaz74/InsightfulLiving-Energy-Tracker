@@ -35,7 +35,7 @@ namespace Back_end.Services
             {
                 Token = tokenHandler.WriteToken(token),
                 Expiration = expiration,
-                HomeId = user.HomeId
+                HomeId = user.Home?.Id
             };
         }
 
