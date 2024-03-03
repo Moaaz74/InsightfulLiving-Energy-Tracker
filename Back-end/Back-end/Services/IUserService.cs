@@ -15,7 +15,6 @@ namespace Back_end.Services
 
         void DeleteUser(int UserId);
 
-        ApplicationUser GetUserByHomeId(int HomeId);
 
 
     }

@@ -7,5 +7,7 @@
 
         public int NumberOfDevices { get; set; }
 
+        public string Type { get; set; }
+
     }
 }

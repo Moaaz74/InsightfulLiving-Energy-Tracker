@@ -70,10 +70,5 @@ namespace Back_end.Services
             _unitOfWork.Repository<ApplicationUser>().Update(user);
             _unitOfWork.Save(); 
         }
-
-        public ApplicationUser GetUserByHomeId(int HomeId)
-        {
-            return _unitOfWork.Repository<ApplicationUser>().GetAll(filter: u => u.Home.Id == HomeId).ToList<ApplicationUser>().FirstOrDefault();
-        }
     }
 } 

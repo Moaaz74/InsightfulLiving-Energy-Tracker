@@ -5,5 +5,7 @@
         public string? HomeId { get; set; }
 
         public string? NumberOfDevices { get; set; }
+
+        public string Type { get; set; }
     }
 }

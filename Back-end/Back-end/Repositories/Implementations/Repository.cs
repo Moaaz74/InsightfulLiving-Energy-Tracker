@@ -85,6 +85,11 @@ namespace Back_end.Repositories.Implementations
             return dbSet.Find(id);
         }
 
+        public T GetByFilter(Expression<Func<T, bool>> filter)
+        {
+            return dbSet.Where(filter).FirstOrDefault();
+        }
+
         public async Task<T> GetByIdAsync(object id)
         {
             return await dbSet.FindAsync(id);

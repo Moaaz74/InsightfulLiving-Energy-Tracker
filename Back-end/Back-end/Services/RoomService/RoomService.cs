@@ -40,11 +40,11 @@ namespace Back_end.Services.RoomService
                 Room room = new Room();
                 room.NumberOfDevices = numberOfDevices;
                 room.HomeId = homeid;
-
+                room.Type = roomCreateDto.Type;
                 // save to db 
                 _unitOfWork.Repository<Room>().Add(room);
                 _unitOfWork.Save();
-                return new RoomViewDto { Id = room.Id, HomeId = room.HomeId, NumberOfDevices = room.NumberOfDevices };
+                return new RoomViewDto { Id = room.Id, HomeId = room.HomeId, NumberOfDevices = room.NumberOfDevices , Type = room.Type };
 
             }
             return new RoomViewDto { massageBadRequst = "Values is not coorect" };
@@ -137,6 +137,7 @@ namespace Back_end.Services.RoomService
             {
                 Id = room.Id,
                 NumberOfDevices = room.NumberOfDevices,
+                Type = room.Type,
                 devices = room.devices.Where(r => r.IsDeleted == false).Select(d => new DTOS.Device.DeviceViewDto { EnergyType = d.EnergyType, Id = d.Id }).ToList(),
                 home =  new HomeViewDto { Id = room.home.Id, NumberOfRooms = room.home.NumberOfRooms, UserId = room.home.UserId }
             };
@@ -177,6 +178,7 @@ namespace Back_end.Services.RoomService
                 Id = h.Id,
                 NumberOfDevices= h.NumberOfDevices,
                 HomeId = h.HomeId,
+                Type = h.Type,
             }).ToList();
         }
         #endregion
@@ -193,7 +195,7 @@ namespace Back_end.Services.RoomService
                 Id = h.Id,
                 NumberOfDevices= h.NumberOfDevices,
                 HomeId = h.HomeId,
-                
+                Type = h.Type
             }).ToList();
         }
         public async Task<List<RoomViewDto>?> ViewsRoomDelete()
@@ -209,7 +211,7 @@ namespace Back_end.Services.RoomService
                 Id = h.Id,
                 NumberOfDevices= h.NumberOfDevices,
                 HomeId = h.HomeId,
-                
+                Type = h.Type
             }).ToList();
 
         }
@@ -224,15 +226,22 @@ namespace Back_end.Services.RoomService
             return rooms.Select(h => h.Id).ToList();
         }
 
-        public List<Room> GetRoomsByHomeId(int homeId)
+        public RoomViewDto GetRoomByType(string RoomType)
         {
-            return _unitOfWork.Repository<Room>().GetAll(r => r.HomeId == homeId && r.IsDeleted == false).ToList();
+            Room room = _unitOfWork.Repository<Room>().GetByFilter(r => r.Type == RoomType);
+            if (room is null)
+                return null;
+            return new RoomViewDto()
+            {
+                Id = room.Id,
+                HomeId = room.HomeId,
+                NumberOfDevices = room.NumberOfDevices,
+                Type = room.Type
+            };
+
+            
         }
 
-        public Room GetRoomByDevice(Device Device)
-        {
-            return _unitOfWork.Repository<Room>().GetAll(filter : r => r.devices.Contains(Device) , IncludeProperties:"devices").FirstOrDefault<Room>();
-        }
     }
 }
 

@@ -8,6 +8,6 @@ namespace Back_end.DTOS.Room
 
         public string? NumberOfDevices { get; set; } 
 
-       
+       public string Type { get; set; }
     }
 }

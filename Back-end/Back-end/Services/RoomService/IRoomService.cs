@@ -13,7 +13,9 @@ namespace Back_end.Services.RoomService
         Task<List<RoomViewDto>> ViewsRoom();
         Task<List<RoomViewDto>?> ViewsRoomDelete();
         Task<List<RoomViewDto>?> ViewsRoomNotDelete();
+
         Task<List<int>> GetIdsOfRooms();
-        public List<Room> GetRoomsByHomeId(int homeId);
+
+        RoomViewDto GetRoomByType(string RoomType);
     }
 }

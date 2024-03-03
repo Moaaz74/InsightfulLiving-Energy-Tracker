@@ -18,6 +18,8 @@ namespace Back_end.DTOS.Room
          [JsonIgnore]
         public string massageBadRequst {  get; set; }
 
+        public string Type { get; set; }
+
         
     }
 }

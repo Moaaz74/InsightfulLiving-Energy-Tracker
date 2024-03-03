@@ -15,6 +15,6 @@ namespace Back_end.DTOS.Room
 
         public List<DeviceViewDto> devices { get; set; }
 
-       
+       public string Type {  get; set; }
     }
 }

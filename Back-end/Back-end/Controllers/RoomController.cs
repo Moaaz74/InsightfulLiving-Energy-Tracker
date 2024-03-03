@@ -197,5 +197,15 @@ namespace Back_end.Controllers
 
         }
 
+
+        [HttpGet("GetRoomByType")]
+        public IActionResult GetRoomByType([FromBody] RoomGetType TypeDto)
+        {
+            RoomViewDto room = _roomService.GetRoomByType(TypeDto.Type);
+            if(room is null)
+                return NotFound("There is no Room with this type");
+            return Ok(room);
+        }
+
     }
 } 
