@@ -42,7 +42,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:62863/api/user/?UserId=ebc3a8b8-971f-4327-b540-d3b21236c366",
+							"raw": "http://localhost:62863/api/user?UserId=ebc3a8b8-971f-4327-b540-d3b21236c366",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -50,8 +50,7 @@
 							"port": "62863",
 							"path": [
 								"api",
-								"user",
-								""
+								"user"
 							],
 							"query": [
 								{
@@ -188,7 +187,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"HomeId\" : \"1\",\r\n    \"NumberOfDevices\" : \"3\"\r\n}",
+									"raw": "{\r\n    \"HomeId\" : \"4\",\r\n    \"NumberOfDevices\" : \"2\",\r\n    \"Type\" : \"LivingRoom\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -232,6 +231,27 @@
 								"header": []
 							},
 							"response": []
+						},
+						{
+							"name": "Get Room By Type",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"Type\" : \"LivingRoom\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:62863/api/Room/GetRoomByType"
+							},
+							"response": []
 						}
 					]
 				},
@@ -242,7 +262,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"UserId\" : \"1\",\r\n    \"NumberOfRooms\" : \"6\"\r\n}",
+							"raw": "{\r\n    \"UserId\" : \"ebc3a8b8-971f-4327-b540-d3b21236c366\",\r\n    \"NumberOfRooms\" : \"6\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
