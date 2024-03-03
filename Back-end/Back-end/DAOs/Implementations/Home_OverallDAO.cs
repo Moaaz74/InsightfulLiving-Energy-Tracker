@@ -26,14 +26,16 @@ namespace Back_end.DAOs.Implementations
             
         }
 
-        public async Task<IEnumerable<Home_Overall>> getHome()
+        public async Task<Home_Overall> getLastHome(int homeid)
         {
-           
-            string cql = "SELECT * FROM Home_Overall ;";
+            IEnumerable<String> lastend = await mapper.FetchAsync<String>($"select max(end) from home_overall where homeid = {homeid}  ALLOW FILTERING ;");
+
+            string cql = $"SELECT * FROM Home_Overall where end = '{lastend.FirstOrDefault()}' limit 1  ALLOW FILTERING ;";
             try
             {
-   
-               return  await mapper.FetchAsync<Home_Overall>(cql);
+
+                IEnumerable<Home_Overall> lasthome = await mapper.FetchAsync<Home_Overall>(cql);
+                return lasthome.FirstOrDefault();
              
             }
 

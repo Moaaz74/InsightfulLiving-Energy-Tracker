@@ -24,15 +24,15 @@ namespace Back_end.DAOs.Implementations
 
         }
 
-        public async Task<IEnumerable<Room_Overall>> getRoom()
+        public async Task<Room_Overall> getLastRoom(int roomid)
         {
-
-            string cql = "SELECT * FROM Room_Overall ;";
+            IEnumerable<String> lastend = await mapper.FetchAsync<String>($"select max(end) from room_overall where roomid = {roomid}  ALLOW FILTERING ;");
+            string cql = $"SELECT * FROM room_Overall where end = '{lastend.FirstOrDefault()}' limit 1  ALLOW FILTERING ;";
             try
             {
 
-                return await mapper.FetchAsync<Room_Overall>(cql);
-
+                IEnumerable<Room_Overall> lastroom =  await mapper.FetchAsync<Room_Overall>(cql);
+                return lastroom.FirstOrDefault();
             }
 
             catch (Exception ex)

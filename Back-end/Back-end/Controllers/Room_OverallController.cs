@@ -20,32 +20,25 @@ namespace Back_end.Controllers
             _room_overallDAO = room_OverallDAO;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetRoom_Overall()
+        [HttpGet("last/{roomid}")]
+        public async Task<IActionResult> GetLastRoom_Overall(int roomid)
         {
-            var room_OverallDtos = new List<Room_OverallDto>();
-            var allRooms = await _room_overallDAO.getRoom();
-            if (!allRooms.Any())
+            var Room = await _room_overallDAO.getLastRoom(roomid);
+            if (Room == null)
             {
                 List<string> error = new List<string>();
-                error.Add("There is no rooms consumption yet...");
+                error.Add("There is no room consumption yet...");
                 return NotFound(new { errors = error });
             }
 
-            Room_OverallDto roomDto;
+            Room_OverallDto roomDto = new Room_OverallDto();
+                roomDto.Start = Room.start;
+                roomDto.End = Room.end;
+                roomDto.RoomConsumption = Room.roomconsumption;
+                roomDto.RoomId = Room.roomid;
+            roomDto.EnergyType = Room.energytype;
 
-
-            foreach (var room in allRooms)
-            {
-                roomDto = new Room_OverallDto();
-                roomDto.Start = room.start;
-                roomDto.End = room.end;
-                roomDto.RoomConsumption = room.roomconsumption;
-                roomDto.RoomId = room.roomid;
-                roomDto.EnergyType = room.energytype;
-                room_OverallDtos.Add(roomDto);
-            }
-            return Ok(room_OverallDtos);
+            return Ok(roomDto);
         }
 
         [HttpGet("{roomid}")]

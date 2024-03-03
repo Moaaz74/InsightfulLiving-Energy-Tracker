@@ -10,12 +10,12 @@
 			"name": "home_overall",
 			"item": [
 				{
-					"name": "home_overall",
+					"name": "lasthome_overall",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:62863/api/home_overall",
+							"raw": "http://localhost:62863/api/home_overall/last/268",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -23,7 +23,9 @@
 							"port": "62863",
 							"path": [
 								"api",
-								"home_overall"
+								"home_overall",
+								"last",
+								"268"
 							]
 						}
 					},
@@ -143,12 +145,12 @@
 			"name": "room_overall",
 			"item": [
 				{
-					"name": "room_overall",
+					"name": "lastroom_overall",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:62863/api/room_overall",
+							"raw": "http://localhost:62863/api/room_overall/last/2471",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -156,7 +158,9 @@
 							"port": "62863",
 							"path": [
 								"api",
-								"room_overall"
+								"room_overall",
+								"last",
+								"2471"
 							]
 						}
 					},
@@ -269,12 +273,12 @@
 			"name": "appliance",
 			"item": [
 				{
-					"name": "appliance",
+					"name": "lastappliance",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:62863/api/appliance",
+							"raw": "http://localhost:62863/api/appliance/last/4094",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -282,7 +286,9 @@
 							"port": "62863",
 							"path": [
 								"api",
-								"appliance"
+								"appliance",
+								"last",
+								"4094"
 							]
 						}
 					},

@@ -22,14 +22,16 @@ namespace Back_end.DAOs.Implementations
 
         }
 
-        public async Task<IEnumerable<Appliance>> getAppliance()
+        public async Task<Appliance> getLastAppliance(int applianceid)
         {
+            IEnumerable<String> lastend = await mapper.FetchAsync<String>($"select max(end) from appliance where applianceid = {applianceid}  ALLOW FILTERING ;");
 
-            string cql = "SELECT * FROM Appliance ;";
+            string cql = $"SELECT * FROM appliance where end = '{lastend.FirstOrDefault()}' limit 1  ALLOW FILTERING ;";
             try
             {
 
-                return await mapper.FetchAsync<Appliance>(cql);
+                IEnumerable<Appliance> lastappliance = await mapper.FetchAsync<Appliance>(cql);
+                return lastappliance.FirstOrDefault();
 
             }
 

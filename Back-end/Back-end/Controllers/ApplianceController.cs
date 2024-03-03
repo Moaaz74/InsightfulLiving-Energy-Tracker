@@ -20,32 +20,25 @@ namespace Back_end.Controllers
             _applianceDAO = applianceDAO;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetAppliance()
+        [HttpGet("last/{applianceid}")]
+        public async Task<IActionResult> GetLastAppliance(int applianceid)
         {
-            var applianceDtos = new List<ApplianceDto>();
-            var allAppliances = await _applianceDAO.getAppliance();
-            if (!allAppliances.Any())
+            var Appliance = await _applianceDAO.getLastAppliance(applianceid);
+            if (Appliance == null )
             {
                 List<string> error = new List<string>();
-                error.Add("There is no appliances consumption yet...");
+                error.Add("There is no appliance consumption yet...");
                 return NotFound(new { errors = error });
             }
 
-            ApplianceDto applianceDto;
-
-
-            foreach (var appliance in allAppliances)
-            {
-                applianceDto = new ApplianceDto();
-                applianceDto.Start = appliance.start;
-                applianceDto.End = appliance.end;
-                applianceDto.ApplianceConsumption = appliance.applianceconsumption;
-                applianceDto.ApplianceId = appliance.applianceid;
-                applianceDto.EnergyType = appliance.energytype;
-                applianceDtos.Add(applianceDto);
-            }
-            return Ok(applianceDtos);
+            ApplianceDto applianceDto = new ApplianceDto();
+                applianceDto.Start = Appliance.start;
+                applianceDto.End = Appliance.end;
+                applianceDto.ApplianceConsumption = Appliance.applianceconsumption;
+                applianceDto.ApplianceId = Appliance.applianceid;
+                applianceDto.EnergyType = Appliance.energytype;
+    
+            return Ok(applianceDto);
         }
 
         [HttpGet("{applianceid}")]
