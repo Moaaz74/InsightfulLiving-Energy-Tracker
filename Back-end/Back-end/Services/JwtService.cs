@@ -34,7 +34,8 @@ namespace Back_end.Services
             return new AuthenticationResponseDTO
             {
                 Token = tokenHandler.WriteToken(token),
-                Expiration = expiration
+                Expiration = expiration,
+                HomeId = user.HomeId
             };
         }
 

@@ -167,6 +167,5 @@ namespace Back_end.Controllers
             AuthenticationResponseDTO token = _jwtService.CreateToken(user);
             return Ok(token);
         }
-
     }
 }

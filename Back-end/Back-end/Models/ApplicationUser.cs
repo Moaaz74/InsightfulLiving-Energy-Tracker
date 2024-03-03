@@ -9,6 +9,9 @@ namespace Back_end.Models
     {
         public Home Home { get; set; }
 
+        [ForeignKey("Home")]
+        public int HomeId { get; set; }
+
         [Column]
         public bool IsPasswordChanged { get; set; }
 
