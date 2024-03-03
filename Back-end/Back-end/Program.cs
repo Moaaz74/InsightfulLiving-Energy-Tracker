@@ -1,8 +1,5 @@
 using Back_end.DAOs.Implementations;
 using Back_end.DAOs.Interfaces;
-using Back_end.Kafka.EventProcessor.Implementations;
-using Back_end.Kafka.EventProcessor.Interfaces;
-using Back_end.Kafka.Services;
 using Back_end.Models;
 using Back_end.Repositories;
 using Back_end.Repositories.Implementations;
@@ -41,17 +38,10 @@ namespace Back_end
                 .AllowAnyMethod());
             });
 
-            builder.Services.AddSignalR();
-            builder.Services.AddSingleton<IEventConsumer, KafkaConsumer>();
-            builder.Services.AddHostedService<KafkaConsumerService>();
-
-            builder.Services.AddSingleton<IEventConsumer, KafkaConsumer>();
-            builder.Services.AddHostedService<KafkaConsumerService>();
             builder.Services.AddScoped<IHome_OverallDAO, Home_OverallDAO>();
             builder.Services.AddScoped<IRoom_OverallDAO, Room_OverallDAO>();
             builder.Services.AddScoped<IApplianceDAO, ApplianceDAO>();
             builder.Services.AddScoped<ITemp_HumidityDAO, Temp_HumidityDAO>();
-            builder.Services.AddScoped<IUserConnectionService , UserConnectionService>();
             builder.Services.AddScoped<IJwtService , JwtService>();
             builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();

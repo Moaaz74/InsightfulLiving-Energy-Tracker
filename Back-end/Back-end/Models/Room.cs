@@ -1,4 +1,6 @@
-﻿namespace Back_end.Models
+﻿using System.Text.Json.Serialization;
+
+namespace Back_end.Models
 {
     public class Room
     {
@@ -12,7 +14,8 @@
 
         public string Type { get; set; } = String.Empty;
 
-        public List<Device> devices { get; set; } = new List<Device>();
+        [JsonIgnore]
+        public virtual List<Device> devices { get; set; } = new List<Device>();
 
         public bool IsDeleted { get; set; }
 

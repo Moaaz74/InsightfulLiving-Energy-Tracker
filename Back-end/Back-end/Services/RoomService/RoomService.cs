@@ -229,6 +229,10 @@ namespace Back_end.Services.RoomService
             return _unitOfWork.Repository<Room>().GetAll(r => r.HomeId == homeId && r.IsDeleted == false).ToList();
         }
 
+        public Room GetRoomByDevice(Device Device)
+        {
+            return _unitOfWork.Repository<Room>().GetAll(filter : r => r.devices.Contains(Device) , IncludeProperties:"devices").FirstOrDefault<Room>();
+        }
     }
 }
 

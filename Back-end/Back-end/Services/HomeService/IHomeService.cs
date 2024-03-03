@@ -22,5 +22,7 @@ namespace Back_end.Services.HomeService
 
         Home GetHomeByUserId(string UserId);
 
+        Home GetHomeByRoom(Room Room);
+
     }
 }

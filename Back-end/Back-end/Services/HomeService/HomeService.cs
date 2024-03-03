@@ -227,6 +227,11 @@ namespace Back_end.Services.HomeService
         {
              return _unitOfWork.Repository<Home>().GetAll(filter: h => h.UserId == UserId).ToList().FirstOrDefault<Home>();
         }
+
+        public Home GetHomeByRoom(Room Room)
+        {
+            return _unitOfWork.Repository<Home>().GetAll(filter: h => h.Rooms.Contains(Room) , IncludeProperties : "Rooms").FirstOrDefault<Home>();
+        }
     }
 
 }

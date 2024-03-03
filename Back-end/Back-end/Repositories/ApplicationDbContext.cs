@@ -35,9 +35,6 @@ namespace Back_end.Repositories
                .Property(u => u.IsDeleted)
                .HasDefaultValue(false);
 
-            modelBuilder.Entity<UserConnection>()
-                .HasKey(u => new { u.UserId, u.ConnectionId });
-
             base.OnModelCreating(modelBuilder);
         }
 

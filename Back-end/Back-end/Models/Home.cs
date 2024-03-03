@@ -12,7 +12,8 @@ namespace Back_end.Models
 
         public int NumberOfRooms { get; set; }
 
-        public List<Room> Rooms { get; set; }  = new List<Room>();
+        [JsonIgnore]
+        public virtual List<Room> Rooms { get; set; }  = new List<Room>();
         public bool IsDeleted { get; set; }
 
 
