@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <template encoding-version="1.3">
     <description>pushing data into cassandra
- </description>
+</description>
     <groupId>c66f0388-018d-1000-2b9d-07edeba5c163</groupId>
     <name>Spark_To_Cassandra(temp&amp;humidity)</name>
     <snippet>
@@ -1201,21 +1201,15 @@
                         </value>
                     </entry>
                     <entry>
-                        <key>HomeId</key>
-                        <value>
-                            <name>HomeId</name>
-                        </value>
-                    </entry>
-                    <entry>
                         <key>Humidity</key>
                         <value>
                             <name>Humidity</name>
                         </value>
                     </entry>
                     <entry>
-                        <key>SensorId</key>
+                        <key>RoomId</key>
                         <value>
-                            <name>SensorId</name>
+                            <name>RoomId</name>
                         </value>
                     </entry>
                     <entry>
@@ -1251,16 +1245,12 @@
                         <value>$.DateTime</value>
                     </entry>
                     <entry>
-                        <key>HomeId</key>
-                        <value>$.HomeId</value>
-                    </entry>
-                    <entry>
                         <key>Humidity</key>
                         <value>$.Humidity</value>
                     </entry>
                     <entry>
-                        <key>SensorId</key>
-                        <value>$.SensorId</value>
+                        <key>RoomId</key>
+                        <value>$.RoomId</value>
                     </entry>
                     <entry>
                         <key>Temperature</key>
@@ -1895,7 +1885,7 @@
                     </entry>
                     <entry>
                         <key>Replacement Value</key>
-                        <value>INSERT INTO big_data.temp_humidity (id,SensorId,HomeId,DateTime,Temperature,Humidity) VALUES (${id},${SensorId},${HomeId},'${DateTime}',${Temperature},${Humidity});
+                        <value>INSERT INTO big_data.temp_humidity (id,RoomId,DateTime,Temperature,Humidity) VALUES (${id},${RoomId},'${DateTime}',${Temperature},${Humidity});
 </value>
                     </entry>
                     <entry>
@@ -1944,5 +1934,5 @@
             <type>org.apache.nifi.processors.standard.ReplaceText</type>
         </processors>
     </snippet>
-    <timestamp>02/25/2024 23:33:20 EET</timestamp>
+    <timestamp>03/04/2024 18:27:14 EET</timestamp>
 </template>
