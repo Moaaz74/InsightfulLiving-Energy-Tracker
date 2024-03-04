@@ -6,10 +6,8 @@ namespace Back_end.Models
     public class Temp_Humidity
     {
         
-        public Guid id { get; set; }
-
-        public int sensorid { get; set; }
-        public int homeid { get; set; }
+        public Guid id { get; set; }      
+        public int roomid { get; set; }
         public string datetime { get; set; }
         public double temperature { get; set; }
         public double humidity { get; set; }

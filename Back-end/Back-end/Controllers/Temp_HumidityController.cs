@@ -19,7 +19,7 @@ namespace Back_end.Controllers
             _temp_humidityDAO = temp_humidityDAO;
         }
 
-        [HttpGet]
+        [HttpGet("All")]
         public async Task<IActionResult> GetTemp_Humidity()
         {
             var temp_humidityDtos = new List<Temp_HumidityDto>();
@@ -27,7 +27,7 @@ namespace Back_end.Controllers
             if (!allDegrees.Any())
             {
                 List<string> error = new List<string>();
-                error.Add("There is no rooms consumption yet...");
+                error.Add("There is no room's temp or humidity consumption yet...");
                 return NotFound(new { errors = error });
             }
 
@@ -37,14 +37,31 @@ namespace Back_end.Controllers
             foreach (var degree in allDegrees)
             {
                 temp_humidityDto = new Temp_HumidityDto();
-                temp_humidityDto.HomeId = degree.homeid;
-                temp_humidityDto.SensorId = degree.sensorid;
+                temp_humidityDto.RoomId = degree.roomid;
                 temp_humidityDto.DateTime = degree.datetime;
                 temp_humidityDto.Temperature = degree.temperature;
                 temp_humidityDto.Humidity = degree.humidity;
                 temp_humidityDtos.Add(temp_humidityDto);
             }
             return Ok(temp_humidityDtos);
+        }
+        [HttpGet("last/{roomid}")]
+        public async Task<IActionResult> GetLastTemp_Humidity(int roomid)
+        {
+            var Degree = await _temp_humidityDAO.getLastTemp_Humidity(roomid);
+            if (Degree == null)
+            {
+                List<string> error = new List<string>();
+                error.Add("There is no room's temp or humidity consumption yet...");
+                return NotFound(new { errors = error });
+            }
+
+            Temp_HumidityDto temp_humidityDto = new Temp_HumidityDto();
+                temp_humidityDto.RoomId = Degree.roomid;
+                temp_humidityDto.DateTime = Degree.datetime;
+                temp_humidityDto.Temperature = Degree.temperature;
+                temp_humidityDto.Humidity = Degree.humidity;
+            return Ok(temp_humidityDto);
         }
 
     }

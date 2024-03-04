@@ -40,6 +40,27 @@ namespace Back_end.DAOs.Implementations
             }
         }
 
+        public async Task<Temp_Humidity> getLastTemp_Humidity(int roomid)
+        {
+            IEnumerable<String> lastdate = await mapper.FetchAsync<String>($"select max(datetime) from temp_humidity where roomid = {roomid}  ALLOW FILTERING ;");
+
+            string cql = $"SELECT * FROM temp_humidity where datetime = '{lastdate.FirstOrDefault()}' limit 1  ALLOW FILTERING ;";
+          
+            try
+            {
+
+                IEnumerable<Temp_Humidity> lastrow = await mapper.FetchAsync<Temp_Humidity>(cql);
+                return lastrow.FirstOrDefault();
+            }
+
+            catch (Exception ex)
+            {
+                // Handle any exceptions that occurred during query execution
+                Console.WriteLine($"Error executing query: {ex.Message}");
+                return null;
+            }
+        }
+
     }
 }
 
