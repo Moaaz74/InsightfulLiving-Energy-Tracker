@@ -25,12 +25,30 @@ namespace Back_end.DAOs.Implementations
             mapper = new Mapper(session);
             
         }
-
-        public async Task<Home_Overall> getLastHome(int homeid)
+        public async Task<IEnumerable<Home_Overall>> getHome()
         {
-            IEnumerable<String> lastend = await mapper.FetchAsync<String>($"select max(end) from home_overall where homeid = {homeid}  ALLOW FILTERING ;");
 
-            string cql = $"SELECT * FROM Home_Overall where end = '{lastend.FirstOrDefault()}' limit 1  ALLOW FILTERING ;";
+            string cql = "SELECT * FROM Home_Overall ;";
+            try
+            {
+
+                return await mapper.FetchAsync<Home_Overall>(cql);
+
+            }
+
+            catch (Exception ex)
+            {
+                // Handle any exceptions that occurred during query execution
+                Console.WriteLine($"Error executing query: {ex.Message}");
+                return null; // or throw the exception, depending on your requirements
+            }
+        }
+
+        public async Task<Home_Overall> getLastHome(int homeid,string energytype)
+        {
+            IEnumerable<String> lastend = await mapper.FetchAsync<String>($"select max(end) from home_overall where homeid = {homeid} and energytype = '{energytype}'  ALLOW FILTERING ;");
+
+            string cql = $"SELECT * FROM Home_Overall where end = '{lastend.FirstOrDefault()}' and energytype = '{energytype}' limit 1  ALLOW FILTERING ;";
             try
             {
 

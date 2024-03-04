@@ -20,10 +20,50 @@ namespace Back_end.Controllers
             _room_overallDAO = room_OverallDAO;
         }
 
-        [HttpGet("last/{roomid}")]
-        public async Task<IActionResult> GetLastRoom_Overall(int roomid)
+
+        [HttpGet("All")]
+        public async Task<IActionResult> GetRoom_Overall()
         {
-            var Room = await _room_overallDAO.getLastRoom(roomid);
+            var room_OverallDtos = new List<Room_OverallDto>();
+            var allRooms = await _room_overallDAO.getRoom();
+            if (!allRooms.Any())
+            {
+                List<string> error = new List<string>();
+                error.Add("There is no rooms consumption yet...");
+                return NotFound(new { errors = error });
+            }
+
+            Room_OverallDto roomDto;
+
+
+            foreach (var room in allRooms)
+            {
+                roomDto = new Room_OverallDto();
+                roomDto.Start = room.start;
+                roomDto.End = room.end;
+                roomDto.RoomConsumption = room.roomconsumption;
+                roomDto.RoomId = room.roomid;
+                roomDto.EnergyType = room.energytype;
+                room_OverallDtos.Add(roomDto);
+            }
+            return Ok(room_OverallDtos);
+        }
+
+        [HttpGet("last/{roomid}")]
+        public async Task<IActionResult> GetLastRoom_Overall(int roomid , [FromBody] object energyType)
+        {
+            JsonElement jsonObject = JsonSerializer.Deserialize<JsonElement>(energyType.ToString());
+
+            // Access the "energyType" property value
+            string energytype = jsonObject.GetProperty("energyType").GetString();
+
+            if (energytype == string.Empty)
+            {
+                List<string> error = new List<string>();
+                error.Add("No EnergyType is specified !!!!...");
+                return BadRequest(new { errors = error });
+            }
+            var Room = await _room_overallDAO.getLastRoom(roomid,energytype);
             if (Room == null)
             {
                 List<string> error = new List<string>();
@@ -41,7 +81,7 @@ namespace Back_end.Controllers
             return Ok(roomDto);
         }
 
-        [HttpGet("{roomid}")]
+        [HttpGet("StartDates/{roomid}")]
         public async Task<IActionResult> GetRoomStartDates(int roomid, [FromBody] object energyType)
         {
             JsonElement jsonObject = JsonSerializer.Deserialize<JsonElement>(energyType.ToString());
