@@ -29,6 +29,7 @@ export default function Login(value) {
     if(data){
       setisLoadind(false)
       localStorage.setItem("userToken" , data.token)
+      // localStorage.setItem("homeid" , data.homeId)
       setUserToken(data.token)
         navigate("/")
     }
