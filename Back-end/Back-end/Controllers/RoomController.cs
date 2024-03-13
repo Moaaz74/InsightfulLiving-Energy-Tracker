@@ -199,7 +199,7 @@ namespace Back_end.Controllers
 
 
         [HttpGet("GetRoomByType")]
-        public IActionResult GetRoomByType([FromBody] RoomGetType TypeDto)
+        public IActionResult GetRoomByType([FromQuery] RoomGetType TypeDto)
         {
             RoomViewDto room = _roomService.GetRoomByType(TypeDto.Type);
             if(room is null)
