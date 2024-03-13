@@ -159,7 +159,8 @@ namespace Back_end.Services.RoomService
             {
                 Id = room.Id,
                 NumberOfDevices = room.NumberOfDevices,
-                HomeId = room.HomeId
+                HomeId = room.HomeId,
+                Type = room.Type
             };
 
         }
