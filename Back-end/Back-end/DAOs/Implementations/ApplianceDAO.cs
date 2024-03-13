@@ -22,11 +22,29 @@ namespace Back_end.DAOs.Implementations
 
         }
 
-        public async Task<Appliance> getLastAppliance(int applianceid)
+        public async Task<IEnumerable<Appliance>> getAppliance()
         {
-            IEnumerable<String> lastend = await mapper.FetchAsync<String>($"select max(end) from appliance where applianceid = {applianceid}  ALLOW FILTERING ;");
 
-            string cql = $"SELECT * FROM appliance where end = '{lastend.FirstOrDefault()}' limit 1  ALLOW FILTERING ;";
+            string cql = "SELECT * FROM Appliance ;";
+            try
+            {
+
+                return await mapper.FetchAsync<Appliance>(cql);
+
+            }
+
+            catch (Exception ex)
+            {
+                // Handle any exceptions that occurred during query execution
+                Console.WriteLine($"Error executing query: {ex.Message}");
+                return null;
+            }
+        }
+        public async Task<Appliance> getLastAppliance(int applianceid, string energytype)
+        {
+            IEnumerable<String> lastend = await mapper.FetchAsync<String>($"select max(end) from appliance where applianceid = {applianceid} and energytype = '{energytype}'  ALLOW FILTERING ;");
+
+            string cql = $"SELECT * FROM appliance where end = '{lastend.FirstOrDefault()}'  and energytype = '{energytype}' limit 1  ALLOW FILTERING ;";
             try
             {
 

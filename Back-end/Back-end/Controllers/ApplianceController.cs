@@ -20,10 +20,50 @@ namespace Back_end.Controllers
             _applianceDAO = applianceDAO;
         }
 
-        [HttpGet("last/{applianceid}")]
-        public async Task<IActionResult> GetLastAppliance(int applianceid)
+        [HttpGet("All")]
+        public async Task<IActionResult> GetAppliance()
         {
-            var Appliance = await _applianceDAO.getLastAppliance(applianceid);
+            var applianceDtos = new List<ApplianceDto>();
+            var allAppliances = await _applianceDAO.getAppliance();
+            if (!allAppliances.Any())
+            {
+                List<string> error = new List<string>();
+                error.Add("There is no appliances consumption yet...");
+                return NotFound(new { errors = error });
+            }
+
+            ApplianceDto applianceDto;
+
+
+            foreach (var appliance in allAppliances)
+            {
+                applianceDto = new ApplianceDto();
+                applianceDto.Start = appliance.start;
+                applianceDto.End = appliance.end;
+                applianceDto.ApplianceConsumption = appliance.applianceconsumption;
+                applianceDto.ApplianceId = appliance.applianceid;
+                applianceDto.EnergyType = appliance.energytype;
+                applianceDtos.Add(applianceDto);
+            }
+            return Ok(applianceDtos);
+        }
+
+
+        [HttpGet("last/{applianceid}")]
+        public async Task<IActionResult> GetLastAppliance(int applianceid , [FromBody] object energyType)
+        {
+            JsonElement jsonObject = JsonSerializer.Deserialize<JsonElement>(energyType.ToString());
+
+            // Access the "energyType" property value
+            string energytype = jsonObject.GetProperty("energyType").GetString();
+
+            if (energytype == string.Empty)
+            {
+                List<string> error = new List<string>();
+                error.Add("No EnergyType is specified !!!!...");
+                return BadRequest(new { errors = error });
+            }
+            var Appliance = await _applianceDAO.getLastAppliance(applianceid,energytype);
             if (Appliance == null )
             {
                 List<string> error = new List<string>();
@@ -41,7 +81,7 @@ namespace Back_end.Controllers
             return Ok(applianceDto);
         }
 
-        [HttpGet("{applianceid}")]
+        [HttpGet("StartDates/{applianceid}")]
         public async Task<IActionResult> GetApplianceStartDates(int applianceid, [FromBody] object energyType)
         {
             JsonElement jsonObject = JsonSerializer.Deserialize<JsonElement>(energyType.ToString());

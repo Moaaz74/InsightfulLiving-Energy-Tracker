@@ -1,0 +1,19 @@
+
+
+.sidebar{
+    width: 250px;
+    position: relative;
+    min-height: 100vh;
+    background-image: linear-gradient(to right,rgb(92, 0, 190),rgb(93, 0, 193),rgb(97, 0, 202) );
+    background-color: rgb(92, 0, 190);
+    box-shadow: 0px 0px 12px #383838;
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 10px;
+    border-top: 2px solid rgb(217, 167, 243) ;
+    border-right: 3px solid rgb(217, 167, 243);
+}
+.content{
+    margin-left: 250px;
+    padding:  5px;
+    width: 100%;
+}
