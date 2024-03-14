@@ -44,41 +44,24 @@ export default function Home() {
   //   },],
   // })
 
-   let homeId = localStorage.getItem("homeid")
-let roomid =1;
-let body1 = {
-  type: "living room"
-};
-   function getLivingRoomId() {
-  //   return axios.request({
-  //     method: 'GET',
-  //     url:' http://localhost:62863/api/Room/GetRoomByType',
-   
-  //   {headers:{'Content-Type':'application/json'}},
-  //   params: {
-  //     type: "living room"
-  //   }
-    
-   
-  //   ,).then((response)=> response)
-  //   .catch((error)=> error);  
-  // }
- 
- return  axios.request({
-    method: 'GET',
-    url: 'http://localhost:62863/api/Room/GetRoomByType/',
-    headers: {
-      
-    },
-    params: {
-      type: "living room"
-    },
-  
-  }).then((response)=> response)
-  .catch((error)=> error); 
-   }
-  let { data} = useQuery("getLivingRoomId" ,getLivingRoomId )
- console.log("data: ",data);
+//   let homeId = localStorage.getItem("homeid")
+
+//    function getLivingRoomId() {
+//       return  axios.request({
+//         method: 'GET',
+//         url: 'http://localhost:62863/api/Room/GetRoomByType/',
+//         headers: {
+          
+//         },
+//         params: {
+//           type: "LivingRoom"
+//         },
+
+//       }).then((response)=> response)
+//       .catch((error)=> error); 
+//    }
+//   let { data} = useQuery("getLivingRoomId" ,getLivingRoomId )
+//  console.log("data: ",data);
 let livingRoomId =1;
 // fetch(`http://localhost:62863/api/Room/${livingRoomId}`, {
 //    method: 'GET',
