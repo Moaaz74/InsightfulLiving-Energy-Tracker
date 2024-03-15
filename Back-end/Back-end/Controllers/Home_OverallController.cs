@@ -50,20 +50,16 @@ namespace Back_end.Controllers
 
 
         [HttpGet("last/{homeid}")]
-        public async Task<IActionResult> GetLastHome_Overall(int homeid, [FromQuery] object energyType)
+        public async Task<IActionResult> GetLastHome_Overall(int homeid, [FromQuery] string energyType)
         {
-            JsonElement jsonObject = JsonSerializer.Deserialize<JsonElement>(energyType.ToString());
-
-            // Access the "energyType" property value
-            string energytype = jsonObject.GetProperty("energyType").GetString();
-
-            if (energytype == string.Empty)
+           
+            if (energyType == string.Empty)
             {
                 List<string> error = new List<string>();
                 error.Add("No EnergyType is specified !!!!...");
                 return BadRequest(new { errors = error });
             }
-            var Home = await _home_overallDAO.getLastHome(homeid,energytype);
+            var Home = await _home_overallDAO.getLastHome(homeid,energyType);
             if (Home==null)
             {
                 List<string> error = new List<string>();
@@ -82,21 +78,17 @@ namespace Back_end.Controllers
         }
 
         [HttpGet("StartDates/{homeid}")]
-        public async Task<IActionResult> GetHomeStartDates( int homeid,[FromQuery] object energyType)            
+        public async Task<IActionResult> GetHomeStartDates( int homeid,[FromQuery] string energyType)            
         {
-            JsonElement jsonObject = JsonSerializer.Deserialize<JsonElement>(energyType.ToString());
-
-            // Access the "energyType" property value
-            string energytype = jsonObject.GetProperty("energyType").GetString();
           
-            if (energytype == string.Empty)
+            if (energyType == string.Empty)
             {
                 List<string> error = new List<string>();
                 error.Add("No EnergyType is specified !!!!...");
                 return BadRequest(new { errors = error });
             }
             var homestartdates = new List<String>();
-            var allHomeStartDates = await _home_overallDAO.getHomeStartDates(energytype,homeid);
+            var allHomeStartDates = await _home_overallDAO.getHomeStartDates(energyType,homeid);
             if (allHomeStartDates.IsNullOrEmpty())
             {
                 List<string> error = new List<string>();

@@ -50,20 +50,16 @@ namespace Back_end.Controllers
         }
 
         [HttpGet("last/{roomid}")]
-        public async Task<IActionResult> GetLastRoom_Overall(int roomid , [FromQuery] object energyType)
+        public async Task<IActionResult> GetLastRoom_Overall(int roomid , [FromQuery] string energyType)
         {
-            JsonElement jsonObject = JsonSerializer.Deserialize<JsonElement>(energyType.ToString());
 
-            // Access the "energyType" property value
-            string energytype = jsonObject.GetProperty("energyType").GetString();
-
-            if (energytype == string.Empty)
+            if (energyType == string.Empty)
             {
                 List<string> error = new List<string>();
                 error.Add("No EnergyType is specified !!!!...");
                 return BadRequest(new { errors = error });
             }
-            var Room = await _room_overallDAO.getLastRoom(roomid,energytype);
+            var Room = await _room_overallDAO.getLastRoom(roomid,energyType);
             if (Room == null)
             {
                 List<string> error = new List<string>();
@@ -82,21 +78,17 @@ namespace Back_end.Controllers
         }
 
         [HttpGet("StartDates/{roomid}")]
-        public async Task<IActionResult> GetRoomStartDates(int roomid, [FromQuery] object energyType)
+        public async Task<IActionResult> GetRoomStartDates(int roomid, [FromQuery] string energyType)
         {
-            JsonElement jsonObject = JsonSerializer.Deserialize<JsonElement>(energyType.ToString());
 
-            // Access the "energyType" property value
-            string energytype = jsonObject.GetProperty("energyType").GetString();
-
-            if (energytype == string.Empty)
+            if (energyType == string.Empty)
             {
                 List<string> error = new List<string>();
                 error.Add("No EnergyType is specified !!!!...");
                 return BadRequest(new { errors = error });
             }
             var roomstartdates = new List<String>();
-            var allRoomStartDates = await _room_overallDAO.getRoomStartDates(energytype, roomid);
+            var allRoomStartDates = await _room_overallDAO.getRoomStartDates(energyType, roomid);
             if (allRoomStartDates.IsNullOrEmpty())
             {
                 List<string> error = new List<string>();

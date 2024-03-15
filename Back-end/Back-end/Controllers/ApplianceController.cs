@@ -51,20 +51,15 @@ namespace Back_end.Controllers
 
 
         [HttpGet("last/{applianceid}")]
-        public async Task<IActionResult> GetLastAppliance(int applianceid , [FromQuery] object energyType)
+        public async Task<IActionResult> GetLastAppliance(int applianceid , [FromQuery] string energyType)
         {
-            JsonElement jsonObject = JsonSerializer.Deserialize<JsonElement>(energyType.ToString());
-
-            // Access the "energyType" property value
-            string energytype = jsonObject.GetProperty("energyType").GetString();
-
-            if (energytype == string.Empty)
+            if (energyType == string.Empty)
             {
                 List<string> error = new List<string>();
                 error.Add("No EnergyType is specified !!!!...");
                 return BadRequest(new { errors = error });
             }
-            var Appliance = await _applianceDAO.getLastAppliance(applianceid,energytype);
+            var Appliance = await _applianceDAO.getLastAppliance(applianceid,energyType);
             if (Appliance == null )
             {
                 List<string> error = new List<string>();
@@ -83,21 +78,17 @@ namespace Back_end.Controllers
         }
 
         [HttpGet("StartDates/{applianceid}")]
-        public async Task<IActionResult> GetApplianceStartDates(int applianceid, [FromQuery] object energyType)
+        public async Task<IActionResult> GetApplianceStartDates(int applianceid, [FromQuery] string energyType)
         {
-            JsonElement jsonObject = JsonSerializer.Deserialize<JsonElement>(energyType.ToString());
 
-            // Access the "energyType" property value
-            string energytype = jsonObject.GetProperty("energyType").GetString();
-
-            if (energytype == string.Empty)
+            if (energyType == string.Empty)
             {
                 List<string> error = new List<string>();
                 error.Add("No EnergyType is specified !!!!...");
                 return BadRequest(new { errors = error });
             }
             var appliancestartdates = new List<String>();
-            var allApplianceStartDates = await _applianceDAO.getApplianceStartDates(energytype, applianceid);
+            var allApplianceStartDates = await _applianceDAO.getApplianceStartDates(energyType, applianceid);
             if (allApplianceStartDates.IsNullOrEmpty())
             {
                 List<string> error = new List<string>();

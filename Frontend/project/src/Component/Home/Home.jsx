@@ -7,6 +7,7 @@ import electricity from "../../Assets/WhatsApp Image 2024-03-12 at 4.44.15 PM.jp
 import axios from 'axios'
 import {useQuery} from "react-query"
 import getChartData from "../../Data"
+import { response } from 'express';
 
 
 export default function Home() {
@@ -53,49 +54,77 @@ export default function Home() {
           
         },
         params: {
-          type: "LivingRoom"
+          type: "living room"
         },
 
-      }).then((response)=> response)
+      }).then((response)=> response.data)
       .catch((error)=> error); 
    }
   let { data} = useQuery("getLivingRoomId" ,getLivingRoomId )
-//  console.log("Living Room Info : ",data);
-//  let livingRoomId =data.data.id;
+ console.log("Living Room Info : ",data.id);
+ //let livingRoomId =data.id;
 //  console.log("Room Id : " , livingRoomId);
 
 
-  function getTempAndHume(livingRoomId) {
-    return axios.get(`http://localhost:62863/api/temp_humidity/last/${livingRoomId}`)
-  }
+//   function getTempAndHume(livingRoomId) {
+//     return axios.request({
+//     method: 'GET',
+//     url: `http://localhost:62863/api/temp_humidity/last/${livingRoomId}`,
+//     headers: {
+//     },
+//     params: {
+//       type: "living room"
+//     },
 
-  let roomInfo = useQuery("getTempAndHume" ,getTempAndHume,{
-    refetchInterval:30000,
-  } )
-  // console.log("Temp &  Humidity of Living Room : ",roomInfo);
+//   }).then((response)=> response)
+//   .catch((error)=> error); 
+// }
+    
+
+//   let roomInfo = useQuery("getTempAndHume" ,getTempAndHume,{
+//     refetchInterval:30000,
+//   } )
+//    console.log("Temp &  Humidity of Living Room : ",roomInfo);
 
   function getConsumptionGas(homeId) {
-    return axios.get(`http://localhost:62863/api/home_overall/last/${homeId}`,{
-      energyType: "Gas",
-    })
+    return axios.request({
+      method: 'GET',
+      url: `http://localhost:62863/api/home_overall/last/${homeId}`,
+      headers: {
+      },
+      params: {
+        energyType: "Gas"
+      },
+  
+    }).then((response)=> response)
+    .catch((error)=> error); 
+    
   }
 
   let consumptionGas = useQuery("getConsumptionGas" ,getConsumptionGas ,{
     refetchInterval:30000,
   })
-  // console.log("Gas Consumption : " , consumptionGas);
+   console.log("Gas Consumption : " , consumptionGas);
 
 
   function getConsumptionElectricity(homeId) {
-    return axios.get(`http://localhost:62863/api/home_overall/last/${homeId}`,{
-      energyType: "Electricity",
-    })
+    return axios.request({
+      method: 'GET',
+      url: `http://localhost:62863/api/home_overall/last/${homeId}`,
+      headers: {
+      },
+      params: {
+        energyType: "Electricity"
+      },
+  
+    }).then((response)=> response)
+    .catch((error)=> error); 
   }
 
   let consumptionElectricity = useQuery("getConsumptionElectricity" ,getConsumptionElectricity,{
     refetchInterval:30000,
   } )
-    // console.log("Electricity Consumption : " , consumptionElectricity);
+    console.log("Electricity Consumption : " , consumptionElectricity);
 
 
 
