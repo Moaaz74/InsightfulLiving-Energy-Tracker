@@ -7,7 +7,6 @@ import electricity from "../../Assets/WhatsApp Image 2024-03-12 at 4.44.15 PM.jp
 import axios from 'axios'
 import {useQuery} from "react-query"
 import getChartData from "../../Data"
-import { response } from 'express';
 
 
 export default function Home() {
@@ -44,41 +43,28 @@ export default function Home() {
   //   },],
   // })
 
-//   let homeId = localStorage.getItem("homeid")
+  let homeId = localStorage.getItem("homeid")
 
-//    function getLivingRoomId() {
-//       return  axios.request({
-//         method: 'GET',
-//         url: 'http://localhost:62863/api/Room/GetRoomByType/',
-//         headers: {
+   function getLivingRoomId() {
+      return  axios.request({
+        method: 'GET',
+        url: 'http://localhost:62863/api/Room/GetRoomByType/',
+        headers: {
           
-//         },
-//         params: {
-//           type: "LivingRoom"
-//         },
+        },
+        params: {
+          type: "LivingRoom"
+        },
 
-//       }).then((response)=> response)
-//       .catch((error)=> error); 
-//    }
-//   let { data} = useQuery("getLivingRoomId" ,getLivingRoomId )
-//  console.log("data: ",data);
-let livingRoomId =1;
-// fetch(`http://localhost:62863/api/Room/${livingRoomId}`, {
-//    method: 'GET',
-//    headers: {
-//        'Content-Type': 'application/json',
-//    }
+      }).then((response)=> response)
+      .catch((error)=> error); 
+   }
+  let { data} = useQuery("getLivingRoomId" ,getLivingRoomId )
+ console.log("data: ",data);
+ let livingRoomId =data.data.id;
+ console.log("Room Id : " , livingRoomId);
 
 
-//  })
-//  .then(function (response) {
-//    console.log(response);
-//  })
-//  .catch(function (error) {
-//    console.log(error);
-//  });
-  //let livingRoomId =data.id;
-//console.log("homeid:" ,data);
   // function getTempAndHume(livingRoomId) {
   //   return axios.get(`http://localhost:62863/api/temp_humidity/last/${livingRoomId}`)
   // }
