@@ -59,6 +59,7 @@ namespace Back_end.Controllers
                 error.Add("No EnergyType is specified !!!!...");
                 return BadRequest(new { errors = error });
             }
+       
             var Home = await _home_overallDAO.getLastHome(homeid,energyType);
             if (Home==null)
             {

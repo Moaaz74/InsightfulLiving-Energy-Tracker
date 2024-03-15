@@ -7,7 +7,8 @@ import electricity from "../../Assets/WhatsApp Image 2024-03-12 at 4.44.15 PM.jp
 import axios from 'axios'
 import {useQuery} from "react-query"
 import getChartData from "../../Data"
-import { response } from 'express';
+
+
 
 
 export default function Home() {
@@ -44,7 +45,8 @@ export default function Home() {
   //   },],
   // })
 
-  let homeId = localStorage.getItem("homeid")
+  let homeId = localStorage.getItem("homeid");
+  homeId = parseInt(homeId);
 
    function getLivingRoomId() {
       return  axios.request({
@@ -60,8 +62,9 @@ export default function Home() {
       }).then((response)=> response.data)
       .catch((error)=> error); 
    }
-  let { data} = useQuery("getLivingRoomId" ,getLivingRoomId )
- console.log("Living Room Info : ",data.id);
+ let data = useQuery("getLivingRoomId" ,getLivingRoomId );
+ let { obj} = data;
+ console.log("Living Room Info : ",obj);
  //let livingRoomId =data.id;
 //  console.log("Room Id : " , livingRoomId);
 
@@ -101,7 +104,7 @@ export default function Home() {
     
   }
 
-  let consumptionGas = useQuery("getConsumptionGas" ,getConsumptionGas ,{
+  let consumptionGas = useQuery("getConsumptionGas" ,getConsumptionGas(homeId) ,{
     refetchInterval:30000,
   })
    console.log("Gas Consumption : " , consumptionGas);
@@ -121,7 +124,7 @@ export default function Home() {
     .catch((error)=> error); 
   }
 
-  let consumptionElectricity = useQuery("getConsumptionElectricity" ,getConsumptionElectricity,{
+  let consumptionElectricity = useQuery("getConsumptionElectricity" ,getConsumptionElectricity(homeId),{
     refetchInterval:30000,
   } )
     console.log("Electricity Consumption : " , consumptionElectricity);
