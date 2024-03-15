@@ -1,5 +1,6 @@
 ﻿using Back_end.DAOs.Interfaces;
 using Back_end.DTOs.Cassandra_quries.Home_OverallDtos;
+using Back_end.DTOs.Cassandra_quries.Room_OverallDtos;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json.Linq;
@@ -49,7 +50,7 @@ namespace Back_end.Controllers
 
 
         [HttpGet("last/{homeid}")]
-        public async Task<IActionResult> GetLastHome_Overall(int homeid, [FromBody] object energyType)
+        public async Task<IActionResult> GetLastHome_Overall(int homeid, [FromQuery] object energyType)
         {
             JsonElement jsonObject = JsonSerializer.Deserialize<JsonElement>(energyType.ToString());
 
@@ -81,7 +82,7 @@ namespace Back_end.Controllers
         }
 
         [HttpGet("StartDates/{homeid}")]
-        public async Task<IActionResult> GetHomeStartDates( int homeid,[FromBody] object energyType)            
+        public async Task<IActionResult> GetHomeStartDates( int homeid,[FromQuery] object energyType)            
         {
             JsonElement jsonObject = JsonSerializer.Deserialize<JsonElement>(energyType.ToString());
 
@@ -118,10 +119,14 @@ namespace Back_end.Controllers
 
 
         [HttpGet("EndDates/{homeid}")]
-        public async Task<IActionResult> GetHomeEndDates(int homeid, [FromBody] Home_OverallS_DateDto s_DateDto)
+        public async Task<IActionResult> GetHomeEndDates(int homeid, [FromQuery] string StartDate, [FromQuery] string EnergyType)
         {
-           
-           
+            Home_OverallS_DateDto s_DateDto = new Home_OverallS_DateDto()
+            {
+                energyType = EnergyType,
+                startDate = StartDate
+            };
+
             if (s_DateDto.energyType == string.Empty)
             {
                 List<string> error = new List<string>();
@@ -157,9 +162,15 @@ namespace Back_end.Controllers
         }
 
         [HttpGet("data/{homeid}")]
-        public async Task<IActionResult> GetHomeconsumption(int homeid, [FromBody] HomeDatesDto datesDto)
+        public async Task<IActionResult> GetHomeconsumption(int homeid, [FromQuery] string StartDate
+            , [FromQuery] string EndDate, [FromQuery] string EnergyType)
         {
-            
+            HomeDatesDto datesDto = new HomeDatesDto()
+            {
+                startDate = StartDate,
+                energyType = EnergyType,
+                endDate = EndDate
+            };
 
             if (datesDto.energyType == string.Empty)
             {

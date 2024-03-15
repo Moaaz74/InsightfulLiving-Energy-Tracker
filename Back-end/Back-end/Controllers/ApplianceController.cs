@@ -1,6 +1,7 @@
 ﻿using Back_end.DAOs.Interfaces;
 using Back_end.DTOs.Cassandra_quries.ApplianceDtos;
 using Back_end.DTOs.Cassandra_quries.Home_OverallDtos;
+using Back_end.DTOs.Cassandra_quries.Room_OverallDtos;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
@@ -50,7 +51,7 @@ namespace Back_end.Controllers
 
 
         [HttpGet("last/{applianceid}")]
-        public async Task<IActionResult> GetLastAppliance(int applianceid , [FromBody] object energyType)
+        public async Task<IActionResult> GetLastAppliance(int applianceid , [FromQuery] object energyType)
         {
             JsonElement jsonObject = JsonSerializer.Deserialize<JsonElement>(energyType.ToString());
 
@@ -82,7 +83,7 @@ namespace Back_end.Controllers
         }
 
         [HttpGet("StartDates/{applianceid}")]
-        public async Task<IActionResult> GetApplianceStartDates(int applianceid, [FromBody] object energyType)
+        public async Task<IActionResult> GetApplianceStartDates(int applianceid, [FromQuery] object energyType)
         {
             JsonElement jsonObject = JsonSerializer.Deserialize<JsonElement>(energyType.ToString());
 
@@ -119,9 +120,16 @@ namespace Back_end.Controllers
 
 
         [HttpGet("EndDates/{applianceid}")]
-        public async Task<IActionResult> GetApplianceEndDates(int applianceid, [FromBody] ApplianceS_DateDto s_DateDto)
+        public async Task<IActionResult> GetApplianceEndDates(int applianceid, [FromQuery] string StartDate, [FromQuery] string EnergyType)
         {
-           
+
+            ApplianceS_DateDto s_DateDto = new ApplianceS_DateDto()
+            {
+                energyType = EnergyType,
+                startDate = StartDate
+            };
+
+
             if (s_DateDto.energyType == string.Empty)
             {
                 List<string> error = new List<string>();
@@ -157,9 +165,16 @@ namespace Back_end.Controllers
         }
 
         [HttpGet("data/{applianceid}")]
-        public async Task<IActionResult> GetApplianceconsumption(int applianceid, [FromBody] ApplianceDatesDto datesDto)
+        public async Task<IActionResult> GetApplianceconsumption(int applianceid, [FromQuery] string StartDate
+            , [FromQuery] string EndDate, [FromQuery] string EnergyType)
         {
-           
+
+            ApplianceDatesDto datesDto = new ApplianceDatesDto()
+            {
+                startDate = StartDate,
+                energyType = EnergyType,
+                endDate = EndDate
+            };
 
             if (datesDto.energyType == string.Empty)
             {

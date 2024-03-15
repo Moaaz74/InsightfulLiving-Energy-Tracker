@@ -50,7 +50,7 @@ namespace Back_end.Controllers
         }
 
         [HttpGet("last/{roomid}")]
-        public async Task<IActionResult> GetLastRoom_Overall(int roomid , [FromBody] object energyType)
+        public async Task<IActionResult> GetLastRoom_Overall(int roomid , [FromQuery] object energyType)
         {
             JsonElement jsonObject = JsonSerializer.Deserialize<JsonElement>(energyType.ToString());
 
@@ -82,7 +82,7 @@ namespace Back_end.Controllers
         }
 
         [HttpGet("StartDates/{roomid}")]
-        public async Task<IActionResult> GetRoomStartDates(int roomid, [FromBody] object energyType)
+        public async Task<IActionResult> GetRoomStartDates(int roomid, [FromQuery] object energyType)
         {
             JsonElement jsonObject = JsonSerializer.Deserialize<JsonElement>(energyType.ToString());
 
@@ -119,8 +119,14 @@ namespace Back_end.Controllers
 
 
         [HttpGet("EndDates/{roomid}")]
-        public async Task<IActionResult> GetRoomEndDates(int roomid, [FromBody] Room_OverallS_DateDto s_DateDto)
+        public async Task<IActionResult> GetRoomEndDates(int roomid, [FromQuery] string StartDate , [FromQuery] string EnergyType)
         {
+
+            Room_OverallS_DateDto s_DateDto = new Room_OverallS_DateDto()
+            {
+                energyType = EnergyType,
+                startDate = StartDate
+            };
           
             if (s_DateDto.energyType == string.Empty)
             {
@@ -157,9 +163,17 @@ namespace Back_end.Controllers
         }
 
         [HttpGet("data/{roomid}")]
-        public async Task<IActionResult> GetRoomconsumption(int roomid, [FromBody] RoomDatesDto datesDto)
+        public async Task<IActionResult> GetRoomconsumption(int roomid, [FromQuery] string StartDate 
+            , [FromQuery] string EndDate , [FromQuery] string EnergyType)
         {
-           
+
+            RoomDatesDto datesDto = new RoomDatesDto()
+            {
+                startDate = StartDate,
+                energyType = EnergyType,
+                endDate = EndDate
+            };
+
             if (datesDto.energyType == string.Empty)
             {
                 List<string> error = new List<string>();
