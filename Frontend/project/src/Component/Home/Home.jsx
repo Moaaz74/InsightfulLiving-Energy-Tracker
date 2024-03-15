@@ -60,38 +60,42 @@ export default function Home() {
       .catch((error)=> error); 
    }
   let { data} = useQuery("getLivingRoomId" ,getLivingRoomId )
- console.log("data: ",data);
- let livingRoomId =data.data.id;
- console.log("Room Id : " , livingRoomId);
+//  console.log("Living Room Info : ",data);
+//  let livingRoomId =data.data.id;
+//  console.log("Room Id : " , livingRoomId);
 
 
-  // function getTempAndHume(livingRoomId) {
-  //   return axios.get(`http://localhost:62863/api/temp_humidity/last/${livingRoomId}`)
-  // }
+  function getTempAndHume(livingRoomId) {
+    return axios.get(`http://localhost:62863/api/temp_humidity/last/${livingRoomId}`)
+  }
 
-  // let roomInfo = useQuery("getTempAndHume" ,getTempAndHume,{
-  //   refetchInterval:30000,
-  // } )
-  // console.log("data: ",roomInfo);
-  // function getConsumptionGas(homeId) {
-  //   return axios.get(`http://localhost:62863/api/home_overall/last/${homeId}`,{
-  //     energyType: "Gas",
-  //   })
-  // }
+  let roomInfo = useQuery("getTempAndHume" ,getTempAndHume,{
+    refetchInterval:30000,
+  } )
+  // console.log("Temp &  Humidity of Living Room : ",roomInfo);
 
-  // let consumptionGas = useQuery("getConsumptionGas" ,getConsumptionGas ,{
-  //   refetchInterval:30000,
-  // })
+  function getConsumptionGas(homeId) {
+    return axios.get(`http://localhost:62863/api/home_overall/last/${homeId}`,{
+      energyType: "Gas",
+    })
+  }
 
-  // function getConsumptionElectricity(homeId) {
-  //   return axios.get(`http://localhost:62863/api/home_overall/last/${homeId}`,{
-  //     energyType: "Electricity",
-  //   })
-  // }
+  let consumptionGas = useQuery("getConsumptionGas" ,getConsumptionGas ,{
+    refetchInterval:30000,
+  })
+  // console.log("Gas Consumption : " , consumptionGas);
 
-  // let consumptionElectricity = useQuery("getConsumptionElectricity" ,getConsumptionElectricity,{
-  //   refetchInterval:30000,
-  // } )
+
+  function getConsumptionElectricity(homeId) {
+    return axios.get(`http://localhost:62863/api/home_overall/last/${homeId}`,{
+      energyType: "Electricity",
+    })
+  }
+
+  let consumptionElectricity = useQuery("getConsumptionElectricity" ,getConsumptionElectricity,{
+    refetchInterval:30000,
+  } )
+    // console.log("Electricity Consumption : " , consumptionElectricity);
 
 
 
