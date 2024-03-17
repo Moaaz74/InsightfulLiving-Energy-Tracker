@@ -11,6 +11,7 @@ import getChartData from "../../Data"
 
 
 
+
 export default function Home() {
   // const [chartInfo , setChartInfo] = useState({
   //   labels: chartInfo.map((data) => data.energyType) ,
@@ -59,77 +60,66 @@ export default function Home() {
           type: "living room"
         },
 
-      }).then((response)=> response.data)
+      }).then((response)=> response)
       .catch((error)=> error); 
    }
  let data = useQuery("getLivingRoomId" ,getLivingRoomId );
- let { obj} = data;
- console.log("Living Room Info : ",obj);
- //let livingRoomId =data.id;
-//  console.log("Room Id : " , livingRoomId);
+ 
+// console.log("Living Room Info : ",obj);
+ let livingRoomId =data?.data?.data?.id;
+console.log("Room Id : " , livingRoomId);
 
 
-//   function getTempAndHume(livingRoomId) {
-//     return axios.request({
-//     method: 'GET',
-//     url: `http://localhost:62863/api/temp_humidity/last/${livingRoomId}`,
-//     headers: {
-//     },
-//     params: {
-//       type: "living room"
-//     },
+  function getTempAndHume(livingRoomId) {
+  return  axios.post(
+    `http://localhost:62863/api/temp_humidity/last/2471`,
+  )
+   
+}
 
-//   }).then((response)=> response)
-//   .catch((error)=> error); 
-// }
-    
+  let roomInfo = useQuery("getTempAndHume" ,()=>getTempAndHume(livingRoomId),{
+    refetchInterval:30000,
+  }) 
+   console.log("Temp &  Humidity of Living Room : ",roomInfo);
 
-//   let roomInfo = useQuery("getTempAndHume" ,getTempAndHume,{
-//     refetchInterval:30000,
-//   } )
-//    console.log("Temp &  Humidity of Living Room : ",roomInfo);
+
 
   function getConsumptionGas(homeId) {
-    return axios.request({
-      method: 'GET',
-      url: `http://localhost:62863/api/home_overall/last/${homeId}`,
-      headers: {
-      },
-      params: {
-        energyType: "Gas"
-      },
-  
-    }).then((response)=> response)
-    .catch((error)=> error); 
     
-  }
+      return axios.post(`http://localhost:62863/api/home_overall/last/268`,{
+        energyType: "Gas",
+      })
+    
+    }
 
-  let consumptionGas = useQuery("getConsumptionGas" ,getConsumptionGas(homeId) ,{
+  let consumptionGas = useQuery("getConsumptionGas" ,()=>getConsumptionGas(homeId) ,{
     refetchInterval:30000,
   })
    console.log("Gas Consumption : " , consumptionGas);
 
 
   function getConsumptionElectricity(homeId) {
-    return axios.request({
-      method: 'GET',
-      url: `http://localhost:62863/api/home_overall/last/${homeId}`,
-      headers: {
-      },
-      params: {
-        energyType: "Electricity"
-      },
-  
-    }).then((response)=> response)
-    .catch((error)=> error); 
+    return axios.post(`http://localhost:62863/api/home_overall/last/${homeId}`,{
+      energyType: "Electricity",
+    })
   }
-
-  let consumptionElectricity = useQuery("getConsumptionElectricity" ,getConsumptionElectricity(homeId),{
-    refetchInterval:30000,
+ // console.log("res: ", getConsumptionElectricity(homeId));
+  let consumptionElectricity = useQuery("getConsumptionElectricity" ,()=>getConsumptionElectricity(homeId),{
+  refetchInterval:30000,
   } )
     console.log("Electricity Consumption : " , consumptionElectricity);
 
-
+    function getConsumptionElectricityall(homeId) {
+      return axios.get(`http://localhost:62863/api/home_overall/all/268`,{
+       
+      })
+    }
+   // console.log("res: ", getConsumptionElectricity(homeId));
+    let consumptionElectricityall = useQuery("getConsumptionElectricityall" ,()=>getConsumptionElectricityall(homeId),{
+    refetchInterval:30000,
+    } )
+      console.log("all Consumption : " , consumptionElectricityall);
+  
 
 
   return <div className=' d-flex flex-row flex-wrap align-items-center'>
@@ -144,8 +134,8 @@ export default function Home() {
         <div className='col-md-8 '>
           <h1 className={`${Style.title} h5`}> Indoor Temperature</h1>
           <div className=' align-items-center d-flex flex-column justify-content-center '>
-          {/* <span className={`${Style.degree} mb-5 mt-5`}>{roomInfo.data.temperature}<span className=' fs-2'>C</span></span>
-          <h5 className={`${Style.detail} h5`}>{roomInfo.data.dataTime}</h5> */}
+           <span className={`${Style.degree} mb-5 mt-5`}>{roomInfo?.data?.data?.temperature}<span className=' fs-2'>C</span></span>
+          <h5 className={`${Style.detail} h5`}>{roomInfo?.data?.data?.dataTime}</h5> 
           </div>
         </div>
       </div>
@@ -160,8 +150,8 @@ export default function Home() {
         <div className='col-md-8 '>
           <h1 className={`${Style.title} h5`}>Humidity</h1>
           <div className=' align-items-center d-flex flex-column justify-content-center '>
-          {/* <span className={`${Style.degree} mb-5 mt-5`}>{roomInfo.data.humidity} <span className=' fs-2'>%</span></span>
-          <h5 className={`${Style.detail} h5`}>{roomInfo.data.dataTime}</h5> */}
+          <span className={`${Style.degree} mb-5 mt-5`}>{roomInfo?.data?.data?.humidity} <span className=' fs-2'>%</span></span>
+          <h5 className={`${Style.detail} h5`}>{roomInfo?.data?.data?.dataTime}</h5> 
           </div>
         </div>
       </div>
@@ -193,7 +183,7 @@ export default function Home() {
             <div className='col-md-8 '>
               <h1 className={`${Style.title} h5`}>Electricity consumption</h1>
                 <div className=' align-items-center d-flex flex-column justify-content-center '>
-                  {/* <span className={`${Style.degree} mb-5 mt-5`}>{consumptionElectricity.homeConsumption} <span className=' fs-2'>Kwh</span> </span> */}
+                   <span className={`${Style.degree} mb-5 mt-5`}>{consumptionElectricity?.data?.data?.homeConsumption} <span className=' fs-2'>Kwh</span> </span> 
                   <h5 className={`${Style.detail} h5`}>At Last Hour</h5>
                 </div>
           </div>
@@ -210,7 +200,7 @@ export default function Home() {
             <div className='col-md-8 '>
               <h1 className={`${Style.title} h5`}>Gas consumption</h1>
                 <div className=' align-items-center d-flex flex-column justify-content-center '>
-                  {/* <span className={`${Style.degree} mb-5 mt-5`}>{consumptionGas.homeConsumption} <span className=' fs-2'>Kwh</span> </span> */}
+                   <span className={`${Style.degree} mb-5 mt-5`}>{consumptionGas?.data?.data?.homeConsumption} <span className=' fs-2'>Kwh</span> </span> 
                   <h5 className={`${Style.detail} h5`}>At Last Hour</h5>
                 </div>
           </div>
