@@ -7,7 +7,7 @@ namespace Back_end.DAOs.Interfaces
 {
     public interface IHome_OverallDAO
     {
-        Task<IEnumerable<Home_Overall>> getHome();
+        Task<IEnumerable<Home_Overall>> getHome(int homeid);
         Task<Home_Overall> getLastHome(int homeid, string energytype);
         Task<IEnumerable<String>> getHomeStartDates(string energytype,int homeid);
         Task<IEnumerable<String>> getHomeEndDates(Home_OverallS_DateDto s_DateDto, int homeid);

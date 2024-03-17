@@ -28,7 +28,7 @@ namespace Back_end.Controllers
             {
                 List<string> error = new List<string>();
                 error.Add("There is no room's temp or humidity consumption yet...");
-                return NotFound(new { errors = error });
+                return Ok(new { errors = error });
             }
 
             Temp_HumidityDto temp_humidityDto;
@@ -45,7 +45,7 @@ namespace Back_end.Controllers
             }
             return Ok(temp_humidityDtos);
         }
-        [HttpGet("last/{roomid}")]
+        [HttpPost("last/{roomid}")]
         public async Task<IActionResult> GetLastTemp_Humidity(int roomid)
         {
             var Degree = await _temp_humidityDAO.getLastTemp_Humidity(roomid);
@@ -53,7 +53,7 @@ namespace Back_end.Controllers
             {
                 List<string> error = new List<string>();
                 error.Add("There is no room's temp or humidity consumption yet...");
-                return NotFound(new { errors = error });
+                return Ok(new { errors = error });
             }
 
             Temp_HumidityDto temp_humidityDto = new Temp_HumidityDto();

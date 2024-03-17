@@ -25,10 +25,10 @@ namespace Back_end.DAOs.Implementations
             mapper = new Mapper(session);
             
         }
-        public async Task<IEnumerable<Home_Overall>> getHome()
+        public async Task<IEnumerable<Home_Overall>> getHome(int homeid)
         {
 
-            string cql = "SELECT * FROM Home_Overall ;";
+            string cql = $"SELECT * FROM Home_Overall where homeid = {homeid}  ALLOW FILTERING;";
             try
             {
 

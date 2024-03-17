@@ -20,16 +20,16 @@ namespace Back_end.Controllers
             _home_overallDAO = home_OverallDAO;
         }
 
-        [HttpGet("All")]
-        public async Task<IActionResult> GetHome_Overall()
+        [HttpGet("All/{homeid}")]
+        public async Task<IActionResult> GetHome_Overall(int homeid)
         {
             var home_OverallDtos = new List<Home_OverallDto>();
-            var allHomes = await _home_overallDAO.getHome();
+            var allHomes = await _home_overallDAO.getHome(homeid);
             if (allHomes.IsNullOrEmpty())
             {
                 List<string> error = new List<string>();
                 error.Add("There is no homes consumption yet...");
-                return NotFound(new { errors = error });
+                return Ok(new { errors = error });
             }
 
             Home_OverallDto homeDto;
@@ -49,23 +49,27 @@ namespace Back_end.Controllers
         }
 
 
-        [HttpGet("last/{homeid}")]
-        public async Task<IActionResult> GetLastHome_Overall(int homeid, [FromQuery] string energyType)
+        [HttpPost("last/{homeid}")]
+        public async Task<IActionResult> GetLastHome_Overall(int homeid, [FromBody] object energyType)
         {
-           
-            if (energyType == string.Empty)
+            JsonElement jsonObject = JsonSerializer.Deserialize<JsonElement>(energyType.ToString());
+
+            // Access the "energyType" property value
+            string energytype = jsonObject.GetProperty("energyType").GetString();
+
+            if (energytype == string.Empty)
             {
                 List<string> error = new List<string>();
                 error.Add("No EnergyType is specified !!!!...");
                 return BadRequest(new { errors = error });
             }
        
-            var Home = await _home_overallDAO.getLastHome(homeid,energyType);
+            var Home = await _home_overallDAO.getLastHome(homeid,energytype);
             if (Home==null)
             {
                 List<string> error = new List<string>();
                 error.Add("There is no home consumption yet...");
-                return NotFound(new { errors = error });
+                return Ok(new {errors = error } );
             }
 
                 Home_OverallDto homeDto = new Home_OverallDto();
