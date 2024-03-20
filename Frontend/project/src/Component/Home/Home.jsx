@@ -6,18 +6,30 @@ import gas from "../../Assets/WhatsApp Image 2024-03-12 at 4.44.12 PM.jpeg"
 import electricity from "../../Assets/WhatsApp Image 2024-03-12 at 4.44.15 PM.jpeg"
 import axios from 'axios'
 import {useQuery} from "react-query"
-import getChartData from "../../Data"
+import ChartDataFetcher from "../../Data"
 
 
 
 
 
 export default function Home() {
+  // async function chartData() {
+  //   let {data} = await ChartDataFetcher(268)
+  //   setChartInfo(data)
+  // }
+  // let data1 =  ChartDataFetcher(268)
+  //
+  let data1;
+  async function updateItem() {
+    data1 = await ChartDataFetcher(268)
+    console.log("data1:", data1)
+  }
+updateItem();
   // const [chartInfo , setChartInfo] = useState({
-  //   labels: chartInfo.map((data) => data.energyType) ,
+  //   labels: data1.map((data1) => data1?.energyType) ,
   //   datasets:[{
   //     label: "home Consumption",
-  //     data: chartInfo.map((data) => data.homeConsumption),
+  //     data: data1.map((data1) => data1?.homeConsumption),
   //     backgroundColor: [
   //       "#f3ba2f",
   //       "#2a71d0",
@@ -26,10 +38,7 @@ export default function Home() {
   //   },],
   // })
 
-  // async function chartData() {
-  //   let {data} = await getChartData()
-  //   setChartInfo(data)
-  // }
+
   // const [chartsData , chartsData] = useState({
   //   labels: UserData.map((data) => data.year) ,
   //   datasets:[{
@@ -69,6 +78,17 @@ export default function Home() {
  let livingRoomId =data?.data?.data?.id;
 console.log("Room Id : " , livingRoomId);
 
+
+
+// function getChartData(homeId) {
+        
+//   return axios.get(`http://localhost:62863/api/home_overall/all/${homeId}`)
+//   .then((response)=> response)
+//   .catch((error)=> error);   
+  
+//   }
+
+ 
 
   function getTempAndHume(livingRoomId) {
   return  axios.post(
@@ -163,13 +183,13 @@ console.log("Room Id : " , livingRoomId);
     </div>
 
 
-  
-      {/* <div className='w-100 mt-3'>
+{/*   
+       <div className='w-100 mt-3'>
         <div className={Style.Line} >
           <LineChart chartData={chartInfo} />
         </div>
-      </div> */}
-
+      </div> 
+  */}
 
 <div className='row w-100 align-items-center justify-content-around  mt-3'>
 
