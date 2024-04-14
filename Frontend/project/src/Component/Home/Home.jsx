@@ -66,7 +66,7 @@ updateItem();
           
         },
         params: {
-          type: "living room"
+          type: "bed room"
         },
 
       }).then((response)=> response)
@@ -106,7 +106,7 @@ console.log("Room Id : " , livingRoomId);
 
   function getConsumptionGas(homeId) {
     
-      return axios.post(`http://localhost:62863/api/home_overall/last/268`,{
+      return axios.post(`http://localhost:62863/api/home_overall/last/${homeId}`,{
         energyType: "Gas",
       })
     
@@ -130,7 +130,7 @@ console.log("Room Id : " , livingRoomId);
     console.log("Electricity Consumption : " , consumptionElectricity);
 
     function getConsumptionElectricityall(homeId) {
-      return axios.get(`http://localhost:62863/api/home_overall/all/268`,{
+      return axios.get(`http://localhost:62863/api/home_overall/all/${homeId}`,{
        
       })
     }
