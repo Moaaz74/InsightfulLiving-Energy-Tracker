@@ -8,7 +8,6 @@ using Back_end.Services;
 using Back_end.Services.DeviceService;
 using Back_end.Services.HomeService;
 using Back_end.Services.RoomService;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace Back_end
@@ -28,7 +27,7 @@ namespace Back_end
             {
                 var contactPoint = builder.Configuration["CassandraConfiguration:cassandraNodes"];
                 var keyspace = builder.Configuration["CassandraConfiguration:Keyspace"];
-                return new CassandraDAO(contactPoint , keyspace);
+                return new CassandraDAO(contactPoint, keyspace);
             });
 
             builder.Services.AddCors(options =>
@@ -42,13 +41,13 @@ namespace Back_end
             builder.Services.AddScoped<IRoom_OverallDAO, Room_OverallDAO>();
             builder.Services.AddScoped<IApplianceDAO, ApplianceDAO>();
             builder.Services.AddScoped<ITemp_HumidityDAO, Temp_HumidityDAO>();
-            builder.Services.AddScoped<IJwtService , JwtService>();
+            builder.Services.AddScoped<IJwtService, JwtService>();
             builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
             builder.Services.AddScoped<IHomeService, HomeService>();
             builder.Services.AddScoped<IRoomService, RoomService>();
-            builder.Services.AddScoped<IDeviceService,DeviceService>();
-
+            builder.Services.AddScoped<IDeviceService, DeviceService>();
+            builder.Services.AddScoped<IMLDOAs, MlDOAs>();
             builder.Services.AddIdentityCore<ApplicationUser>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
