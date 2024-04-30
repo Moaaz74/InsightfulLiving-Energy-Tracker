@@ -24,5 +24,7 @@ namespace Back_end.Services.HomeService
 
         Home GetHomeByRoom(Room Room);
 
+        Task<MlDto> GetHomeEmailAndPhone(int Id);
+
     }
 }

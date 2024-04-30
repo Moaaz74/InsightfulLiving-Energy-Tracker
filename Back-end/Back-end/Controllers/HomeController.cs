@@ -1,13 +1,10 @@
-﻿using Azure.Core;
-using Back_end.DTOS.Home;
+﻿using Back_end.DTOS.Home;
 using Back_end.DTOS.Validation.HomeValidation;
 using Back_end.Models;
 using Back_end.Services.HomeService;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
-using System.ComponentModel.DataAnnotations;
 
 namespace Back_end.Controllers
 {
@@ -137,7 +134,7 @@ namespace Back_end.Controllers
                 List<string> error = new List<string>();
                 error.Add(result);
                 return NotFound(new { errors = error });
-               
+
             }
 
             return Ok(new { massage = "Home Is Deleted" });
@@ -152,7 +149,7 @@ namespace Back_end.Controllers
         public async Task<ActionResult<List<HomeViewsDto>>> ViewsHome()
         {
             var homes = await _homeService.ViewsHomeNotDelete();
-            if (homes == null ||homes.Count()==0)
+            if (homes == null || homes.Count() == 0)
             {
                 List<string> error = new List<string>();
                 error.Add("Not Found Homes");
@@ -186,7 +183,15 @@ namespace Back_end.Controllers
                 error.Add("Not Found Homes");
                 return NotFound(new { errors = error });
             }
-            return Ok(new  { Ids = homes});
+            return Ok(new { Ids = homes });
+
+        }
+
+        [HttpGet("GetMl/{id}")]
+        public async Task<ActionResult> get_data(int id)
+        {
+            var results = await _homeService.GetHomeEmailAndPhone(id);
+            return Ok(results);
 
         }
 
