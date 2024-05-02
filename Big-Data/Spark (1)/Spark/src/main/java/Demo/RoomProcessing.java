@@ -47,7 +47,7 @@ public class RoomProcessing {
                 .withColumn("Value", col("Value").cast(DataTypes.DoubleType))
                 .withColumn("window" , window(col("DateTime") , "1 hour"))
                 .groupBy(col("RoomId") , col("window") , col("EnergyType"))
-                .agg(sum("Value").alias("RoomConsumption"))
+                .agg(format_number(sum("Value"),2).alias("RoomConsumption"))
                 .select("RoomId" , "window.start" , "window.end" , "RoomConsumption" , "EnergyType")
                 .selectExpr("to_json(struct(*)) as json_data");
 

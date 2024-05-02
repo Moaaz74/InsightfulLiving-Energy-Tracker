@@ -47,7 +47,7 @@ public class HomeOverallProcessing {
                 .withColumn("Value", col("Value").cast(DataTypes.DoubleType))
                 .withColumn("window" , window(col("DateTime") , "1 hour"))
                 .groupBy(col("HomeId") , col("window") , col("EnergyType"))
-                .agg(sum("Value").alias("HomeConsumption"))
+                .agg(format_number(sum("Value"),2).alias("HomeConsumption"))
                 .select("HomeId" , "window.start" , "window.end" , "HomeConsumption" , "EnergyType")
                 .selectExpr("to_json(struct(*)) as json_data");
 

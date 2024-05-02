@@ -45,7 +45,7 @@ public class ApplianceProcessing {
                 .withColumn("Value", col("Value").cast(DataTypes.DoubleType))
                 .withColumn("window" , window(col("DateTime") , "1 hour"))
                 .groupBy(col("ApplianceId") , col("window") , col("EnergyType"))
-                .agg(sum("Value").alias("ApplianceConsumption"))
+                .agg(format_number(sum("Value"),2).alias("ApplianceConsumption"))
                 .select("ApplianceId" , "window.start" , "window.end" , "ApplianceConsumption" , "EnergyType")
                 .selectExpr("to_json(struct(*)) as json_data");
 
