@@ -95,7 +95,7 @@ ChartJS.register(LineElement, PointElement, LinearScale, CategoryScale, Tooltip,
    
 }
 
-  let roomInfo = useQuery("getTempAndHume" ,()=>getTempAndHume(livingRoomId),{
+  let roomInfo = useQuery("getTempAndHume" ,()=>getTempAndHume(2471),{
     refetchInterval:30000,
   }) 
 
@@ -186,6 +186,7 @@ ChartJS.register(LineElement, PointElement, LinearScale, CategoryScale, Tooltip,
         <Line data={chartData} />
         </div>
       </div> 
+<<<<<<< HEAD
   }
 
 <div className='row w-100 align-items-center justify-content-around  mt-3'>
@@ -230,3 +231,49 @@ ChartJS.register(LineElement, PointElement, LinearScale, CategoryScale, Tooltip,
  </div>
   
   }
+=======
+  
+          }
+          <div className='row w-100 align-items-center justify-content-around  mt-3'>
+
+          <div  id='card' className={`${Style.card} ${Style.C3} col-md-5 align-items-center justify-content-center`}>
+                  <div className="inner d-flex ">
+                    <div  className={`${Style.info} col-md-4 justify-content-center align-items-center d-flex flex-column me-4 `}>
+                      {/* <i className={`${Style.icon} fa-solid fa-wind mb-3 `}></i> */}
+                      <img src={electricity} alt="" className='w-100' />
+                      <h3 className='ms-2 fw-bold'></h3>
+                    </div>
+                      <div className='col-md-8 '>
+                        <h1 className={`${Style.title} h5`}>Electricity consumption</h1>
+                          <div className=' align-items-center d-flex flex-column justify-content-center '>
+                             <span className={`${Style.degree} mb-5 mt-5`}>{consumptionElectricity?.data?.data?.homeConsumption} <span className=' fs-2'>Kwh</span> </span> 
+                            <h5 className={`${Style.detail} h5`}>At Last Hour</h5>
+                          </div>
+                    </div>
+                  </div>
+                </div>
+          
+          
+          <div  id='card' className={`${Style.card} ${Style.C3} col-md-5 align-items-center justify-content-center`}>
+                  <div className="inner d-flex ">
+                    <div  className={`${Style.info} col-md-4 justify-content-center align-items-center d-flex flex-column me-4`}>
+                    <img src={gas} alt="" className='w-100' />
+                      <h3 className='ms-2 fw-bold'></h3>
+                    </div>
+                      <div className='col-md-8 '>
+                        <h1 className={`${Style.title} h5`}>Gas consumption</h1>
+                          <div className=' align-items-center d-flex flex-column justify-content-center '>
+                             <span className={`${Style.degree} mb-5 mt-5`}>{consumptionGas?.data?.data?.homeConsumption} <span className=' fs-2'>Kwh</span> </span> 
+                            <h5 className={`${Style.detail} h5`}>At Last Hour</h5>
+                          </div>
+                    </div>
+                  </div>
+                </div>
+          
+          </div>
+                
+          
+           </div>
+            
+            }
+>>>>>>> 0c3f826d09c553d195770e456ca8937cb6a383df

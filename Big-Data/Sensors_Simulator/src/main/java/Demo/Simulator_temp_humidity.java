@@ -11,6 +11,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Properties;
@@ -66,7 +67,22 @@ public class Simulator_temp_humidity {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String formattedDate = sdf.format(currentDate);
         int  roomId =2471 ;
+        double temp;
+        DecimalFormat df = new DecimalFormat("0.00");;
+        if(Double.parseDouble(sentAttributes[1])==0.0){
+            temp    = (Math.random() * 50);
+            sentAttributes[1] = String.valueOf( df.format(temp) );
 
+        }
+        else
+        {
+            temp = Double.parseDouble( sentAttributes[1]);
+            temp *=0.05;
+            sentAttributes[1] =String.valueOf(df.format( temp ));
+        }
+        temp = Double.parseDouble( sentAttributes[2]);
+        temp *=0.09;
+        sentAttributes[2] =String.valueOf(df.format(temp ));
 
         return "{\"RoomId\": \"" + roomId + "\" , \"DateTime\": \"" + formattedDate + "\" , \"Temperature\": \"" + sentAttributes[1] +  "\" , \"Humidity\":\"" + sentAttributes[2] + "\"}";
     }

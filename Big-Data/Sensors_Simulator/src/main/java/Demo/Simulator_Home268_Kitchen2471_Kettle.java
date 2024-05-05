@@ -12,6 +12,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -79,6 +80,19 @@ public class Simulator_Home268_Kitchen2471_Kettle {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String formattedDate = sdf.format(time);
         String type = "Electricity";
+        double temp;
+        DecimalFormat df = new DecimalFormat("0.00");
+        if(Double.parseDouble(sentAttributes[1])==0.0){
+             temp    = (Math.random() * 20);
+            sentAttributes[1] = String.valueOf( df.format(temp) );
+
+        }
+        else
+        {
+           temp = Double.parseDouble( sentAttributes[1]);
+                   temp *=0.01;
+                   sentAttributes[1] =String.valueOf( df.format(temp ));
+        }
         return "{\"HomeId\" : \"" + homeId + "\" , \"RoomId\" : \""+ roomId + "\" , \"ApplianceId\" : \"" + applianceId + "\" , \"DateTime\": \"" + formattedDate + "\" , \"EnergyType\": \"" + type +  "\", \"Value\":\"" + sentAttributes[1] + "\"}";
     }
 
