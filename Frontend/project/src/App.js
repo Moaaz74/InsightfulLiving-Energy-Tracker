@@ -6,6 +6,7 @@ import Layout from './Component/Layout/Layout';
 import { useContext, useEffect } from 'react';
 import  { userContext } from './Context/UserContext';
 import ProtectedRoute from './Component/ProtectedRoute/ProtectedRoute';
+import History from './Component/History/History';
 
 function App() {
 
@@ -22,6 +23,7 @@ function App() {
   let routers = createBrowserRouter([
     {path:"/", element:  <Layout/>  ,children:[
       {index:true , element:<ProtectedRoute><Home /> </ProtectedRoute>  },
+      {path:"history" , element: <History/>},
       
       
     ]},

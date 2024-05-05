@@ -24,7 +24,7 @@ namespace Back_end.Controllers
         public async Task<IActionResult> GetHome_Overall(int homeid)
         {
             var home_OverallDtos = new List<Home_OverallDto>();
-            var allHomes = await _home_overallDAO.getHome(homeid);
+            var allHomes = await _home_overallDAO.getHome(homeid); 
             if (allHomes.IsNullOrEmpty())
             {
                 List<string> error = new List<string>();

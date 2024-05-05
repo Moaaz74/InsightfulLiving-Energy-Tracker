@@ -1,11 +1,18 @@
-
-// (async function() {
-
-//   const data = consumptionElectricityall
-//   new Chart(
+// new Chart(
 //     document.getElementById('acquisitions'),
 //     {
 //       type: 'bar',
+//       options: {
+//         animation: false,
+//         plugins: {
+//           legend: {
+//             display: false
+//           },
+//           tooltip: {
+//             enabled: false
+//           }
+//         }
+//       },
 //       data: {
 //         labels: data.map(row => row.year),
 //         datasets: [
@@ -17,6 +24,3 @@
 //       }
 //     }
 //   );
-  
-// })();
-

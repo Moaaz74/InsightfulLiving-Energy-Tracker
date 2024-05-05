@@ -1,62 +1,70 @@
 import React from 'react'
 import Style from "./Home.module.css"
 import { useState } from 'react';
-import LineChart from '../../LineChart';
 import gas from "../../Assets/WhatsApp Image 2024-03-12 at 4.44.12 PM.jpeg"
 import electricity from "../../Assets/WhatsApp Image 2024-03-12 at 4.44.15 PM.jpeg"
 import axios from 'axios'
 import {useQuery} from "react-query"
-import ChartDataFetcher from "../../Data"
-
-
-
-
+import { useEffect } from 'react';
+import { Chart as ChartJS, LineElement, PointElement, LinearScale, CategoryScale, Tooltip, Legend } from 'chart.js';
+import { Line } from 'react-chartjs-2';
 
 export default function Home() {
-  // async function chartData() {
-  //   let {data} = await ChartDataFetcher(268)
-  //   setChartInfo(data)
-  // }
-  // let data1 =  ChartDataFetcher(268)
-  //
-  let data1;
-  async function updateItem() {
-    data1 = await ChartDataFetcher(268)
-    console.log("data1:", data1)
-  }
-updateItem();
-  // const [chartInfo , setChartInfo] = useState({
-  //   labels: data1.map((data1) => data1?.energyType) ,
-  //   datasets:[{
-  //     label: "home Consumption",
-  //     data: data1.map((data1) => data1?.homeConsumption),
-  //     backgroundColor: [
-  //       "#f3ba2f",
-  //       "#2a71d0",
-  //     ],
-  //     borderWidth: 2,
-  //   },],
-  // })
-
-
-  // const [chartsData , chartsData] = useState({
-  //   labels: UserData.map((data) => data.year) ,
-  //   datasets:[{
-  //     label: "Users Gained",
-  //     data: UserData.map((data) => data.userGain),
-  //     backgroundColor: [
-  //       "rgba(75,192,192,1)",
-  //       "#ecf0f1",
-  //       "#50AF95",
-  //       "#f3ba2f",
-  //       "#2a71d0",
-  //     ],
-  //     borderWidth: 2,
-  //   },],
-  // })
 
   let homeId = localStorage.getItem("homeid");
   homeId = parseInt(homeId);
+
+  const [chartData, setChartData] = useState({
+    labels: [],
+    datasets: [],
+  });
+
+  // Fetch data from API on component mount
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`http://localhost:62863/api/home_overall/all/${homeId}`);
+        const data = await response.json();
+        const formattedData = formatChartData(data);
+        setChartData(formattedData);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  // Function to format API data into chart data structure
+  const formatChartData = (apiData) => {
+    const labels = apiData.map((item) => item.start); // Extract labels (start date)
+    const gasData = apiData.filter((item) => item.energyType === 'Gas').map((item) => item.homeConsumption); // Filter and extract Gas data
+    const electricityData = apiData.filter((item) => item.energyType === 'Electricity').map((item) => item.homeConsumption); // Filter and extract Electricity data
+
+    return {
+      labels,
+      datasets: [
+        {
+          label: 'Gas Consumption',
+          data: gasData,
+          borderColor: 'rgb(255, 99, 132)', // Red color for Gas line
+          backgroundColor: 'rgba(255, 99, 132, 0.5)', // Transparent red for fill
+        },
+        {
+          label: 'Electricity Consumption',
+          data: electricityData,
+          borderColor: 'rgb(54, 162, 235)', // Blue color for Electricity line
+          backgroundColor: 'rgba(54, 162, 235, 0.5)', // Transparent blue for fill
+        },
+      ],
+    };
+  };
+
+
+ChartJS.register(LineElement, PointElement, LinearScale, CategoryScale, Tooltip, Legend);
+
+
+
 
    function getLivingRoomId() {
       return  axios.request({
@@ -66,7 +74,7 @@ updateItem();
           
         },
         params: {
-          type: "bed room"
+          type: "LivingRoom"
         },
 
       }).then((response)=> response)
@@ -76,23 +84,13 @@ updateItem();
  
 // console.log("Living Room Info : ",obj);
  let livingRoomId =data?.data?.data?.id;
-console.log("Room Id : " , livingRoomId);
 
-
-
-// function getChartData(homeId) {
-        
-//   return axios.get(`http://localhost:62863/api/home_overall/all/${homeId}`)
-//   .then((response)=> response)
-//   .catch((error)=> error);   
-  
-//   }
 
  
 
   function getTempAndHume(livingRoomId) {
   return  axios.post(
-    `http://localhost:62863/api/temp_humidity/last/2471`,
+    `http://localhost:62863/api/temp_humidity/last/${livingRoomId}`,
   )
    
 }
@@ -100,7 +98,6 @@ console.log("Room Id : " , livingRoomId);
   let roomInfo = useQuery("getTempAndHume" ,()=>getTempAndHume(livingRoomId),{
     refetchInterval:30000,
   }) 
-   console.log("Temp &  Humidity of Living Room : ",roomInfo);
 
 
 
@@ -183,13 +180,13 @@ console.log("Room Id : " , livingRoomId);
     </div>
 
 
-{/*   
+{
        <div className='w-100 mt-3'>
         <div className={Style.Line} >
-          <LineChart chartData={chartInfo} />
+        <Line data={chartData} />
         </div>
       </div> 
-  */}
+  }
 
 <div className='row w-100 align-items-center justify-content-around  mt-3'>
 
@@ -230,6 +227,6 @@ console.log("Room Id : " , livingRoomId);
 </div>
       
 
- </div>
-  
-  }
+ </div>
+  
+  }
