@@ -8,6 +8,7 @@ import  { userContext } from './Context/UserContext';
 import ProtectedRoute from './Component/ProtectedRoute/ProtectedRoute';
 import History from './Component/History/History';
 import Rooms from './Component/Rooms/Rooms';
+import Devices from './Component/Devices/Devices';
 
 function App() {
 
@@ -26,6 +27,7 @@ function App() {
       {index:true , element:<ProtectedRoute><Home /> </ProtectedRoute>  },
       {path:"history" , element: <History/>},
       {path:"rooms" , element: <Rooms/>},
+      {path:"devices" , element: <Devices/>},
       
       
     ]},
