@@ -7,6 +7,7 @@ import { useContext, useEffect } from 'react';
 import  { userContext } from './Context/UserContext';
 import ProtectedRoute from './Component/ProtectedRoute/ProtectedRoute';
 import History from './Component/History/History';
+import Rooms from './Component/Rooms/Rooms';
 
 function App() {
 
@@ -24,6 +25,7 @@ function App() {
     {path:"/", element:  <Layout/>  ,children:[
       {index:true , element:<ProtectedRoute><Home /> </ProtectedRoute>  },
       {path:"history" , element: <History/>},
+      {path:"rooms" , element: <Rooms/>},
       
       
     ]},

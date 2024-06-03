@@ -74,14 +74,14 @@ ChartJS.register(LineElement, PointElement, LinearScale, CategoryScale, Tooltip,
           
         },
         params: {
-          type: "LivingRoom"
+          type: `${homeId}`
         },
 
       }).then((response)=> response)
       .catch((error)=> error); 
    }
  let data = useQuery("getLivingRoomId" ,getLivingRoomId );
- 
+
 // console.log("Living Room Info : ",obj);
  let livingRoomId =data?.data?.data?.id;
 
