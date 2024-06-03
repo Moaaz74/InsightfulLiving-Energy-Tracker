@@ -1,0 +1,19 @@
+[
+  {
+    "Name": "Create Home - Empty UserId",
+    "NumberOfRooms": "2",
+    "UserId": "",
+    "Expected": {
+      "StatusCode": 400
+    }
+  },
+  {
+    "Name": "Create Home - Empty NoRooms",
+    "NumberOfRooms": "",
+    "UserId": "77fd5b4d-3cb8-4bfc-8825-07ca6d49ce3c",
+    "Expected": {
+      "StatusCode": 400
+    }
+  }
+
+]
