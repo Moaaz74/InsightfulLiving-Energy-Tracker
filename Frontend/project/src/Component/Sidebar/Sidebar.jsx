@@ -25,10 +25,12 @@ function logOut() {
   <>
   <Link to={"/"} className=' text-white fs-4 d-flex justify-content-center align-items-center mb-4'>
         <i class="fa-solid fa-house me-3 "></i>Home</Link>
-  <Link to={"/"} className=' text-white fs-4 d-flex justify-content-center align-items-center mb-4'>
+  <Link to={"/devices"} className=' text-white fs-4 d-flex justify-content-center align-items-center mb-4'>
   <i class="fa-solid fa-display me-3"></i>Devices</Link>
-  <Link to={"/"} className=' text-white fs-4 d-flex justify-content-center align-items-center mb-4'>
+  <Link to={"/rooms"} className=' text-white fs-4 d-flex justify-content-center align-items-center mb-4'>
   <i class="fa-solid fa-person-shelter me-3"></i>Rooms</Link>
+  <Link to={"/history"} className=' text-white fs-4 d-flex justify-content-center align-items-center mb-4'>
+  <i class="fa-regular fa-calendar-days me-3"></i>History</Link>
   </>
   :''
 }

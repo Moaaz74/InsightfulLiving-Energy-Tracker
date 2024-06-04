@@ -29,7 +29,7 @@ namespace Back_end.Controllers
 
         #region AddUser
         [HttpPost("addUser")]
-        public async Task<IActionResult> AddUser(AddUserDto model)
+        public async Task<ActionResult> AddUser(AddUserDto model)
         {
             if (!ModelState.IsValid)
             {
@@ -153,7 +153,7 @@ namespace Back_end.Controllers
         #endregion
 
         [HttpPost("Login")]
-        public async Task<IActionResult> Login(LoginDTO loginDTO)
+        public async Task<ActionResult> Login(LoginDTO loginDTO)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);

@@ -19,7 +19,6 @@ namespace Back_end.Controllers
         public readonly IHomeService _homeService;
         public HomeController(UserManager<ApplicationUser> manager, IHomeService homeService)
         {
-
             _homeService = homeService;
         }
         #region Create
