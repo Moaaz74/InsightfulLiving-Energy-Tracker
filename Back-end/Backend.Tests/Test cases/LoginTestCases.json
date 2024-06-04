@@ -1,0 +1,27 @@
+[
+  {
+    "Name": "Login - Empty Inputs",
+    "Username": "",
+    "Password": "",
+    "Expected": {
+      "StatusCode": 401
+    }
+  },
+  {
+    "Name": "Login - wrong Password",
+    "Username": "Moaaz",
+    "Password": "1234",
+    "Expected": {
+      "StatusCode": 401
+    }
+  },
+  {
+    "Name": "Login - wrong UserName",
+    "Username": "Ahmed",
+    "Password": "Mo@@z011",
+    "Expected": {
+      "StatusCode": 401
+    }
+  }
+
+]

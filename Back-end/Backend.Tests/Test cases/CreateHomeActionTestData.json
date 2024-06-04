@@ -14,6 +14,22 @@
     "Expected": {
       "StatusCode": 400
     }
+  },
+  {
+    "Name": "Create Home - NonExistedUserId",
+    "NumberOfRooms": "2",
+    "UserId": "100",
+    "Expected": {
+      "StatusCode": 404
+    }
+  },
+  {
+    "Name": "Create Home - Empty User Id & NoRooms",
+    "NumberOfRooms": "",
+    "UserId": "",
+    "Expected": {
+      "StatusCode": 400
+    }
   }
 
 ]

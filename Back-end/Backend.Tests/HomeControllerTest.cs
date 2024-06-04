@@ -24,6 +24,7 @@ namespace Backend.Tests
         public void SetUp()
         {
             _homeService = new Mock<IHomeService>();
+            //_homeService(service => service.AddHome)
             var userStoreMock = new Mock<IUserStore<ApplicationUser>>();
             _userManager = new Mock<UserManager<ApplicationUser>>(userStoreMock.Object, null, null, null, null, null, null, null, null);
             _controller = new HomeController(_userManager.Object , _homeService.Object);
@@ -34,18 +35,22 @@ namespace Backend.Tests
         public async Task<int> CheckHomeCreating(string? UserId , string? NoRooms)
         {
             HomeCreateDto dto = new HomeCreateDto() { NumberOfRooms = NoRooms, UserId = UserId };
-
+            _homeService.Setup(service => service.AddHome(dto)).ReturnsAsync(new HomeViewDto { NotFoundMassage = "UserID Is Not Found" });
+            
             var result =  await  _controller.CreateHome(dto);
             int statusCode = result switch
             {
                 NotFoundObjectResult notFoundResult => (int)notFoundResult.StatusCode,
                 BadRequestObjectResult badRequestResult => (int)badRequestResult.StatusCode,
                 OkObjectResult okResult => (int)okResult.StatusCode,
-                _ => throw new Exception("Unexpected result type"), // Handle unexpected results
+                _ => throw new Exception("Unexpected result type"),
             };
+
             return statusCode;
         }
         
+
+
         public class TestData : IEnumerable
         {
             public IEnumerator GetEnumerator()
