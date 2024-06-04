@@ -74,7 +74,7 @@ ChartJS.register(LineElement, PointElement, LinearScale, CategoryScale, Tooltip,
           
         },
         params: {
-          type: `${homeId}`
+          type: "LivingRoom"
         },
 
       }).then((response)=> response)
@@ -95,10 +95,9 @@ ChartJS.register(LineElement, PointElement, LinearScale, CategoryScale, Tooltip,
    
 }
 
-  let roomInfo = useQuery("getTempAndHume" ,()=>getTempAndHume(2471),{
+  let roomInfo = useQuery("getTempAndHume" ,()=>getTempAndHume(livingRoomId),{
     refetchInterval:30000,
   }) 
-
 
 
   function getConsumptionGas(homeId) {
@@ -193,8 +192,8 @@ ChartJS.register(LineElement, PointElement, LinearScale, CategoryScale, Tooltip,
 <div  id='card' className={`${Style.card} ${Style.C3} col-md-5 align-items-center justify-content-center`}>
         <div className="inner d-flex ">
           <div  className={`${Style.info} col-md-4 justify-content-center align-items-center d-flex flex-column me-4`}>
+          <img src={gas} alt="" className='w-100' />
             {/* <i className={`${Style.icon} fa-solid fa-wind mb-3 `}></i> */}
-            <img src={electricity} alt="" className='w-100' />
             <h3 className='ms-2 fw-bold'></h3>
           </div>
             <div className='col-md-8 '>
@@ -211,13 +210,13 @@ ChartJS.register(LineElement, PointElement, LinearScale, CategoryScale, Tooltip,
 <div  id='card' className={`${Style.card} ${Style.C3} col-md-5 align-items-center justify-content-center`}>
         <div className="inner d-flex ">
           <div  className={`${Style.info} col-md-4 justify-content-center align-items-center d-flex flex-column me-4`}>
-          <img src={gas} alt="" className='w-100' />
+          <img src={electricity} alt="" className='w-100' />
             <h3 className='ms-2 fw-bold'></h3>
           </div>
             <div className='col-md-8 '>
               <h1 className={`${Style.title} h5`}>Gas consumption</h1>
                 <div className=' align-items-center d-flex flex-column justify-content-center '>
-                   <span className={`${Style.degree} mb-5 mt-5`}>{consumptionGas?.data?.data?.homeConsumption} <span className=' fs-2'>Kwh</span> </span> 
+                   <span className={`${Style.degree} mb-5 mt-5`}>{consumptionGas?.data?.data?.homeConsumption} <span className=' fs-2'>CF</span> </span> 
                   <h5 className={`${Style.detail} h5`}>At Last Hour</h5>
                 </div>
           </div>
