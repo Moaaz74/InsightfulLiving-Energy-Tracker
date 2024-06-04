@@ -2,7 +2,6 @@
 using Back_end.Models;
 using Back_end.Repositories.Interfaces;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
 
 namespace Back_end.Services.HomeService
 {
@@ -10,7 +9,7 @@ namespace Back_end.Services.HomeService
     {
         private readonly IUnitOfWork _unitOfWork;
         public readonly UserManager<ApplicationUser> _manager;
-        public HomeService(IUnitOfWork unitOfWork, UserManager<ApplicationUser> manager )
+        public HomeService(IUnitOfWork unitOfWork, UserManager<ApplicationUser> manager)
         {
             _unitOfWork = unitOfWork;
             _manager = manager;
@@ -63,7 +62,7 @@ namespace Back_end.Services.HomeService
                 // Will be Reviewed
                 if (numberOfRooms != home.NumberOfRooms)
                 {
-                    int count = _unitOfWork.Repository<Room>().Count(r => r.HomeId == home.Id && r.IsDeleted==false);
+                    int count = _unitOfWork.Repository<Room>().Count(r => r.HomeId == home.Id && r.IsDeleted == false);
                     if (count > numberOfRooms)
                     {
                         return new HomeViewDto { Massage = $"Home have {count} Room aready " };
@@ -93,12 +92,12 @@ namespace Back_end.Services.HomeService
             {
                 Id = home.Id,
                 NumberOfRooms = home.NumberOfRooms,
-                User = new HomeUserDto { Id = home.User.Id , Name = home.User.UserName ,Email = home.User.Email } ,
-                Rooms = home.Rooms.Where(r=> r.IsDeleted==false).Select(R => new DTOS.Room.RoomHomeViewDto
+                User = new HomeUserDto { Id = home.User.Id, Name = home.User.UserName, Email = home.User.Email },
+                Rooms = home.Rooms.Where(r => r.IsDeleted == false).Select(R => new DTOS.Room.RoomHomeViewDto
                 {
                     Id = R.Id,
                     NumberOfDevices = R.NumberOfDevices
-                    
+
                 }).ToList()
             };
 
@@ -149,10 +148,10 @@ namespace Back_end.Services.HomeService
                 return "Home Is Not Exist";
             }
 
-            home.IsDeleted= true;
-            foreach(var room in home.Rooms)
+            home.IsDeleted = true;
+            foreach (var room in home.Rooms)
             {
-                room.IsDeleted= true;
+                room.IsDeleted = true;
                 var roomR = await _unitOfWork.Repository<Room>().FindAsync(r => r.Id == room.Id, new[] { "devices" });
                 foreach (var device in roomR.devices)
                 {
@@ -168,7 +167,7 @@ namespace Back_end.Services.HomeService
 
         public async Task<List<HomeViewsDto>?> ViewsHomeNotDelete()
         {
-            var homes = _unitOfWork.Repository<Home>().GetAll(h=>h.IsDeleted==false);
+            var homes = _unitOfWork.Repository<Home>().GetAll(h => h.IsDeleted == false);
             if (homes == null)
             {
                 return null;
@@ -206,7 +205,7 @@ namespace Back_end.Services.HomeService
         }
 
 
-         
+
         public async Task<List<int>> GetIdsOfHomes()
         {
             var homes = _unitOfWork.Repository<Home>().GetAll(h => h.IsDeleted == false);
@@ -220,17 +219,17 @@ namespace Back_end.Services.HomeService
         public async Task<MlDto> GetHomeEmailAndPhone(int Id)
         {
             var home = await _unitOfWork.Repository<Home>().FindAsync(h => h.Id == Id, new[] { "User" });
-            return new MlDto { Email = home.User.Email, PhoneNumber = home.User.PhoneNumber }; 
+            return new MlDto { Email = home.User.Email, PhoneNumber = home.User.PhoneNumber };
         }
 
         public Home GetHomeByUserId(string UserId)
         {
-             return _unitOfWork.Repository<Home>().GetAll(filter: h => h.UserId == UserId).ToList().FirstOrDefault<Home>();
+            return _unitOfWork.Repository<Home>().GetAll(filter: h => h.UserId == UserId).ToList().FirstOrDefault<Home>();
         }
 
         public Home GetHomeByRoom(Room Room)
         {
-            return _unitOfWork.Repository<Home>().GetAll(filter: h => h.Rooms.Contains(Room) , IncludeProperties : "Rooms").FirstOrDefault<Home>();
+            return _unitOfWork.Repository<Home>().GetAll(filter: h => h.Rooms.Contains(Room), IncludeProperties: "Rooms").FirstOrDefault<Home>();
         }
     }
 
