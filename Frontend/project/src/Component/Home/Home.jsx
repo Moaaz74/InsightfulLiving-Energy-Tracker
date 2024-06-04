@@ -37,9 +37,12 @@ export default function Home() {
 
   // Function to format API data into chart data structure
   const formatChartData = (apiData) => {
-    const labels = apiData.map((item) => item.start); // Extract labels (start date)
-    const gasData = apiData.filter((item) => item.energyType === 'Gas').map((item) => item.homeConsumption); // Filter and extract Gas data
-    const electricityData = apiData.filter((item) => item.energyType === 'Electricity').map((item) => item.homeConsumption); // Filter and extract Electricity data
+    // Sort the data in descending order based on the start date
+    const sortedData = apiData.sort((a, b) => new Date(b.start) - new Date(a.start));
+
+    const labels = sortedData.map((item) => item.start); // Extract labels (start date)
+    const gasData = sortedData.filter((item) => item.energyType === 'Gas').map((item) => item.homeConsumption); // Filter and extract Gas data
+    const electricityData = sortedData.filter((item) => item.energyType === 'Electricity').map((item) => item.homeConsumption);
 
     return {
       labels,
