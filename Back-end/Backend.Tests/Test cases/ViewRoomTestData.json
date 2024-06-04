@@ -1,0 +1,17 @@
+[
+  {
+    "Name": "View Room - NonExisted Id",
+    "Id": 100,
+    "Expected": {
+      "StatusCode": 404
+    }
+  },
+  {
+    "Name": "View Room - Existed Id",
+    "Id": 1,
+    "Expected": {
+      "StatusCode": 200
+    }
+  }
+
+]
