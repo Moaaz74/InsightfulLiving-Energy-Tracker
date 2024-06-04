@@ -1,6 +1,7 @@
 ﻿using Back_end.DAOs.Interfaces;
 using Back_end.DTOs.Cassandra_quries.Home_OverallDtos;
 using Back_end.DTOs.Cassandra_quries.Room_OverallDtos;
+using Back_end.DTOS.Cassandra_quries.Room_OverallDtos;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
@@ -184,7 +185,7 @@ namespace Back_end.Controllers
                 error.Add("No EndDate is specified !!!!...");
                 return BadRequest(new { errors = error });
             }
-            var roomdata = new List<Double>();
+            var roomdata = new List<RoomConsumptionDto>();
             var allRoomconsumptionvals = await _room_overallDAO.getRoomconsumption(datesDto, roomid);
             if (allRoomconsumptionvals.IsNullOrEmpty())
             {
@@ -196,7 +197,11 @@ namespace Back_end.Controllers
 
             foreach (var value in allRoomconsumptionvals)
             {
-                roomdata.Add(value);
+                RoomConsumptionDto room = new RoomConsumptionDto();
+                room.start = value.start;
+                room.end = value.end;   
+                room.roomconsumption = value.roomconsumption;
+                roomdata.Add(room);
             }
             return Ok(roomdata);
         }

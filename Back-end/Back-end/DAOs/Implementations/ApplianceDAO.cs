@@ -1,6 +1,7 @@
 ﻿using Back_end.DAOs.Interfaces;
 using Back_end.DTOs.Cassandra_quries.ApplianceDtos;
 using Back_end.DTOs.Cassandra_quries.Home_OverallDtos;
+using Back_end.DTOS.Cassandra_quries.ApplianceDtos;
 using Back_end.Models;
 using Cassandra.Mapping;
 
@@ -99,14 +100,14 @@ namespace Back_end.DAOs.Implementations
             }
         }
 
-        public async Task<IEnumerable<Double>> getApplianceconsumption(ApplianceDatesDto datesDto, int applianceid)
+        public async Task<IEnumerable<ApplianceConsumptionDto>> getApplianceconsumption(ApplianceDatesDto datesDto, int applianceid)
         {
 
-            string cql = $"select  applianceconsumption from appliance where applianceid = {applianceid} and energytype = '{datesDto.energyType}' and end > '{datesDto.startDate}'and end <= '{datesDto.endDate}' ALLOW FILTERING ;";
+            string cql = $"select start, end, applianceconsumption from appliance where applianceid = {applianceid} and energytype = '{datesDto.energyType}' and end > '{datesDto.startDate}'and end <= '{datesDto.endDate}' ALLOW FILTERING ;";
             try
             {
 
-                return await mapper.FetchAsync<Double>(cql);
+                return await mapper.FetchAsync<ApplianceConsumptionDto>(cql);
 
             }
 

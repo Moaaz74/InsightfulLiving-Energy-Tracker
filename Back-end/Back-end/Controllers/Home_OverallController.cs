@@ -1,6 +1,7 @@
 ﻿using Back_end.DAOs.Interfaces;
 using Back_end.DTOs.Cassandra_quries.Home_OverallDtos;
 using Back_end.DTOs.Cassandra_quries.Room_OverallDtos;
+using Back_end.DTOS.Cassandra_quries.Home_OverallDtos;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json.Linq;
@@ -187,7 +188,7 @@ namespace Back_end.Controllers
                 error.Add("No EndDate is specified !!!!...");
                 return BadRequest(new { errors = error });
             }
-            var homedata = new List<Double>();
+            var homedata = new List<HomeConsumptionDto>();
             var allHomeconsumptionvals = await _home_overallDAO.getHomeconsumption(datesDto, homeid);
             if (allHomeconsumptionvals.IsNullOrEmpty())
             {
@@ -195,11 +196,15 @@ namespace Back_end.Controllers
                 error.Add("No Home Consumptions are found !!...");
                 return NotFound(new { errors = error });
             }
-
-
+         
             foreach (var value in allHomeconsumptionvals)
             {
-                homedata.Add(value);
+                HomeConsumptionDto homeconsumption = new HomeConsumptionDto();
+                homeconsumption.start = value.start;
+                homeconsumption.end = value.end;
+                homeconsumption.homeconsumption = value.homeconsumption;
+               
+                    homedata.Add(homeconsumption);
             }
             return Ok(homedata);
         }

@@ -1,6 +1,7 @@
 ﻿using Back_end.DAOs.Interfaces;
 using Back_end.DTOs.Cassandra_quries.Home_OverallDtos;
 using Back_end.DTOs.Cassandra_quries.Room_OverallDtos;
+using Back_end.DTOS.Cassandra_quries.Room_OverallDtos;
 using Back_end.Models;
 using Cassandra;
 using Cassandra.Mapping;
@@ -102,14 +103,14 @@ namespace Back_end.DAOs.Implementations
             }
         }
 
-        public async Task<IEnumerable<Double>> getRoomconsumption(RoomDatesDto datesDto, int roomid)
+        public async Task<IEnumerable<RoomConsumptionDto>> getRoomconsumption(RoomDatesDto datesDto, int roomid)
         {
 
-            string cql = $"select  roomconsumption from room_overall where roomid = {roomid} and energytype = '{datesDto.energyType}' and end > '{datesDto.startDate}'and end <= '{datesDto.endDate}' ALLOW FILTERING ;";
+            string cql = $"select start, end , roomconsumption from room_overall where roomid = {roomid} and energytype = '{datesDto.energyType}' and end > '{datesDto.startDate}'and end <= '{datesDto.endDate}' ALLOW FILTERING ;";
             try
             {
 
-                return await mapper.FetchAsync<Double>(cql);
+                return await mapper.FetchAsync<RoomConsumptionDto>(cql);
 
             }
 

@@ -2,6 +2,7 @@
 using Back_end.DTOs.Cassandra_quries.ApplianceDtos;
 using Back_end.DTOs.Cassandra_quries.Home_OverallDtos;
 using Back_end.DTOs.Cassandra_quries.Room_OverallDtos;
+using Back_end.DTOS.Cassandra_quries.ApplianceDtos;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
@@ -185,7 +186,7 @@ namespace Back_end.Controllers
                 error.Add("No EndDate is specified !!!!...");
                 return BadRequest(new { errors = error });
             }
-            var appliancedata = new List<Double>();
+            var appliancedata = new List<ApplianceConsumptionDto>();
             var allApplianceconsumptionvals = await _applianceDAO.getApplianceconsumption(datesDto, applianceid);
             if (allApplianceconsumptionvals.IsNullOrEmpty())
             {
@@ -197,7 +198,12 @@ namespace Back_end.Controllers
 
             foreach (var value in allApplianceconsumptionvals)
             {
-                appliancedata.Add(value);
+                ApplianceConsumptionDto app = new ApplianceConsumptionDto();
+                app.start   = value.start;
+                app.end = value.end;
+                app.applianceconsumption = value.applianceconsumption;
+                appliancedata.Add(app);
+                
             }
             return Ok(appliancedata);
         }
