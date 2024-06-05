@@ -96,8 +96,8 @@ namespace Back_end.Services.HomeService
                 Rooms = home.Rooms.Where(r => r.IsDeleted == false).Select(R => new DTOS.Room.RoomHomeViewDto
                 {
                     Id = R.Id,
-                    NumberOfDevices = R.NumberOfDevices
-
+                    NumberOfDevices = R.NumberOfDevices,
+                    Type = R.Type,
                 }).ToList()
             };
 
