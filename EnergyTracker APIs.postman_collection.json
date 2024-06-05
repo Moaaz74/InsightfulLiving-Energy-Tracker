@@ -1,10 +1,9 @@
 {
 	"info": {
-		"_postman_id": "d4f21368-2ffe-433f-8bab-dd9a0efc5fbb",
+		"_postman_id": "31116cfa-08ce-4e1a-8b94-be8d15219eab",
 		"name": "EnergyTracker APIs",
-		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
-		"_exporter_id": "33169408",
-		"_collection_link": "https://www.postman.com/material-observer-36903648/workspace/energytracker/collection/33169408-d4f21368-2ffe-433f-8bab-dd9a0efc5fbb?action=share&source=collection_link&creator=33169408"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "33169408"
 	},
 	"item": [
 		{
@@ -24,7 +23,19 @@
 								}
 							}
 						},
-						"url": "http://localhost:62863/api/user/addUser"
+						"url": {
+							"raw": "http://localhost:62863/api/user/addUser",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "62863",
+							"path": [
+								"api",
+								"user",
+								"addUser"
+							]
+						}
 					},
 					"response": []
 				},
@@ -32,7 +43,10 @@
 					"name": "Update User",
 					"request": {
 						"method": "PUT",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": ""
+						}
 					},
 					"response": []
 				},
@@ -66,7 +80,10 @@
 					"name": "Get Users",
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": ""
+						}
 					},
 					"response": []
 				},
@@ -111,7 +128,19 @@
 								}
 							}
 						},
-						"url": "http://localhost:62863/api/user/Login"
+						"url": {
+							"raw": "http://localhost:62863/api/user/Login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "62863",
+							"path": [
+								"api",
+								"user",
+								"Login"
+							]
+						}
 					},
 					"response": []
 				}
@@ -140,7 +169,19 @@
 												}
 											}
 										},
-										"url": "http://localhost:62863/api/Room/Create"
+										"url": {
+											"raw": "http://localhost:62863/api/Room/Create",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "62863",
+											"path": [
+												"api",
+												"Room",
+												"Create"
+											]
+										}
 									},
 									"response": []
 								},
@@ -158,7 +199,19 @@
 												}
 											}
 										},
-										"url": "http://localhost:62863/api/Device/1"
+										"url": {
+											"raw": "http://localhost:62863/api/Device/1",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "62863",
+											"path": [
+												"api",
+												"Device",
+												"1"
+											]
+										}
 									},
 									"response": []
 								},
@@ -166,7 +219,10 @@
 									"name": "Delete Device",
 									"request": {
 										"method": "DELETE",
-										"header": []
+										"header": [],
+										"url": {
+											"raw": ""
+										}
 									},
 									"response": []
 								},
@@ -174,7 +230,10 @@
 									"name": "Get Device By Id",
 									"request": {
 										"method": "GET",
-										"header": []
+										"header": [],
+										"url": {
+											"raw": ""
+										}
 									},
 									"response": []
 								}
@@ -187,14 +246,26 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"HomeId\" : \"4\",\r\n    \"NumberOfDevices\" : \"2\",\r\n    \"Type\" : \"LivingRoom\"\r\n}",
+									"raw": "{\r\n    \"HomeId\" : \"4\",\r\n    \"NumberOfDevices\" : \"2\",\r\n    \"Type\" : \"Kitchen\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
 										}
 									}
 								},
-								"url": "http://localhost:62863/api/Room/Create"
+								"url": {
+									"raw": "http://localhost:62863/api/Room/Create",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "62863",
+									"path": [
+										"api",
+										"Room",
+										"Create"
+									]
+								}
 							},
 							"response": []
 						},
@@ -212,7 +283,19 @@
 										}
 									}
 								},
-								"url": "http://localhost:62863/api/Room/2"
+								"url": {
+									"raw": "http://localhost:62863/api/Room/2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "62863",
+									"path": [
+										"api",
+										"Room",
+										"2"
+									]
+								}
 							},
 							"response": []
 						},
@@ -220,7 +303,27 @@
 							"name": "Get Room By Id",
 							"request": {
 								"method": "GET",
-								"header": []
+								"header": [],
+								"url": {
+									"raw": "http://localhost:62863/api/Room/GetRoomByType/?type=LivingRoom",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "62863",
+									"path": [
+										"api",
+										"Room",
+										"GetRoomByType",
+										""
+									],
+									"query": [
+										{
+											"key": "type",
+											"value": "LivingRoom"
+										}
+									]
+								}
 							},
 							"response": []
 						},
@@ -228,7 +331,10 @@
 							"name": "Delete Room",
 							"request": {
 								"method": "DELETE",
-								"header": []
+								"header": [],
+								"url": {
+									"raw": ""
+								}
 							},
 							"response": []
 						},
@@ -249,7 +355,19 @@
 										}
 									}
 								},
-								"url": "http://localhost:62863/api/Room/GetRoomByType"
+								"url": {
+									"raw": "http://localhost:62863/api/Room/GetRoomByType",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "62863",
+									"path": [
+										"api",
+										"Room",
+										"GetRoomByType"
+									]
+								}
 							},
 							"response": []
 						}
@@ -269,7 +387,18 @@
 								}
 							}
 						},
-						"url": "http://localhost:62863/api/Home"
+						"url": {
+							"raw": "http://localhost:62863/api/Home",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "62863",
+							"path": [
+								"api",
+								"Home"
+							]
+						}
 					},
 					"response": []
 				},
@@ -287,7 +416,19 @@
 								}
 							}
 						},
-						"url": "http://localhost:62863/api/Home/1"
+						"url": {
+							"raw": "http://localhost:62863/api/Home/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "62863",
+							"path": [
+								"api",
+								"Home",
+								"1"
+							]
+						}
 					},
 					"response": []
 				},
@@ -295,7 +436,20 @@
 					"name": "Get Home By Id",
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": "http://localhost:62863/api/Home/4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "62863",
+							"path": [
+								"api",
+								"Home",
+								"4"
+							]
+						}
 					},
 					"response": []
 				},
@@ -303,7 +457,10 @@
 					"name": "Get All Homes",
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": ""
+						}
 					},
 					"response": []
 				},
@@ -312,7 +469,42 @@
 					"request": {
 						"method": "DELETE",
 						"header": [],
-						"url": "http://localhost:62863/api/Home/remove/1"
+						"url": {
+							"raw": "http://localhost:62863/api/Home/remove/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "62863",
+							"path": [
+								"api",
+								"Home",
+								"remove",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Home with rooms",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:62863/api/Home/home-with-rooms-user/4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "62863",
+							"path": [
+								"api",
+								"Home",
+								"home-with-rooms-user",
+								"4"
+							]
+						}
 					},
 					"response": []
 				}
