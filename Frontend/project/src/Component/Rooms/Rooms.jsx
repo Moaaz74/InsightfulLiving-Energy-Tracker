@@ -60,36 +60,41 @@ export default function Rooms() {
 
                     return (
                         <div key={room.id} className='col-12 col-md-6 mb-4'>
-                            <div className={`${Style.card} p-3`}>
-                                <div className={`${Style.cardInner}`}>
-                                    <h2 className='h4'>Indoor Temperature</h2>
-                                    <span className={`${Style.span}`}><i className="fa-solid fa-house me-3"></i></span>
+                            <div className={`${Style.card}`}>
+                                <div className={`${Style.cardHeader}`}>
+                                    {room.type}
                                 </div>
-                                <h1 className='display-4'>{tempHumidity?.temperature} <span className='fs-4'>C</span></h1>
-                            </div>
-                            <div className={`${Style.card} p-3 mt-3`}>
-                                <div className={`${Style.cardInner}`}>
-                                    <h2 className='h4'>Humidity</h2>
-                                    <span className={`${Style.span}`}><i className="fa-solid fa-droplet me-3"></i></span>
-                                </div>
-                                <h1 className='display-4'>{tempHumidity?.humidity} <span className='fs-4'>%</span></h1>
-                            </div>
-                            <div className={`${Style.card} p-3 mt-3`}>
-                                <div className={`${Style.cardInner}`}>
-                                    <h2 className='h4'>Electricity Consumption</h2>
-                                    <span className={`${Style.span}`}><i className="fa-solid fa-bolt me-3"></i></span>
-                                </div>
-                                <h1 className='display-4'>{electricity?.roomConsumption} <span className='fs-4'>Kwh</span></h1>
-                            </div>
-                            {room.type === 'Kitchen' && (
-                                <div className={`${Style.card} p-3 mt-3`}>
+                                <div className="p-3">
                                     <div className={`${Style.cardInner}`}>
-                                        <h2 className='h4'>Gas Consumption</h2>
-                                        <span className={`${Style.span}`}><i className="fa-solid fa-fire me-3"></i></span>
+                                        <h2 className='h4'>Indoor Temperature</h2>
+                                        <span className={`${Style.span}`}><i className="fa-solid fa-house me-3"></i></span>
                                     </div>
-                                    <h1 className='display-4'>{gas?.roomConsumption} <span className='fs-4'>CF</span></h1>
+                                    <h1 className='display-4'>{tempHumidity?.temperature} <span className='fs-4'>C</span></h1>
                                 </div>
-                            )}
+                                <div className="p-3 mt-3">
+                                    <div className={`${Style.cardInner}`}>
+                                        <h2 className='h4'>Humidity</h2>
+                                        <span className={`${Style.span}`}><i className="fa-solid fa-droplet me-3"></i></span>
+                                    </div>
+                                    <h1 className='display-4'>{tempHumidity?.humidity} <span className='fs-4'>%</span></h1>
+                                </div>
+                                <div className="p-3 mt-3">
+                                    <div className={`${Style.cardInner}`}>
+                                        <h2 className='h4'>Electricity Consumption</h2>
+                                        <span className={`${Style.span}`}><i className="fa-solid fa-bolt me-3"></i></span>
+                                    </div>
+                                    <h1 className='display-4'>{electricity?.roomConsumption} <span className='fs-4'>Kwh</span></h1>
+                                </div>
+                                {room.type === 'Kitchen' && (
+                                    <div className="p-3 mt-3">
+                                        <div className={`${Style.cardInner}`}>
+                                            <h2 className='h4'>Gas Consumption</h2>
+                                            <span className={`${Style.span}`}><i className="fa-solid fa-fire me-3"></i></span>
+                                        </div>
+                                        <h1 className='display-4'>{gas?.roomConsumption} <span className='fs-4'>CF</span></h1>
+                                    </div>
+                                )}
+                            </div>
                         </div>
                     );
                 })}
